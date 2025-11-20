@@ -166,6 +166,44 @@ export function importDxfString(dxf: string, project: paper.Project): paper.Path
             }
             break;
 
+          case "TEXT":
+          case "MTEXT":
+            // TEXT entities: Create a bounding box around the text
+            // True text-to-path conversion requires font data which DXF doesn't provide
+            if (entity.position && typeof entity.position.x === 'number' && typeof entity.position.y === 'number') {
+              const text = entity.text || entity.string || "";
+              const height = entity.height || entity.nominalTextHeight || 10;
+              const width = text.length * height * 0.6; // Approximate width
+
+              const x = entity.position.x;
+              const y = -entity.position.y; // Flip Y axis
+
+              // Create Paper.js text to get proper bounds
+              const paperText = new paper.PointText({
+                point: new paper.Point(x, y),
+                content: text,
+                fontSize: height,
+                fontFamily: 'Arial',
+                fillColor: new paper.Color(0.2, 0.4, 1)
+              });
+
+              // Get bounds and create outline
+              const bounds = paperText.bounds;
+              if (bounds && bounds.width > 0 && bounds.height > 0) {
+                path = new paper.Path.Rectangle(bounds);
+                path.strokeColor = new paper.Color(0.2, 0.4, 1);
+                path.strokeWidth = 2;
+                path.fillColor = null;
+                path.closed = true;
+
+                console.log(`TEXT entity "${text}": created bounding box at (${x.toFixed(1)}, ${y.toFixed(1)})`);
+              }
+
+              // Remove the text object, keep only the outline
+              paperText.remove();
+            }
+            break;
+
           default:
             // Unsupported entity type - log for debugging but don't error
             if (process.env.NODE_ENV === 'development') {

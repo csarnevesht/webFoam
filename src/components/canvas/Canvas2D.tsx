@@ -16,16 +16,34 @@ export const Canvas2D: React.FC = () => {
     // Initialize Paper.js
     paper.setup(canvasRef.current);
     projectInitialized.current = true;
-    console.log("Canvas2D: Paper.js initialized");
+    console.log("✅ Canvas2D: Paper.js initialized");
+    console.log("  Canvas size:", canvasRef.current.clientWidth, "x", canvasRef.current.clientHeight);
+    console.log("  View size:", paper.view.viewSize.toString());
+    console.log("  View center:", paper.view.center.toString());
+    console.log("  View zoom:", paper.view.zoom);
 
-    // Fit to view
+    // Set view size
     paper.view.viewSize = new paper.Size(
       canvasRef.current.clientWidth,
       canvasRef.current.clientHeight
     );
-    
-    // Canvas initialized - no test path needed
-    console.log("Canvas2D: Paper.js initialized, ready for imports");
+
+    // Center the view at origin
+    paper.view.center = new paper.Point(0, 0);
+    paper.view.zoom = 1;
+
+    // Draw a test circle to verify rendering works
+    const testCircle = new paper.Path.Circle({
+      center: [0, 0],
+      radius: 50,
+      strokeColor: new paper.Color(1, 0, 0),
+      strokeWidth: 3
+    });
+    console.log("  Test circle created at origin with radius 50");
+    console.log("  View center after setup:", paper.view.center.toString());
+    paper.view.update();
+
+    console.log("✅ Canvas2D: Paper.js initialized, ready for imports");
 
     return () => {
       // Don't clear on unmount - let paths persist
@@ -57,16 +75,23 @@ export const Canvas2D: React.FC = () => {
     });
     layersToRemove.forEach(layer => layer.remove());
 
-    // Create a new layer for visualizations
+    // Create a new layer for visualizations but don't activate it yet
     const vizLayer = new paper.Layer();
     vizLayer.data.isVisualization = true;
 
-    // Style all paths in the project (including DXF imports) - make them blue contours
-    console.log("🔵 Canvas2D: Styling all paths in project...");
+    // Make sure activeLayer is still the main layer with imported paths
+    const mainLayer = project.layers.find(l => !l.data.isVisualization) || project.layers[0];
+    if (mainLayer) {
+      mainLayer.activate();
+    }
+
+    // Style all paths in the main layer (including DXF imports) - make them blue contours
+    console.log("🔵 Canvas2D: Styling all paths in main layer...");
+    console.log("  Main layer has", mainLayer.children.length, "items");
     let pathCount = 0;
     let styledPaths: any[] = [];
-    
-    project.activeLayer.children.forEach((item: any, idx: number) => {
+
+    mainLayer.children.forEach((item: any, idx: number) => {
       if (item instanceof paper.Path) {
         // Style the path
         item.strokeColor = new paper.Color(0.2, 0.4, 1); // Blue
