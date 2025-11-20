@@ -73,8 +73,23 @@ export const Canvas2D: React.FC = () => {
 
     // Make sure activeLayer is still the main layer with imported paths
     const mainLayer = project.layers.find(l => !l.data.isVisualization) || project.layers[0];
+
+    console.log("📋 Layer analysis:");
+    console.log("  Total layers:", project.layers.length);
+    project.layers.forEach((layer, idx) => {
+      console.log(`  Layer ${idx}:`, {
+        isViz: layer.data.isVisualization,
+        children: layer.children.length,
+        active: layer === project.activeLayer
+      });
+    });
+
     if (mainLayer) {
       mainLayer.activate();
+      console.log("  ✅ Main layer activated");
+    } else {
+      console.warn("  ⚠️ No main layer found!");
+      return;
     }
 
     // Style all paths in the main layer (including DXF imports) - make them blue contours

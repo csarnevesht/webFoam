@@ -1,13 +1,11 @@
 
 import { Contour, OptimizedPath, Point } from "./types";
-import { buildContours } from "./buildContours";
 import { groupIntoIslands } from "./islands";
 import { orderContoursWithinIsland, orderIslands } from "./tspOrdering";
 import { computeEntryExits } from "./entryExit";
 import { buildContinuousPolyline } from "./polylineBuilder";
 
-export function runFullOptimization(rawPaths: any[], origin: Point = { x: 0, y: 0 }): OptimizedPath | undefined {
-  const contours: Contour[] = buildContours(rawPaths);
+export function runFullOptimization(contours: Contour[], origin: Point = { x: 0, y: 0 }): OptimizedPath | undefined {
   if (!contours.length) return undefined;
   const islands = groupIntoIslands(contours);
   const orderedIslands = orderIslands(islands);

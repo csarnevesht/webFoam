@@ -366,17 +366,41 @@ export const TopBar: React.FC = () => {
   };
 
   const handleGeneratePath = () => {
+    console.log("=== GENERATE PATH START ===");
+    console.log("Contours in store:", contours.length);
+
     if (contours.length === 0) {
       alert("Please import or draw contours first.");
       return;
     }
 
-    const paths = contours.map(c => c.path);
-    const optimized = runFullOptimization(paths, origin);
+    contours.forEach((c, idx) => {
+      console.log(`Contour ${idx}:`, {
+        id: c.id,
+        closed: c.path?.closed,
+        segments: c.path?.segments?.length,
+        bounds: c.bounds
+      });
+    });
+
+    console.log("Running optimization with", contours.length, "contours");
+
+    const optimized = runFullOptimization(contours, origin);
+    console.log("Optimization result:", optimized ? `${optimized.polyline.length} points, ${optimized.length.toFixed(2)} units` : 'undefined');
 
     if (optimized) {
+      console.log("Optimized path details:");
+      console.log("  - Contours ordered:", optimized.contoursOrdered);
+      console.log("  - Entry/exits:", optimized.entryExits.length);
+      console.log("  - First 5 polyline points:", optimized.polyline.slice(0, 5));
+      console.log("  - Last 5 polyline points:", optimized.polyline.slice(-5));
+
       useFoamCutStore.getState().setOptimizedPath(optimized);
+      console.log("✅ Optimized path set in store");
+    } else {
+      console.log("⚠️ Optimization returned undefined");
     }
+    console.log("=== GENERATE PATH END ===");
   };
 
   const handleExportGCode = () => {
