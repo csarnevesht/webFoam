@@ -370,6 +370,112 @@ export const Canvas2D: React.FC = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Mouse wheel zoom functionality
+  useEffect(() => {
+    if (!canvasRef.current || !projectInitialized.current) return;
+
+    const canvas = canvasRef.current;
+
+    const handleWheel = (e: WheelEvent) => {
+      e.preventDefault();
+
+      // Get mouse position in view coordinates
+      const rect = canvas.getBoundingClientRect();
+      const mouseX = e.clientX - rect.left;
+      const mouseY = e.clientY - rect.top;
+      const viewPoint = new paper.Point(mouseX, mouseY);
+      const worldPoint = paper.view.viewToProject(viewPoint);
+
+      // Calculate zoom factor
+      const zoomFactor = e.deltaY < 0 ? 1.1 : 0.9;
+      const newZoom = paper.view.zoom * zoomFactor;
+
+      // Clamp zoom between 0.1 and 50
+      const clampedZoom = Math.max(0.1, Math.min(50, newZoom));
+
+      // Only zoom if within limits
+      if (clampedZoom !== paper.view.zoom) {
+        // Store old center
+        const oldCenter = paper.view.center;
+
+        // Apply zoom
+        paper.view.zoom = clampedZoom;
+
+        // Adjust center to zoom towards mouse position
+        const offset = worldPoint.subtract(oldCenter);
+        const scaledOffset = offset.multiply(1 - zoomFactor);
+        paper.view.center = oldCenter.add(scaledOffset);
+
+        paper.view.update();
+
+        console.log(`🔍 Zoom: ${paper.view.zoom.toFixed(2)}x at (${worldPoint.x.toFixed(0)}, ${worldPoint.y.toFixed(0)})`);
+      }
+    };
+
+    canvas.addEventListener("wheel", handleWheel, { passive: false });
+
+    return () => {
+      canvas.removeEventListener("wheel", handleWheel);
+    };
+  }, []);
+
+  // Keyboard shortcuts for zoom and pan
+  useEffect(() => {
+    if (!projectInitialized.current) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Zoom shortcuts
+      if ((e.key === "+" || e.key === "=") && !e.ctrlKey && !e.metaKey) {
+        e.preventDefault();
+        const newZoom = Math.min(50, paper.view.zoom * 1.2);
+        paper.view.zoom = newZoom;
+        paper.view.update();
+        console.log(`⌨️ Zoom In: ${paper.view.zoom.toFixed(2)}x`);
+      } else if ((e.key === "-" || e.key === "_") && !e.ctrlKey && !e.metaKey) {
+        e.preventDefault();
+        const newZoom = Math.max(0.1, paper.view.zoom / 1.2);
+        paper.view.zoom = newZoom;
+        paper.view.update();
+        console.log(`⌨️ Zoom Out: ${paper.view.zoom.toFixed(2)}x`);
+      } else if (e.key === "0" && !e.ctrlKey && !e.metaKey) {
+        // Reset zoom to 1:1
+        e.preventDefault();
+        paper.view.zoom = 1;
+        paper.view.center = new paper.Point(0, 0);
+        paper.view.update();
+        console.log(`⌨️ Reset View: 1.00x at origin`);
+      }
+      // Pan shortcuts with arrow keys
+      else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        const panAmount = 50 / paper.view.zoom;
+        paper.view.center = paper.view.center.add(new paper.Point(-panAmount, 0));
+        paper.view.update();
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        const panAmount = 50 / paper.view.zoom;
+        paper.view.center = paper.view.center.add(new paper.Point(panAmount, 0));
+        paper.view.update();
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        const panAmount = 50 / paper.view.zoom;
+        paper.view.center = paper.view.center.add(new paper.Point(0, -panAmount));
+        paper.view.update();
+      } else if (e.key === "ArrowDown") {
+        e.preventDefault();
+        const panAmount = 50 / paper.view.zoom;
+        paper.view.center = paper.view.center.add(new paper.Point(0, panAmount));
+        paper.view.update();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
   // Tool handlers
   useEffect(() => {
     if (!canvasRef.current || !projectInitialized.current) return;
@@ -466,14 +572,30 @@ export const Canvas2D: React.FC = () => {
     } else if (tool === "pan") {
       paper.tool = new paper.Tool();
       let lastPoint: paper.Point | null = null;
+      let isDragging = false;
+
       paper.tool.onMouseDown = (e: paper.ToolEvent) => {
         lastPoint = e.point;
+        isDragging = true;
+        if (canvasRef.current) {
+          canvasRef.current.style.cursor = "grabbing";
+        }
       };
+
       paper.tool.onMouseDrag = (e: paper.ToolEvent) => {
-        if (lastPoint) {
+        if (lastPoint && isDragging) {
           const delta = e.point.subtract(lastPoint);
-          paper.view.translate(delta);
+          paper.view.center = paper.view.center.subtract(delta);
+          paper.view.update();
           lastPoint = e.point;
+        }
+      };
+
+      paper.tool.onMouseUp = () => {
+        isDragging = false;
+        lastPoint = null;
+        if (canvasRef.current) {
+          canvasRef.current.style.cursor = "grab";
         }
       };
     } else if (tool === "select") {
