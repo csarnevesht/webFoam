@@ -32,14 +32,6 @@ export const Canvas2D: React.FC = () => {
     paper.view.center = new paper.Point(0, 0);
     paper.view.zoom = 1;
 
-    // Draw a test circle to verify rendering works
-    const testCircle = new paper.Path.Circle({
-      center: [0, 0],
-      radius: 50,
-      strokeColor: new paper.Color(1, 0, 0),
-      strokeWidth: 3
-    });
-    console.log("  Test circle created at origin with radius 50");
     console.log("  View center after setup:", paper.view.center.toString());
     paper.view.update();
 
