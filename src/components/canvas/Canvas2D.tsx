@@ -8,7 +8,7 @@ export const Canvas2D: React.FC = () => {
   const projectInitialized = useRef(false);
   const currentPathRef = useRef<paper.Path | null>(null);
   const polylinePointsRef = useRef<paper.Point[]>([]);
-  const { contours, optimizedPath, origin, activeTool, setContours } = useFoamCutStore();
+  const { contours, optimizedPath, origin, activeTool, setContours, customEntryPoints, setCustomEntryPoint } = useFoamCutStore();
 
   useEffect(() => {
     if (!canvasRef.current || projectInitialized.current) return;
@@ -71,6 +71,8 @@ export const Canvas2D: React.FC = () => {
     const vizLayer = new paper.Layer();
     vizLayer.data.isVisualization = true;
 
+    // NOTE: We don't lock the entire layer so start point hit areas can be interactive
+
     // Make sure activeLayer is still the main layer with imported paths
     const mainLayer = project.layers.find(l => !l.data.isVisualization) || project.layers[0];
 
@@ -79,6 +81,7 @@ export const Canvas2D: React.FC = () => {
     project.layers.forEach((layer, idx) => {
       console.log(`  Layer ${idx}:`, {
         isViz: layer.data.isVisualization,
+        locked: layer.locked,
         children: layer.children.length,
         active: layer === project.activeLayer
       });
@@ -91,6 +94,8 @@ export const Canvas2D: React.FC = () => {
       console.warn("  ⚠️ No main layer found!");
       return;
     }
+
+    console.log("  Viz layer locked:", vizLayer.locked);
 
     // Style all paths in the main layer (including DXF imports) - make them blue contours
     console.log("🔵 Canvas2D: Styling all paths in main layer...");
@@ -174,6 +179,7 @@ export const Canvas2D: React.FC = () => {
       const path = new paper.Path();
       path.strokeColor = new paper.Color(1, 0.2, 0.2); // Red
       path.strokeWidth = 2;
+      path.data.nonInteractive = true; // Mark as non-interactive
 
       optimizedPath.polyline.forEach((p, idx) => {
         const point = new paper.Point(p.x, p.y);
@@ -199,26 +205,44 @@ export const Canvas2D: React.FC = () => {
               startPoints.add(pointKey);
 
               // Draw smaller green circle for start point (4px radius instead of 8px)
-              const startCircle = new paper.Path.Circle(entryPoint, 4);
-              startCircle.fillColor = new paper.Color(0.2, 1, 0.2); // Green
+              const startCircle = new paper.Path.Circle(entryPoint, 5);
+              startCircle.fillColor = new paper.Color(0.2, 1, 0.2, 0.8); // Green, slightly transparent
               startCircle.strokeColor = new paper.Color(0, 0.8, 0);
-              startCircle.strokeWidth = 1.5;
+              startCircle.strokeWidth = 2;
               startCircle.data.isStartPoint = true;
+              startCircle.data.interactive = true; // Mark as interactive
               startCircle.data.contourId = entryExit.contourId;
               startCircle.data.entryT = entryExit.entryT;
+
+              // Create a larger hit area for easier clicking (semi-transparent for debugging)
+              const hitArea = new paper.Path.Circle(entryPoint, 12);
+              hitArea.fillColor = new paper.Color(0, 1, 0, 0.1); // Very light green for debugging
+              hitArea.strokeColor = new paper.Color(0, 1, 0, 0.3);
+              hitArea.strokeWidth = 1;
+              hitArea.data.isStartPointHitArea = true;
+              hitArea.data.interactive = true; // Mark as interactive
+              hitArea.data.contourId = entryExit.contourId;
+              hitArea.data.entryT = entryExit.entryT;
+              hitArea.data.visualMarker = startCircle; // Reference to the visual marker
+
+              // Add to layer but we'll reorder them later
+              vizLayer.addChild(hitArea);
               vizLayer.addChild(startCircle);
+
+              console.log(`  Created start point marker for ${entryExit.contourId} at (${entryPoint.x.toFixed(1)}, ${entryPoint.y.toFixed(1)})`);
 
               // Add smaller "S" text label instead of "START"
               const text = new paper.PointText({
-                point: entryPoint.add(new paper.Point(0, -10)),
+                point: entryPoint.add(new paper.Point(0, -12)),
                 content: "S",
                 fillColor: new paper.Color(0, 0.8, 0),
-                fontSize: 8,
+                fontSize: 9,
                 fontFamily: "Arial",
                 fontWeight: "bold"
               });
               text.data.isStartLabel = true;
               text.data.contourId = entryExit.contourId;
+              text.data.nonInteractive = true; // Mark as non-interactive
               vizLayer.addChild(text);
             }
           }
@@ -265,6 +289,7 @@ export const Canvas2D: React.FC = () => {
             arrow.fillColor = new paper.Color(0.2, 1, 0.2); // Green
             arrow.strokeColor = new paper.Color(0, 0.8, 0);
             arrow.strokeWidth = 0.5;
+            arrow.data.nonInteractive = true; // Mark as non-interactive
             vizLayer.addChild(arrow);
           }
         }
@@ -506,7 +531,11 @@ export const Canvas2D: React.FC = () => {
       };
       paper.tool.onMouseDrag = (e: paper.ToolEvent) => {
         if (currentPathRef.current) {
-          currentPathRef.current.segments[1] = e.point;
+          if (currentPathRef.current.segments.length > 1) {
+            currentPathRef.current.segments[1].point = e.point;
+          } else {
+            currentPathRef.current.add(e.point);
+          }
         }
       };
       paper.tool.onMouseUp = (e: paper.ToolEvent) => {
@@ -536,22 +565,8 @@ export const Canvas2D: React.FC = () => {
       };
     } else if (tool === "polyline") {
       paper.tool = new paper.Tool();
-      paper.tool.onMouseDown = (e: paper.ToolEvent) => {
-        if (!currentPathRef.current) {
-          currentPathRef.current = new paper.Path();
-          currentPathRef.current.strokeColor = new paper.Color(0.2, 0.4, 1);
-          currentPathRef.current.strokeWidth = 1;
-          polylinePointsRef.current = [e.point];
-          currentPathRef.current.add(e.point);
-        } else {
-          // Continue polyline
-          currentPathRef.current.add(e.point);
-          polylinePointsRef.current.push(e.point);
-        }
-      };
-      paper.tool.onDoubleClick = () => {
+      const finishPolyline = () => {
         if (currentPathRef.current && polylinePointsRef.current.length > 1) {
-          // Close the polyline
           currentPathRef.current.closed = true;
           
           const newContour = {
@@ -572,6 +587,25 @@ export const Canvas2D: React.FC = () => {
           setContours([...currentContours, newContour]);
           currentPathRef.current = null;
           polylinePointsRef.current = [];
+        }
+      };
+
+      paper.tool.onMouseDown = (e: paper.ToolEvent) => {
+        if (!currentPathRef.current) {
+          currentPathRef.current = new paper.Path();
+          currentPathRef.current.strokeColor = new paper.Color(0.2, 0.4, 1);
+          currentPathRef.current.strokeWidth = 1;
+          polylinePointsRef.current = [e.point];
+          currentPathRef.current.add(e.point);
+        } else {
+          // Continue polyline
+          currentPathRef.current.add(e.point);
+          polylinePointsRef.current.push(e.point);
+        }
+
+        const mouseEvent = ((e as unknown) as { event?: MouseEvent }).event;
+        if (mouseEvent?.detail === 2) {
+          finishPolyline();
         }
       };
     } else if (tool === "pan") {
@@ -605,17 +639,197 @@ export const Canvas2D: React.FC = () => {
       };
     } else if (tool === "select") {
       paper.tool = new paper.Tool();
-      // Basic select tool - could be enhanced with hit testing
+      console.log("✅ Select tool activated");
+
+      const hitTestOptions = {
+        segments: true,
+        stroke: true,
+        fill: true,
+        tolerance: 12,
+      };
+
+      const hitTestAllLayers = (point: paper.Point) => {
+        const project = paper.project;
+        let hit = project.hitTest(point, hitTestOptions);
+        if (hit) {
+          return hit;
+        }
+
+        const vizLayers = project.layers.filter(
+          (layer) => layer.data && layer.data.isVisualization
+        );
+
+        for (const layer of vizLayers) {
+          const vizHit = layer.hitTest(point, hitTestOptions);
+          if (vizHit) {
+            return vizHit;
+          }
+        }
+
+        return null;
+      };
+
+      let draggedStartPoint: { contourId: string; path: any } | null = null;
+      let isDraggingStartPoint = false;
+
+      paper.tool.onMouseMove = (e: paper.ToolEvent) => {
+        if (isDraggingStartPoint) return; // Don't change cursor while dragging
+
+        // Show hover feedback for start points and paths
+        const hit = hitTestAllLayers(e.point);
+
+        if (canvasRef.current) {
+          if (hit && hit.item && (hit.item.data.isStartPoint || hit.item.data.isStartPointHitArea)) {
+            canvasRef.current.style.cursor = "move";
+          } else if (hit && hit.item instanceof paper.Path && !hit.item.data.isVisualization) {
+            canvasRef.current.style.cursor = "crosshair";
+          } else {
+            canvasRef.current.style.cursor = "default";
+          }
+        }
+      };
+
       paper.tool.onMouseDown = (e: paper.ToolEvent) => {
-        const hit = project.hitTest(e.point, {
-          segments: true,
-          stroke: true,
-          fill: true,
-          tolerance: 5,
+        console.log("🖱️ Select tool click at:", e.point.toString());
+
+        // Try multiple hit tests with different settings
+        let hit = hitTestAllLayers(e.point);
+
+        // Skip non-interactive items and retry
+        while (hit && hit.item && hit.item.data.nonInteractive) {
+          console.log("Skipping non-interactive item:", hit.item.constructor.name);
+          hit.item.data.tempHidden = true;
+          hit.item.visible = false;
+          hit = hitTestAllLayers(e.point);
+        }
+
+        // Restore visibility of temporarily hidden items
+        project.activeLayer.children.forEach((item: any) => {
+          if (item.data.tempHidden) {
+            item.visible = true;
+            delete item.data.tempHidden;
+          }
         });
+        project.layers.forEach((layer) => {
+          layer.children.forEach((item: any) => {
+            if (item.data.tempHidden) {
+              item.visible = true;
+              delete item.data.tempHidden;
+            }
+          });
+        });
+
+        console.log("Hit test result (after skipping non-interactive):", hit ? {
+          type: hit.type,
+          item: hit.item?.constructor.name,
+          layer: hit.item?.layer?.data.isVisualization ? "viz" : "main",
+          isVisualization: hit.item?.data.isVisualization,
+          isStartPoint: hit.item?.data.isStartPoint,
+          isStartPointHitArea: hit.item?.data.isStartPointHitArea,
+          interactive: hit.item?.data.interactive,
+          nonInteractive: hit.item?.data.nonInteractive,
+          contourId: hit.item?.data.contourId
+        } : "NO HIT");
+
         if (hit && hit.item) {
-          // Highlight selected item
-          hit.item.selected = !hit.item.selected;
+          // Check if clicked on a start point hit area
+          if (hit.item.data.isStartPointHitArea || hit.item.data.isStartPoint) {
+            const contourId = hit.item.data.contourId;
+            console.log("🎯 Clicked on start point for contour:", contourId);
+
+            // Find the contour
+            const contour = contours.find(c => c.id === contourId);
+            if (contour && contour.path) {
+              isDraggingStartPoint = true;
+              draggedStartPoint = { contourId, path: contour.path };
+
+              if (canvasRef.current) {
+                canvasRef.current.style.cursor = "grabbing";
+              }
+
+              console.log("✅ Ready to drag start point");
+            }
+            return;
+          }
+
+          // Check if clicked on a path (not a visualization item)
+          if (hit.item instanceof paper.Path && !hit.item.data.isVisualization && !hit.item.data.isStartPoint) {
+            const clickedPath = hit.item;
+            console.log("Clicked on a valid path");
+            console.log("Available contours:", contours.length);
+
+            // Find which contour this path belongs to
+            const contour = contours.find(c => c.path === clickedPath);
+
+            console.log("Found contour:", contour ? contour.id : "NOT FOUND");
+
+            if (contour && clickedPath.length > 0) {
+              // Calculate the closest point on the path to the click
+              const offset = clickedPath.getNearestLocation(e.point);
+
+              if (offset) {
+                // Calculate t value (0 to 1) along the path
+                const entryT = offset.offset / clickedPath.length;
+
+                console.log(`🎯 Setting new entry point for contour ${contour.id}`);
+                console.log(`  Click position: (${e.point.x.toFixed(2)}, ${e.point.y.toFixed(2)})`);
+                console.log(`  Nearest point: (${offset.point.x.toFixed(2)}, ${offset.point.y.toFixed(2)})`);
+                console.log(`  Entry t: ${entryT.toFixed(3)}`);
+
+                // Store the custom entry point
+                setCustomEntryPoint(contour.id, entryT);
+
+                // Visual feedback - briefly highlight the new entry point
+                const marker = new paper.Path.Circle(offset.point, 6);
+                marker.fillColor = new paper.Color(1, 1, 0, 0.7); // Yellow
+                marker.strokeColor = new paper.Color(1, 0.8, 0);
+                marker.strokeWidth = 2;
+
+                // Fade out and remove
+                setTimeout(() => {
+                  try {
+                    marker.remove();
+                  } catch (e) {
+                    // Marker may already be removed
+                  }
+                }, 500);
+
+                paper.view.update();
+
+                // Show message to user
+                console.log(`✅ Entry point updated! Regenerate path to see changes.`);
+              }
+            }
+          }
+        }
+      };
+
+      paper.tool.onMouseDrag = (e: paper.ToolEvent) => {
+        if (isDraggingStartPoint && draggedStartPoint) {
+          const { contourId, path } = draggedStartPoint;
+
+          // Find nearest point on the contour path
+          const nearest = path.getNearestLocation(e.point);
+          if (nearest) {
+            const entryT = nearest.offset / path.length;
+
+            // Update the entry point in real-time
+            setCustomEntryPoint(contourId, entryT);
+
+            console.log(`📍 Dragging start point: t=${entryT.toFixed(3)}`);
+          }
+        }
+      };
+
+      paper.tool.onMouseUp = () => {
+        if (isDraggingStartPoint) {
+          console.log("✅ Start point updated! Regenerate path to see changes.");
+          isDraggingStartPoint = false;
+          draggedStartPoint = null;
+
+          if (canvasRef.current) {
+            canvasRef.current.style.cursor = "default";
+          }
         }
       };
     }
@@ -637,7 +851,7 @@ export const Canvas2D: React.FC = () => {
         paper.tool.remove();
       }
     };
-  }, [activeTool, setContours]);
+  }, [activeTool, setContours, setCustomEntryPoint, contours]);
 
   return (
     <canvas

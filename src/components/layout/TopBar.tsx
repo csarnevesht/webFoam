@@ -8,7 +8,7 @@ import paper from "paper";
 
 export const TopBar: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { contours, optimizedPath, kerf, units, scale, origin, feedRate, setContours } = useFoamCutStore();
+  const { contours, optimizedPath, kerf, units, scale, origin, feedRate, setContours, customEntryPoints } = useFoamCutStore();
 
   const handleImportClick = () => {
     fileInputRef.current?.click();
@@ -384,8 +384,12 @@ export const TopBar: React.FC = () => {
     });
 
     console.log("Running optimization with", contours.length, "contours");
+    console.log("Custom entry points:", customEntryPoints.size);
 
-    const optimized = runFullOptimization(contours, origin);
+    const optimized = runFullOptimization(contours, {
+      origin,
+      customEntryPoints
+    });
     console.log("Optimization result:", optimized ? `${optimized.polyline.length} points, ${optimized.length.toFixed(2)} units` : 'undefined');
 
     if (optimized) {

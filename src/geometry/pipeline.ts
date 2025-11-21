@@ -5,7 +5,17 @@ import { orderContoursWithinIsland, orderIslands } from "./tspOrdering";
 import { computeEntryExits } from "./entryExit";
 import { buildContinuousPolyline } from "./polylineBuilder";
 
-export function runFullOptimization(contours: Contour[], origin: Point = { x: 0, y: 0 }): OptimizedPath | undefined {
+export interface OptimizationOptions {
+  origin?: Point;
+  customEntryPoints?: Map<string, number>;
+}
+
+export function runFullOptimization(
+  contours: Contour[],
+  options: OptimizationOptions = {}
+): OptimizedPath | undefined {
+  const origin = options.origin ?? { x: 0, y: 0 };
+  const customEntryPoints = options.customEntryPoints;
   console.log("\n========== FULL OPTIMIZATION START ==========");
   console.log("Input contours:", contours.length);
 
@@ -59,10 +69,14 @@ export function runFullOptimization(contours: Contour[], origin: Point = { x: 0,
   console.log(`Total ordered contours: ${orderedContours.length}`);
 
   console.log("\n--- Step 4: Compute entry/exits ---");
+  if (customEntryPoints && customEntryPoints.size > 0) {
+    console.log(`Using ${customEntryPoints.size} custom entry points`);
+  }
   const entryExits = computeEntryExits(orderedContours, {
     samplesPerContour: 32,
     crossingPenaltyWeight: 1.0,
     origin,
+    customEntryPoints,
   });
   console.log(`Computed ${entryExits.length} entry/exit pairs`);
   entryExits.forEach((ee, idx) => {
