@@ -1,6 +1,7 @@
 
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import paper from "paper";
+import { runFullOptimization } from "../../geometry/pipeline";
 import { useFoamCutStore } from "../../state/foamCutStore";
 
 export const Canvas2D: React.FC = () => {
@@ -18,8 +19,16 @@ export const Canvas2D: React.FC = () => {
       }
     >()
   );
-  const { contours, optimizedPath, origin, activeTool, setContours, customEntryPoints, setCustomEntryPoint } =
-    useFoamCutStore();
+  const {
+    contours,
+    optimizedPath,
+    origin,
+    activeTool,
+    setContours,
+    customEntryPoints,
+    setCustomEntryPoint,
+    setOptimizedPath,
+  } = useFoamCutStore();
   const moveStartMarker = (contourId: string, point: paper.Point) => {
     const info = startPointRefs.current.get(contourId);
     if (!info) return;
@@ -29,6 +38,26 @@ export const Canvas2D: React.FC = () => {
       info.label.position = point.add(new paper.Point(0, -12));
     }
   };
+
+  const regenerateOptimizedPath = useCallback(() => {
+    if (!contours.length) {
+      return;
+    }
+
+    const optimized = runFullOptimization(contours, {
+      origin,
+      customEntryPoints,
+    });
+
+    if (optimized) {
+      setOptimizedPath(optimized);
+      console.log("🧮 Regenerated optimized path after start-point change", {
+        contours: optimized.contoursOrdered.length,
+        entryExits: optimized.entryExits.length,
+        points: optimized.polyline.length,
+      });
+    }
+  }, [contours, origin, customEntryPoints, setOptimizedPath]);
 
   useEffect(() => {
     if (!canvasRef.current || projectInitialized.current) return;
@@ -805,6 +834,7 @@ export const Canvas2D: React.FC = () => {
                 // Store the custom entry point
                 setCustomEntryPoint(contour.id, entryT);
                 moveStartMarker(contour.id, offset.point);
+                regenerateOptimizedPath();
 
                 // Visual feedback - briefly highlight the new entry point
                 const marker = new paper.Path.Circle(offset.point, 6);
@@ -854,6 +884,7 @@ export const Canvas2D: React.FC = () => {
           console.log("✅ Start point updated! Regenerate path to see changes.");
           isDraggingStartPoint = false;
           draggedStartPoint = null;
+          regenerateOptimizedPath();
 
           if (canvasRef.current) {
             canvasRef.current.style.cursor = "default";
@@ -879,7 +910,7 @@ export const Canvas2D: React.FC = () => {
         paper.tool.remove();
       }
     };
-  }, [activeTool, setContours, setCustomEntryPoint, contours]);
+  }, [activeTool, setContours, setCustomEntryPoint, contours, regenerateOptimizedPath]);
 
   return (
     <canvas
