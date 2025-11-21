@@ -842,6 +842,7 @@ export const Canvas2D: React.FC = () => {
 
             // Update the entry point in real-time
             setCustomEntryPoint(contourId, entryT);
+            moveStartMarker(contourId, nearest.point);
 
             console.log(`📍 Dragging start point: t=${entryT.toFixed(3)}`);
           }
