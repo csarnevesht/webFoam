@@ -1,5 +1,5 @@
 
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import paper from "paper";
 import { runFullOptimization } from "../../geometry/pipeline";
 import { useFoamCutStore } from "../../state/foamCutStore";
@@ -19,16 +19,7 @@ export const Canvas2D: React.FC = () => {
       }
     >()
   );
-  const {
-    contours,
-    optimizedPath,
-    origin,
-    activeTool,
-    setContours,
-    customEntryPoints,
-    setCustomEntryPoint,
-    setOptimizedPath,
-  } = useFoamCutStore();
+  const { contours, optimizedPath, origin, activeTool, setContours, setCustomEntryPoint } = useFoamCutStore();
   const moveStartMarker = (contourId: string, point: paper.Point) => {
     const info = startPointRefs.current.get(contourId);
     if (!info) return;
@@ -39,6 +30,27 @@ export const Canvas2D: React.FC = () => {
     }
   };
 
+
+  const regenerateOptimizedPath = useCallback(() => {
+    const state = useFoamCutStore.getState();
+    if (!state.contours.length) {
+      return;
+    }
+
+    const optimized = runFullOptimization(state.contours, {
+      origin: state.origin,
+      customEntryPoints: state.customEntryPoints,
+    });
+
+    if (optimized) {
+      state.setOptimizedPath(optimized);
+      console.log("🧮 Regenerated optimized path after start-point change", {
+        contours: optimized.contoursOrdered.length,
+        entryExits: optimized.entryExits.length,
+        points: optimized.polyline.length,
+      });
+    }
+  }, []);
 
   useEffect(() => {
     if (!canvasRef.current || projectInitialized.current) return;
@@ -549,24 +561,6 @@ export const Canvas2D: React.FC = () => {
     const tool = activeTool;
     const project = paper.project;
 
-    const regenerateOptimizedPath = () => {
-      if (!contours.length) return;
-
-      const optimized = runFullOptimization(contours, {
-        origin,
-        customEntryPoints,
-      });
-
-      if (optimized) {
-        setOptimizedPath(optimized);
-        console.log("🧮 Regenerated optimized path after start-point change", {
-          contours: optimized.contoursOrdered.length,
-          entryExits: optimized.entryExits.length,
-          points: optimized.polyline.length,
-        });
-      }
-    };
-
     // Clean up previous tool handlers
     if (paper.tool) {
       paper.tool.remove();
@@ -909,15 +903,7 @@ export const Canvas2D: React.FC = () => {
         paper.tool.remove();
       }
     };
-  }, [
-    activeTool,
-    setContours,
-    setCustomEntryPoint,
-    contours,
-    origin,
-    customEntryPoints,
-    setOptimizedPath,
-  ]);
+  }, [activeTool, setContours, setCustomEntryPoint, contours, regenerateOptimizedPath]);
 
   return (
     <canvas
