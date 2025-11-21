@@ -8,7 +8,27 @@ export const Canvas2D: React.FC = () => {
   const projectInitialized = useRef(false);
   const currentPathRef = useRef<paper.Path | null>(null);
   const polylinePointsRef = useRef<paper.Point[]>([]);
-  const { contours, optimizedPath, origin, activeTool, setContours, customEntryPoints, setCustomEntryPoint } = useFoamCutStore();
+  const startPointRefs = useRef(
+    new Map<
+      string,
+      {
+        circle: paper.Path;
+        hitArea: paper.Path;
+        label?: paper.PointText;
+      }
+    >()
+  );
+  const { contours, optimizedPath, origin, activeTool, setContours, customEntryPoints, setCustomEntryPoint } =
+    useFoamCutStore();
+  const moveStartMarker = (contourId: string, point: paper.Point) => {
+    const info = startPointRefs.current.get(contourId);
+    if (!info) return;
+    info.circle.position = point;
+    info.hitArea.position = point;
+    if (info.label) {
+      info.label.position = point.add(new paper.Point(0, -12));
+    }
+  };
 
   useEffect(() => {
     if (!canvasRef.current || projectInitialized.current) return;
@@ -192,7 +212,8 @@ export const Canvas2D: React.FC = () => {
       vizLayer.addChild(path);
 
       // Draw START labels at entry points for each contour
-      const startPoints = new Set<string>();
+    startPointRefs.current.clear();
+    const startPoints = new Set<string>();
       optimizedPath.entryExits.forEach((entryExit) => {
         const contour = contours.find(c => c.id === entryExit.contourId);
         if (contour && contour.path) {
@@ -244,6 +265,11 @@ export const Canvas2D: React.FC = () => {
               text.data.contourId = entryExit.contourId;
               text.data.nonInteractive = true; // Mark as non-interactive
               vizLayer.addChild(text);
+              startPointRefs.current.set(entryExit.contourId, {
+                circle: startCircle,
+                hitArea,
+                label: text,
+              });
             }
           }
         }
@@ -778,6 +804,7 @@ export const Canvas2D: React.FC = () => {
 
                 // Store the custom entry point
                 setCustomEntryPoint(contour.id, entryT);
+                moveStartMarker(contour.id, offset.point);
 
                 // Visual feedback - briefly highlight the new entry point
                 const marker = new paper.Path.Circle(offset.point, 6);
