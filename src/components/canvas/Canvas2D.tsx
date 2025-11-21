@@ -197,23 +197,28 @@ export const Canvas2D: React.FC = () => {
             
             if (!startPoints.has(pointKey)) {
               startPoints.add(pointKey);
-              
-              // Draw green circle for start point
-              const startCircle = new paper.Path.Circle(entryPoint, 8);
+
+              // Draw smaller green circle for start point (4px radius instead of 8px)
+              const startCircle = new paper.Path.Circle(entryPoint, 4);
               startCircle.fillColor = new paper.Color(0.2, 1, 0.2); // Green
               startCircle.strokeColor = new paper.Color(0, 0.8, 0);
-              startCircle.strokeWidth = 1;
+              startCircle.strokeWidth = 1.5;
+              startCircle.data.isStartPoint = true;
+              startCircle.data.contourId = entryExit.contourId;
+              startCircle.data.entryT = entryExit.entryT;
               vizLayer.addChild(startCircle);
-              
-              // Add "START" text label
+
+              // Add smaller "S" text label instead of "START"
               const text = new paper.PointText({
-                point: entryPoint.add(new paper.Point(0, -15)),
-                content: "START",
+                point: entryPoint.add(new paper.Point(0, -10)),
+                content: "S",
                 fillColor: new paper.Color(0, 0.8, 0),
-                fontSize: 10,
+                fontSize: 8,
                 fontFamily: "Arial",
                 fontWeight: "bold"
               });
+              text.data.isStartLabel = true;
+              text.data.contourId = entryExit.contourId;
               vizLayer.addChild(text);
             }
           }

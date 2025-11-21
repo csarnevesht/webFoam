@@ -66,31 +66,45 @@ export function buildContinuousPolyline(
       console.log(`Added rapid move to entry (distance: ${distToEntry.toFixed(2)})`);
     }
 
-    // Sample points along the path
-    // For hot wire cutting, we want to trace the entire contour
+    // For hot wire cutting, we need to trace the ENTIRE contour
+    // Start at entryT and go all the way around back to entryT (complete loop)
     const numSamples = Math.max(50, Math.ceil(pathLength / options.step));
-    console.log(`Sampling ${numSamples} points along path`);
+    console.log(`Sampling ${numSamples} points to trace complete contour`);
 
     let pointsAdded = 0;
     for (let i = 0; i <= numSamples; i++) {
-      // Calculate t value (0 to 1) starting from entry
-      const t = i / numSamples;
-      const offset = entryExit.entryT + t * (1 - entryExit.entryT + entryExit.exitT);
-      const normalizedT = offset % 1; // Wrap around if needed
+      // Calculate t value (0 to 1) to trace complete contour from entry point
+      const progress = i / numSamples; // 0 to 1
 
-      const point = path.getPointAt(normalizedT * pathLength);
+      // Start at entryT and wrap around the full contour
+      let t = entryExit.entryT + progress;
+
+      // Wrap around if we go past 1.0
+      if (t > 1.0) {
+        t = t - 1.0;
+      }
+
+      const point = path.getPointAt(t * pathLength);
       if (point) {
         pts.push({ x: point.x, y: point.y });
         pointsAdded++;
 
         // Log first and last few points
         if (i <= 2 || i >= numSamples - 2) {
-          console.log(`  Sample ${i}: t=${normalizedT.toFixed(3)} → (${point.x.toFixed(2)}, ${point.y.toFixed(2)})`);
+          console.log(`  Sample ${i}: t=${t.toFixed(3)} → (${point.x.toFixed(2)}, ${point.y.toFixed(2)})`);
         }
       }
     }
 
-    console.log(`✅ Added ${pointsAdded} points for contour ${idx}`);
+    // Add final point to close the loop (return to entry point)
+    const finalPoint = path.getPointAt(entryExit.entryT * pathLength);
+    if (finalPoint) {
+      pts.push({ x: finalPoint.x, y: finalPoint.y });
+      pointsAdded++;
+      console.log(`  Final point (close loop): t=${entryExit.entryT.toFixed(3)} → (${finalPoint.x.toFixed(2)}, ${finalPoint.y.toFixed(2)})`);
+    }
+
+    console.log(`✅ Added ${pointsAdded} points for contour ${idx} (complete loop)`);
     console.log(`Total polyline points so far: ${pts.length}`);
   });
 
