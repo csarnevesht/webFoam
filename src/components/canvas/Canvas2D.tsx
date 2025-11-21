@@ -1,5 +1,5 @@
 
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import paper from "paper";
 import { runFullOptimization } from "../../geometry/pipeline";
 import { useFoamCutStore } from "../../state/foamCutStore";
@@ -39,25 +39,6 @@ export const Canvas2D: React.FC = () => {
     }
   };
 
-  const regenerateOptimizedPath = useCallback(() => {
-    if (!contours.length) {
-      return;
-    }
-
-    const optimized = runFullOptimization(contours, {
-      origin,
-      customEntryPoints,
-    });
-
-    if (optimized) {
-      setOptimizedPath(optimized);
-      console.log("🧮 Regenerated optimized path after start-point change", {
-        contours: optimized.contoursOrdered.length,
-        entryExits: optimized.entryExits.length,
-        points: optimized.polyline.length,
-      });
-    }
-  }, [contours, origin, customEntryPoints, setOptimizedPath]);
 
   useEffect(() => {
     if (!canvasRef.current || projectInitialized.current) return;
@@ -568,6 +549,24 @@ export const Canvas2D: React.FC = () => {
     const tool = activeTool;
     const project = paper.project;
 
+    const regenerateOptimizedPath = () => {
+      if (!contours.length) return;
+
+      const optimized = runFullOptimization(contours, {
+        origin,
+        customEntryPoints,
+      });
+
+      if (optimized) {
+        setOptimizedPath(optimized);
+        console.log("🧮 Regenerated optimized path after start-point change", {
+          contours: optimized.contoursOrdered.length,
+          entryExits: optimized.entryExits.length,
+          points: optimized.polyline.length,
+        });
+      }
+    };
+
     // Clean up previous tool handlers
     if (paper.tool) {
       paper.tool.remove();
@@ -910,7 +909,15 @@ export const Canvas2D: React.FC = () => {
         paper.tool.remove();
       }
     };
-  }, [activeTool, setContours, setCustomEntryPoint, contours, regenerateOptimizedPath]);
+  }, [
+    activeTool,
+    setContours,
+    setCustomEntryPoint,
+    contours,
+    origin,
+    customEntryPoints,
+    setOptimizedPath,
+  ]);
 
   return (
     <canvas
