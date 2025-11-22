@@ -1,22 +1,25 @@
 
-import { Contour, EntryExit, Point } from "./types";
+import { Contour, EntryExit, EntryExitOverride, Point } from "./types";
 export interface EntryExitOptions {
   samplesPerContour: number;
   crossingPenaltyWeight: number;
   origin: Point;
-  customEntryPoints?: Map<string, number>;
+  customEntryPoints?: Map<string, EntryExitOverride>;
 }
 export function computeEntryExits(contours: Contour[], options: EntryExitOptions): EntryExit[] {
   return contours.map((c) => {
-    // Use custom entry point if available, otherwise default to 0
-    const entryT = options.customEntryPoints?.get(c.id) ?? 0;
+    const override = options.customEntryPoints?.get(c.id);
+    const entryT = override?.entryT ?? 0;
+    const exitT = override?.exitT ?? entryT;
 
-    console.log(`Entry/Exit for ${c.id}: entryT=${entryT.toFixed(3)} ${options.customEntryPoints?.has(c.id) ? '(custom)' : '(default)'}`);
+    console.log(
+      `Entry/Exit for ${c.id}: entryT=${entryT.toFixed(3)} ${override?.entryT !== undefined ? "(custom entry)" : "(default)"} exitT=${exitT.toFixed(3)} ${override?.exitT !== undefined ? "(custom exit)" : "(default)"}`
+    );
 
     return {
       contourId: c.id,
       entryT,
-      exitT: entryT // For now, exit at same point as entry (complete loop)
+      exitT,
     };
   });
 }

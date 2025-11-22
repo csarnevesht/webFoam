@@ -19,7 +19,25 @@ export const Canvas2D: React.FC = () => {
       }
     >()
   );
-  const { contours, optimizedPath, origin, activeTool, setContours, setCustomEntryPoint } = useFoamCutStore();
+  const exitPointRefs = useRef(
+    new Map<
+      string,
+      {
+        circle: paper.Path;
+        hitArea: paper.Path;
+        label?: paper.PointText;
+      }
+    >()
+  );
+  const {
+    contours,
+    optimizedPath,
+    origin,
+    activeTool,
+    setContours,
+    setCustomEntryPoint,
+    setCustomExitPoint,
+  } = useFoamCutStore();
   const setActiveTool = useFoamCutStore((s) => s.setActiveTool);
   const lastToolRef = useRef<Tool>(activeTool);
   const spacePanRef = useRef({ active: false, previousTool: activeTool as Tool });
@@ -33,6 +51,16 @@ export const Canvas2D: React.FC = () => {
   });
   const moveStartMarker = (contourId: string, point: paper.Point) => {
     const info = startPointRefs.current.get(contourId);
+    if (!info) return;
+    info.circle.position = point;
+    info.hitArea.position = point;
+    if (info.label) {
+      info.label.position = point.add(new paper.Point(0, -12));
+    }
+  };
+
+  const moveExitMarker = (contourId: string, point: paper.Point) => {
+    const info = exitPointRefs.current.get(contourId);
     if (!info) return;
     info.circle.position = point;
     info.hitArea.position = point;
@@ -249,48 +277,42 @@ export const Canvas2D: React.FC = () => {
       });
       vizLayer.addChild(path);
 
-      // Draw START labels at entry points for each contour
+      // Draw START and EXIT labels for each contour
     startPointRefs.current.clear();
+    exitPointRefs.current.clear();
     const startPoints = new Set<string>();
+    const exitPoints = new Set<string>();
       optimizedPath.entryExits.forEach((entryExit) => {
         const contour = contours.find(c => c.id === entryExit.contourId);
         if (contour && contour.path) {
           const pathItem = contour.path as paper.Path;
           if (pathItem && pathItem.length > 0) {
             const entryPoint = pathItem.getPointAt(pathItem.length * entryExit.entryT);
-            const pointKey = `${entryPoint.x.toFixed(1)},${entryPoint.y.toFixed(1)}`;
-            
-            if (!startPoints.has(pointKey)) {
-              startPoints.add(pointKey);
+            const exitPoint = pathItem.getPointAt(pathItem.length * entryExit.exitT);
 
-              // Draw smaller green circle for start point (4px radius instead of 8px)
+            const entryKey = `${entryPoint.x.toFixed(1)},${entryPoint.y.toFixed(1)}`;
+            if (!startPoints.has(entryKey)) {
+              startPoints.add(entryKey);
+
               const startCircle = new paper.Path.Circle(entryPoint, 5);
-              startCircle.fillColor = new paper.Color(0.2, 1, 0.2, 0.8); // Green, slightly transparent
+              startCircle.fillColor = new paper.Color(0.2, 1, 0.2, 0.8);
               startCircle.strokeColor = new paper.Color(0, 0.8, 0);
               startCircle.strokeWidth = 2;
               startCircle.data.isStartPoint = true;
-              startCircle.data.interactive = true; // Mark as interactive
+              startCircle.data.interactive = true;
               startCircle.data.contourId = entryExit.contourId;
               startCircle.data.entryT = entryExit.entryT;
 
-              // Create a larger hit area for easier clicking (semi-transparent for debugging)
               const hitArea = new paper.Path.Circle(entryPoint, 12);
-              hitArea.fillColor = new paper.Color(0, 1, 0, 0.1); // Very light green for debugging
+              hitArea.fillColor = new paper.Color(0, 1, 0, 0.1);
               hitArea.strokeColor = new paper.Color(0, 1, 0, 0.3);
               hitArea.strokeWidth = 1;
               hitArea.data.isStartPointHitArea = true;
-              hitArea.data.interactive = true; // Mark as interactive
+              hitArea.data.interactive = true;
               hitArea.data.contourId = entryExit.contourId;
               hitArea.data.entryT = entryExit.entryT;
-              hitArea.data.visualMarker = startCircle; // Reference to the visual marker
+              hitArea.data.visualMarker = startCircle;
 
-              // Add to layer but we'll reorder them later
-              vizLayer.addChild(hitArea);
-              vizLayer.addChild(startCircle);
-
-              console.log(`  Created start point marker for ${entryExit.contourId} at (${entryPoint.x.toFixed(1)}, ${entryPoint.y.toFixed(1)})`);
-
-              // Add smaller "S" text label instead of "START"
               const text = new paper.PointText({
                 point: entryPoint.add(new paper.Point(0, -12)),
                 content: "S",
@@ -301,12 +323,60 @@ export const Canvas2D: React.FC = () => {
               });
               text.data.isStartLabel = true;
               text.data.contourId = entryExit.contourId;
-              text.data.nonInteractive = true; // Mark as non-interactive
+              text.data.nonInteractive = true;
+
+              vizLayer.addChild(hitArea);
+              vizLayer.addChild(startCircle);
               vizLayer.addChild(text);
               startPointRefs.current.set(entryExit.contourId, {
                 circle: startCircle,
                 hitArea,
                 label: text,
+              });
+            }
+
+            const exitKey = `${exitPoint.x.toFixed(1)},${exitPoint.y.toFixed(1)}`;
+            if (!exitPoints.has(exitKey)) {
+              exitPoints.add(exitKey);
+
+              const exitCircle = new paper.Path.Circle(exitPoint, 5);
+              exitCircle.fillColor = new paper.Color(1, 0.3, 0.2, 0.9);
+              exitCircle.strokeColor = new paper.Color(0.8, 0, 0);
+              exitCircle.strokeWidth = 2;
+              exitCircle.data.isExitPoint = true;
+              exitCircle.data.interactive = true;
+              exitCircle.data.contourId = entryExit.contourId;
+              exitCircle.data.exitT = entryExit.exitT;
+
+              const exitHit = new paper.Path.Circle(exitPoint, 12);
+              exitHit.fillColor = new paper.Color(1, 0, 0, 0.1);
+              exitHit.strokeColor = new paper.Color(1, 0, 0, 0.4);
+              exitHit.strokeWidth = 1;
+              exitHit.data.isExitPointHitArea = true;
+              exitHit.data.interactive = true;
+              exitHit.data.contourId = entryExit.contourId;
+              exitHit.data.exitT = entryExit.exitT;
+              exitHit.data.visualMarker = exitCircle;
+
+              const exitText = new paper.PointText({
+                point: exitPoint.add(new paper.Point(0, -12)),
+                content: "E",
+                fillColor: new paper.Color(0.8, 0, 0),
+                fontSize: 9,
+                fontFamily: "Arial",
+                fontWeight: "bold"
+              });
+              exitText.data.isExitLabel = true;
+              exitText.data.contourId = entryExit.contourId;
+              exitText.data.nonInteractive = true;
+
+              vizLayer.addChild(exitHit);
+              vizLayer.addChild(exitCircle);
+              vizLayer.addChild(exitText);
+              exitPointRefs.current.set(entryExit.contourId, {
+                circle: exitCircle,
+                hitArea: exitHit,
+                label: exitText,
               });
             }
           }
@@ -814,8 +884,8 @@ export const Canvas2D: React.FC = () => {
         return null;
       };
 
-      let draggedStartPoint: { contourId: string; path: any } | null = null;
-      let isDraggingStartPoint = false;
+      let draggedPoint: { contourId: string; path: any; type: "entry" | "exit" } | null = null;
+      let isDraggingPoint = false;
 
       paper.tool.onMouseMove = (e: paper.ToolEvent) => {
         if (isDraggingStartPoint) return; // Don't change cursor while dragging
@@ -824,7 +894,14 @@ export const Canvas2D: React.FC = () => {
         const hit = hitTestAllLayers(e.point);
 
         if (canvasRef.current) {
-          if (hit && hit.item && (hit.item.data.isStartPoint || hit.item.data.isStartPointHitArea)) {
+          if (
+            hit &&
+            hit.item &&
+            (hit.item.data.isStartPoint ||
+              hit.item.data.isStartPointHitArea ||
+              hit.item.data.isExitPoint ||
+              hit.item.data.isExitPointHitArea)
+          ) {
             canvasRef.current.style.cursor = "move";
           } else if (hit && hit.item instanceof paper.Path && !hit.item.data.isVisualization) {
             canvasRef.current.style.cursor = "crosshair";
@@ -871,22 +948,42 @@ export const Canvas2D: React.FC = () => {
           isVisualization: hit.item?.data.isVisualization,
           isStartPoint: hit.item?.data.isStartPoint,
           isStartPointHitArea: hit.item?.data.isStartPointHitArea,
+          isExitPoint: hit.item?.data.isExitPoint,
+          isExitPointHitArea: hit.item?.data.isExitPointHitArea,
           interactive: hit.item?.data.interactive,
           nonInteractive: hit.item?.data.nonInteractive,
           contourId: hit.item?.data.contourId
         } : "NO HIT");
 
         if (hit && hit.item) {
+          // Check if clicked on an exit point hit area
+          if (hit.item.data.isExitPointHitArea || hit.item.data.isExitPoint) {
+            const contourId = hit.item.data.contourId;
+            console.log("🎯 Clicked on exit point for contour:", contourId);
+
+            const contour = contours.find((c) => c.id === contourId);
+            if (contour && contour.path) {
+              isDraggingPoint = true;
+              draggedPoint = { contourId, path: contour.path, type: "exit" };
+
+              if (canvasRef.current) {
+                canvasRef.current.style.cursor = "grabbing";
+              }
+
+              console.log("✅ Ready to drag exit point");
+            }
+            return;
+          }
+
           // Check if clicked on a start point hit area
           if (hit.item.data.isStartPointHitArea || hit.item.data.isStartPoint) {
             const contourId = hit.item.data.contourId;
             console.log("🎯 Clicked on start point for contour:", contourId);
 
-            // Find the contour
-            const contour = contours.find(c => c.id === contourId);
+            const contour = contours.find((c) => c.id === contourId);
             if (contour && contour.path) {
-              isDraggingStartPoint = true;
-              draggedStartPoint = { contourId, path: contour.path };
+              isDraggingPoint = true;
+              draggedPoint = { contourId, path: contour.path, type: "entry" };
 
               if (canvasRef.current) {
                 canvasRef.current.style.cursor = "grabbing";
@@ -952,28 +1049,31 @@ export const Canvas2D: React.FC = () => {
       };
 
       paper.tool.onMouseDrag = (e: paper.ToolEvent) => {
-        if (isDraggingStartPoint && draggedStartPoint) {
-          const { contourId, path } = draggedStartPoint;
+        if (isDraggingPoint && draggedPoint) {
+          const { contourId, path, type } = draggedPoint;
 
-          // Find nearest point on the contour path
           const nearest = path.getNearestLocation(e.point);
           if (nearest) {
             const entryT = nearest.offset / path.length;
 
-            // Update the entry point in real-time
-            setCustomEntryPoint(contourId, entryT);
-            moveStartMarker(contourId, nearest.point);
+            if (type === "entry") {
+              setCustomEntryPoint(contourId, entryT);
+              moveStartMarker(contourId, nearest.point);
+            } else {
+              setCustomExitPoint(contourId, entryT);
+              moveExitMarker(contourId, nearest.point);
+            }
 
-            console.log(`📍 Dragging start point: t=${entryT.toFixed(3)}`);
+            console.log(`📍 Dragging ${type === "entry" ? "start" : "exit"} point: t=${entryT.toFixed(3)}`);
           }
         }
       };
 
       paper.tool.onMouseUp = () => {
-        if (isDraggingStartPoint) {
-          console.log("✅ Start point updated! Regenerate path to see changes.");
-          isDraggingStartPoint = false;
-          draggedStartPoint = null;
+        if (isDraggingPoint) {
+          console.log("✅ Point updated! Regenerate path to see changes.");
+          isDraggingPoint = false;
+          draggedPoint = null;
           regenerateOptimizedPath();
 
           if (canvasRef.current) {

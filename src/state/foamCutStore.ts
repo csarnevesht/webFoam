@@ -1,11 +1,10 @@
 
 import { create } from "zustand";
-import { Contour, OptimizedPath, Point } from "../geometry/types";
+import { Contour, OptimizedPath, Point, EntryExitOverride } from "../geometry/types";
 
 export type Tool = "select" | "pan" | "line" | "polyline" | "text";
 
-// Store custom entry points for contours (contourId -> entryT)
-export type CustomEntryPoints = Map<string, number>;
+export type CustomEntryPoints = Map<string, EntryExitOverride>;
 
 interface FoamCutState {
   contours: Contour[];
@@ -23,6 +22,7 @@ interface FoamCutState {
   setContours: (c: Contour[]) => void;
   setOptimizedPath: (p?: OptimizedPath) => void;
   setCustomEntryPoint: (contourId: string, entryT: number) => void;
+  setCustomExitPoint: (contourId: string, exitT: number) => void;
   clearCustomEntryPoints: () => void;
   setSamplesPerContour: (value: number) => void;
   setCrossingPenaltyWeight: (value: number) => void;
@@ -51,7 +51,15 @@ export const useFoamCutStore = create<FoamCutState>((set) => ({
   setCustomEntryPoint: (contourId, entryT) =>
     set((state) => {
       const newMap = new Map(state.customEntryPoints);
-      newMap.set(contourId, entryT);
+      const existing = newMap.get(contourId) ?? {};
+      newMap.set(contourId, { ...existing, entryT });
+      return { customEntryPoints: newMap };
+    }),
+  setCustomExitPoint: (contourId, exitT) =>
+    set((state) => {
+      const newMap = new Map(state.customEntryPoints);
+      const existing = newMap.get(contourId) ?? {};
+      newMap.set(contourId, { ...existing, exitT });
       return { customEntryPoints: newMap };
     }),
   clearCustomEntryPoints: () => set({ customEntryPoints: new Map() }),

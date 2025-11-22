@@ -1,5 +1,5 @@
 
-import { Contour, OptimizedPath, Point } from "./types";
+import { Contour, OptimizedPath, Point, EntryExitOverride } from "./types";
 import { groupIntoIslands } from "./islands";
 import { orderContoursWithinIsland, orderIslands } from "./tspOrdering";
 import { computeEntryExits } from "./entryExit";
@@ -7,7 +7,9 @@ import { buildContinuousPolyline } from "./polylineBuilder";
 
 export interface OptimizationOptions {
   origin?: Point;
-  customEntryPoints?: Map<string, number>;
+  customEntryPoints?: Map<string, EntryExitOverride>;
+  samplesPerContour?: number;
+  crossingPenaltyWeight?: number;
 }
 
 export function runFullOptimization(
@@ -73,8 +75,8 @@ export function runFullOptimization(
     console.log(`Using ${customEntryPoints.size} custom entry points`);
   }
   const entryExits = computeEntryExits(orderedContours, {
-    samplesPerContour: 32,
-    crossingPenaltyWeight: 1.0,
+    samplesPerContour: options.samplesPerContour ?? 32,
+    crossingPenaltyWeight: options.crossingPenaltyWeight ?? 1.0,
     origin,
     customEntryPoints,
   });

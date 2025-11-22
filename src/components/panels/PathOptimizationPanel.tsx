@@ -46,7 +46,7 @@ export const PathOptimizationPanel: React.FC = () => {
             checked={useCustomEntryPoints}
             onChange={(e) => setUseCustomEntryPoints(e.target.checked)}
           />
-          Use custom start points
+          Use custom start/exit points
         </label>
       </div>
 

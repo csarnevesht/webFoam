@@ -15,6 +15,11 @@ export interface EntryExit {
   entryT: number;
   exitT: number;
 }
+
+export interface EntryExitOverride {
+  entryT?: number;
+  exitT?: number;
+}
 export interface OptimizedPath {
   contoursOrdered: ContourId[];
   entryExits: EntryExit[];
