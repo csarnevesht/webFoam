@@ -6,7 +6,19 @@ import { importDxfString } from "../../utils/dxfImport";
 import paper from "paper";
 import { useWorkflowStore } from "../../state/workflowStore";
 
-export const TopBar: React.FC = () => {
+interface TopBarProps {
+  title?: string;
+  icon?: string;
+  showActions?: boolean;
+  rightContent?: React.ReactNode;
+}
+
+export const TopBar: React.FC<TopBarProps> = ({
+  title = "FoamCut Web",
+  icon = "🔷",
+  showActions = true,
+  rightContent
+}) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const setWorkflow = useWorkflowStore((state) => state.setWorkflow);
   const {
@@ -456,15 +468,15 @@ export const TopBar: React.FC = () => {
           🏠
         </button>
         <div className="logo">
-          <span className="logo-icon">🔷</span>
+          <span className="logo-icon">{icon}</span>
           <span className="logo-text" style={{
             background: "linear-gradient(45deg, #fff, #888)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent"
           }}>
-            FoamCut Web
+            {title}
           </span>
-          <span className="badge beta">Beta</span>
+          {title === "FoamCut Web" && <span className="badge beta">Beta</span>}
         </div>
       </div>
 
@@ -473,25 +485,30 @@ export const TopBar: React.FC = () => {
       </div>
 
       <div className="topbar-right">
-        <input
-          ref={fileInputRef}
-          type="file"
-          accept=".svg,.dxf"
-          style={{ display: "none" }}
-          onChange={handleFileChange}
-        />
-        <button className="ghost" onClick={handleImportClick} title="Import File">
-          📁 <span style={{ display: "none" }}>Import</span>
-        </button>
-        <button className="ghost" onClick={handleExportSVG} title="Export SVG">
-          💾 <span style={{ display: "none" }}>Export SVG</span>
-        </button>
-        <button className="primary" onClick={handleGeneratePath}>
-          ⚡ Generate Path
-        </button>
-        <button className="ghost" onClick={handleExportGCode} title="Export G-code">
-          📄 <span style={{ display: "none" }}>Export G-code</span>
-        </button>
+        {rightContent}
+        {showActions && !rightContent && (
+          <>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept=".svg,.dxf"
+              style={{ display: "none" }}
+              onChange={handleFileChange}
+            />
+            <button className="ghost" onClick={handleImportClick} title="Import File">
+              📁 <span style={{ display: "none" }}>Import</span>
+            </button>
+            <button className="ghost" onClick={handleExportSVG} title="Export SVG">
+              💾 <span style={{ display: "none" }}>Export SVG</span>
+            </button>
+            <button className="primary" onClick={handleGeneratePath}>
+              ⚡ Generate Path
+            </button>
+            <button className="ghost" onClick={handleExportGCode} title="Export G-code">
+              📄 <span style={{ display: "none" }}>Export G-code</span>
+            </button>
+          </>
+        )}
       </div>
     </div>
   );

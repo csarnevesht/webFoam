@@ -49,7 +49,7 @@ export const TwistRotLayout: React.FC = () => {
 
     return (
         <div style={{ display: "flex", flexDirection: "column", height: "100vh", backgroundColor: "#121212" }}>
-            <TopBar />
+            <TopBar title="Rotary / TwistRot" icon="🌀" showActions={false} />
             <div style={{ flex: 1, display: "flex", minHeight: 0 }}>
                 <LeftToolbar />
 

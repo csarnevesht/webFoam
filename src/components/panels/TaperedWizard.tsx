@@ -67,38 +67,75 @@ export const TaperedWizard: React.FC = () => {
     };
 
     return (
-        <div style={{ padding: "2rem", display: "flex", gap: "2rem", height: "100%" }}>
-            <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "1rem" }}>
-                <div className="panel" style={{ padding: "1rem", backgroundColor: "#2d2d2d", borderRadius: "8px" }}>
-                    <h3>1. Root Profile (XY)</h3>
-                    <input type="file" accept=".dxf" onChange={(e) => handleFileUpload(e, 'root')} />
-                    <div style={{ marginTop: "0.5rem", color: rootPath.length ? "#4caf50" : "#aaa" }}>
-                        {rootPath.length ? `Loaded ${rootPath.length} points` : "No file loaded"}
+        <div style={{ display: "flex", height: "100%", width: "100%" }}>
+            <div style={{
+                width: "300px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "1rem",
+                overflowY: "auto",
+                backgroundColor: "#1e1e1e",
+                borderRight: "1px solid #333",
+                padding: "20px"
+            }}>
+                <h2 style={{
+                    marginBottom: "10px",
+                    fontSize: "18px",
+                    fontWeight: 600,
+                    color: "#fff",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px"
+                }}>
+                    <span style={{ color: "#64ffda" }}>✈️</span> Tapered Setup
+                </h2>
+
+                <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                        <h3 style={{ margin: 0, fontSize: "1rem", color: "#ddd" }}>1. Root Profile (XY)</h3>
+                        <input
+                            type="file"
+                            accept=".dxf"
+                            onChange={(e) => handleFileUpload(e, 'root')}
+                            style={{ fontSize: "0.8rem", color: "#aaa" }}
+                        />
+                        <div style={{ fontSize: "0.8rem", color: rootPath.length ? "#4caf50" : "#666" }}>
+                            {rootPath.length ? `Loaded ${rootPath.length} points` : "No file loaded"}
+                        </div>
+                    </div>
+
+                    <div style={{ height: "1px", backgroundColor: "#333" }} />
+
+                    <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                        <h3 style={{ margin: 0, fontSize: "1rem", color: "#ddd" }}>2. Tip Profile (UV)</h3>
+                        <input
+                            type="file"
+                            accept=".dxf"
+                            onChange={(e) => handleFileUpload(e, 'tip')}
+                            style={{ fontSize: "0.8rem", color: "#aaa" }}
+                        />
+                        <div style={{ fontSize: "0.8rem", color: tipPath.length ? "#4caf50" : "#666" }}>
+                            {tipPath.length ? `Loaded ${tipPath.length} points` : "No file loaded"}
+                        </div>
                     </div>
                 </div>
 
-                <div className="panel" style={{ padding: "1rem", backgroundColor: "#2d2d2d", borderRadius: "8px" }}>
-                    <h3>2. Tip Profile (UV)</h3>
-                    <input type="file" accept=".dxf" onChange={(e) => handleFileUpload(e, 'tip')} />
-                    <div style={{ marginTop: "0.5rem", color: tipPath.length ? "#4caf50" : "#aaa" }}>
-                        {tipPath.length ? `Loaded ${tipPath.length} points` : "No file loaded"}
-                    </div>
-                </div>
+                <div style={{ height: "1px", backgroundColor: "#333", margin: "0.5rem 0" }} />
 
-                <button className="primary" onClick={handleGenerate} disabled={!rootPath.length || !tipPath.length}>
+                <button className="primary" onClick={handleGenerate} disabled={!rootPath.length || !tipPath.length} style={{ width: "100%" }}>
                     Generate 4-Axis Path
                 </button>
 
                 {generatedPath.length > 0 && (
-                    <div className="panel" style={{ padding: "1rem", backgroundColor: "#2d2d2d", borderRadius: "8px" }}>
-                        <h3>3. Result</h3>
-                        <p>Generated {generatedPath.length} synced points.</p>
-                        <button className="primary" onClick={handleDownloadGCode}>Download G-Code</button>
+                    <div className="panel" style={{ padding: "1rem", backgroundColor: "#252525", borderRadius: "8px", marginTop: "1rem" }}>
+                        <h3 style={{ margin: "0 0 0.5rem 0", fontSize: "1rem" }}>3. Result</h3>
+                        <p style={{ margin: "0 0 1rem 0", fontSize: "0.9rem", color: "#aaa" }}>Generated {generatedPath.length} synced points.</p>
+                        <button className="primary" onClick={handleDownloadGCode} style={{ width: "100%" }}>Download G-Code</button>
                     </div>
                 )}
             </div>
 
-            <div style={{ flex: 2, backgroundColor: "#111", borderRadius: "8px", position: "relative" }}>
+            <div style={{ flex: 1, backgroundColor: "#111", position: "relative" }}>
                 {/* Simple SVG visualization */}
                 <svg width="100%" height="100%" viewBox="-100 -100 400 400" style={{ position: "absolute", top: 0, left: 0 }}>
                     <g transform="translate(100, 100) scale(1, -1)">

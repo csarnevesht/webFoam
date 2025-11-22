@@ -50,86 +50,153 @@ export const GCodePanel: React.FC = () => {
   };
 
   return (
-    <div className="panel-card">
-      <div className="panel-header">
-        <h3>G-code Preview</h3>
-      </div>
+    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+      <h2 style={{
+        margin: "0 0 0.5rem 0",
+        fontSize: "16px",
+        fontWeight: 600,
+        color: "#fff",
+        display: "flex",
+        alignItems: "center",
+        gap: "8px"
+      }}>
+        <span style={{ color: "#e91e63" }}>📄</span> G-code Preview
+      </h2>
 
       {!gcode ? (
-        <div className="panel-empty-state">
+        <div style={{
+          padding: "2rem 1rem",
+          backgroundColor: "#252525",
+          borderRadius: "6px",
+          color: "#888",
+          fontSize: "0.9rem",
+          textAlign: "center",
+          border: "1px dashed #444"
+        }}>
           Generate a path to see G-code preview
         </div>
       ) : (
-        <div className="panel-body">
-          <div className="stats-grid">
-            <div className="stat-item">
-              <span className="stat-label">Total Lines</span>
-              <span className="stat-value">{gcodeStats?.totalLines || 0}</span>
+        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "0.5rem",
+            backgroundColor: "#252525",
+            padding: "0.75rem",
+            borderRadius: "6px",
+            border: "1px solid #333"
+          }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+              <span style={{ fontSize: "0.75rem", color: "#aaa" }}>Total Lines</span>
+              <span style={{ fontSize: "0.9rem", color: "#fff", fontFamily: "monospace" }}>{gcodeStats?.totalLines || 0}</span>
             </div>
-            <div className="stat-item">
-              <span className="stat-label">Rapid Moves</span>
-              <span className="stat-value">{gcodeStats?.rapidMoves || 0}</span>
+            <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+              <span style={{ fontSize: "0.75rem", color: "#aaa" }}>Rapid Moves</span>
+              <span style={{ fontSize: "0.9rem", color: "#fff", fontFamily: "monospace" }}>{gcodeStats?.rapidMoves || 0}</span>
             </div>
-            <div className="stat-item">
-              <span className="stat-label">Feed Moves</span>
-              <span className="stat-value">{gcodeStats?.feedMoves || 0}</span>
+            <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+              <span style={{ fontSize: "0.75rem", color: "#aaa" }}>Feed Moves</span>
+              <span style={{ fontSize: "0.9rem", color: "#fff", fontFamily: "monospace" }}>{gcodeStats?.feedMoves || 0}</span>
             </div>
-            <div className="stat-item">
-              <span className="stat-label">Units</span>
-              <span className="stat-value">{units === "mm" ? "Metric" : "Imperial"}</span>
+            <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+              <span style={{ fontSize: "0.75rem", color: "#aaa" }}>Units</span>
+              <span style={{ fontSize: "0.9rem", color: "#fff" }}>{units === "mm" ? "Metric" : "Imperial"}</span>
             </div>
           </div>
 
-          <div className="control-group">
-            <div className="gcode-preview-header">
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <button
-                className="ghost small"
                 onClick={() => setIsExpanded(!isExpanded)}
+                style={{
+                  background: "none",
+                  border: "none",
+                  color: "#aaa",
+                  fontSize: "0.8rem",
+                  cursor: "pointer",
+                  padding: 0,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "4px"
+                }}
               >
                 {isExpanded ? "▼ Collapse" : "▶ Expand"} Code
               </button>
-              <div className="button-group">
-                <button className="ghost small" onClick={handleCopyToClipboard}>
+              <div style={{ display: "flex", gap: "0.5rem" }}>
+                <button
+                  onClick={handleCopyToClipboard}
+                  style={{
+                    padding: "4px 8px",
+                    fontSize: "0.75rem",
+                    backgroundColor: "#333",
+                    border: "1px solid #444",
+                    color: "#fff",
+                    borderRadius: "4px",
+                    cursor: "pointer"
+                  }}
+                >
                   📋 Copy
                 </button>
-                <button className="primary small" onClick={handleDownload}>
+                <button
+                  onClick={handleDownload}
+                  style={{
+                    padding: "4px 8px",
+                    fontSize: "0.75rem",
+                    backgroundColor: "#2196f3",
+                    border: "none",
+                    color: "#fff",
+                    borderRadius: "4px",
+                    cursor: "pointer"
+                  }}
+                >
                   💾 Download
                 </button>
               </div>
             </div>
 
-            {isExpanded && (
-              <div className="gcode-preview">
-                <pre className="gcode-content">
+            {isExpanded ? (
+              <div style={{
+                backgroundColor: "#111",
+                borderRadius: "6px",
+                border: "1px solid #333",
+                maxHeight: "400px",
+                overflowY: "auto",
+                padding: "0.5rem"
+              }}>
+                <pre style={{ margin: 0, fontSize: "0.8rem", fontFamily: "monospace", lineHeight: "1.4" }}>
                   {gcode.split("\n").map((line, idx) => (
-                    <div key={idx} className="gcode-line">
-                      <span className="line-number">{(idx + 1).toString().padStart(4, " ")}</span>
-                      <span className={`line-content ${line.startsWith("G0") ? "rapid" : line.startsWith("G1") ? "feed" : "command"}`}>
+                    <div key={idx} style={{ display: "flex" }}>
+                      <span style={{ color: "#444", width: "30px", textAlign: "right", marginRight: "10px", userSelect: "none" }}>
+                        {idx + 1}
+                      </span>
+                      <span style={{
+                        color: line.startsWith("G0") ? "#ff9800" :
+                          line.startsWith("G1") ? "#4caf50" :
+                            line.startsWith(";") ? "#666" : "#ddd"
+                      }}>
                         {line}
                       </span>
                     </div>
                   ))}
                 </pre>
               </div>
+            ) : (
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                <div style={{ backgroundColor: "#111", borderRadius: "4px", padding: "0.5rem", border: "1px solid #333" }}>
+                  <div style={{ fontSize: "0.7rem", color: "#666", marginBottom: "4px" }}>First 5 lines:</div>
+                  <pre style={{ margin: 0, fontSize: "0.8rem", fontFamily: "monospace", color: "#888" }}>
+                    {gcode.split("\n").slice(0, 5).join("\n")}
+                  </pre>
+                </div>
+                <div style={{ backgroundColor: "#111", borderRadius: "4px", padding: "0.5rem", border: "1px solid #333" }}>
+                  <div style={{ fontSize: "0.7rem", color: "#666", marginBottom: "4px" }}>Last 3 lines:</div>
+                  <pre style={{ margin: 0, fontSize: "0.8rem", fontFamily: "monospace", color: "#888" }}>
+                    {gcode.split("\n").slice(-3).join("\n")}
+                  </pre>
+                </div>
+              </div>
             )}
           </div>
-
-          {!isExpanded && (
-            <div className="control-group">
-              <div className="info-box">
-                <strong>First 5 lines:</strong>
-                <pre className="gcode-snippet">
-                  {gcode.split("\n").slice(0, 5).join("\n")}
-                </pre>
-              </div>
-              <div className="info-box" style={{ marginTop: 8 }}>
-                <strong>Last 3 lines:</strong>
-                <pre className="gcode-snippet">
-                  {gcode.split("\n").slice(-3).join("\n")}
-                </pre>
-              </div>
-            </div>
-          )}
         </div>
       )}
     </div>

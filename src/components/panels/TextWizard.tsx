@@ -165,77 +165,118 @@ export const TextWizard: React.FC = () => {
     };
 
     return (
-        <div style={{ padding: "1rem", display: "flex", gap: "1rem", height: "100%" }}>
-            <div style={{ flex: "0 0 300px", display: "flex", flexDirection: "column", gap: "1rem", overflowY: "auto" }}>
-                <div className="panel" style={{ padding: "1rem", backgroundColor: "#2d2d2d", borderRadius: "8px" }}>
-                    <h3>Text Settings</h3>
+        <div style={{ display: "flex", height: "100%", width: "100%" }}>
+            <div style={{
+                width: "300px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "1rem",
+                overflowY: "auto",
+                backgroundColor: "#1e1e1e",
+                borderRight: "1px solid #333",
+                padding: "20px"
+            }}>
+                <h2 style={{
+                    marginBottom: "10px",
+                    fontSize: "18px",
+                    fontWeight: 600,
+                    color: "#fff",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px"
+                }}>
+                    <span style={{ color: "#646cff" }}>🔤</span> Text Settings
+                </h2>
 
+                <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                     <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                        <label>Text to Cut</label>
+                        <label style={{ color: "#aaa", fontSize: "0.9rem" }}>Text to Cut</label>
                         <input
                             type="text"
                             value={text}
                             onChange={(e) => setText(e.target.value)}
-                            style={{ padding: "0.5rem", fontSize: "1.2rem" }}
+                            style={{
+                                padding: "0.5rem",
+                                fontSize: "1rem",
+                                backgroundColor: "#252525",
+                                border: "1px solid #333",
+                                color: "#fff",
+                                borderRadius: "4px"
+                            }}
                         />
                     </div>
 
                     <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                        <label>Font Size (mm)</label>
+                        <label style={{ color: "#aaa", fontSize: "0.9rem" }}>Font Size (mm)</label>
                         <input
                             type="number"
                             value={fontSize}
                             onChange={(e) => setFontSize(Number(e.target.value))}
-                            style={{ padding: "0.5rem" }}
+                            style={{
+                                padding: "0.5rem",
+                                backgroundColor: "#252525",
+                                border: "1px solid #333",
+                                color: "#fff",
+                                borderRadius: "4px"
+                            }}
                         />
                     </div>
 
                     <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                        <label>Font Source</label>
+                        <label style={{ color: "#aaa", fontSize: "0.9rem" }}>Font Source</label>
                         <input
                             type="text"
                             value={fontUrl}
                             onChange={(e) => setFontUrl(e.target.value)}
-                            style={{ padding: "0.5rem" }}
+                            style={{
+                                padding: "0.5rem",
+                                backgroundColor: "#252525",
+                                border: "1px solid #333",
+                                color: "#fff",
+                                borderRadius: "4px"
+                            }}
                             placeholder="https://..."
                         />
                         <div style={{ marginTop: '0.5rem' }}>
-                            <label style={{ display: 'block', marginBottom: '0.25rem', fontSize: '0.9rem', color: '#aaa' }}>Or upload local font (TTF/OTF):</label>
+                            <label style={{ display: 'block', marginBottom: '0.25rem', fontSize: '0.8rem', color: '#888' }}>Or upload local font (TTF/OTF):</label>
                             <input
                                 type="file"
                                 accept=".ttf,.otf,.woff"
                                 onChange={handleFontUpload}
+                                style={{ fontSize: "0.8rem", color: "#aaa" }}
                             />
                         </div>
                     </div>
                 </div>
 
-                <button className="primary" onClick={handleGenerate}>
+                <div style={{ height: "1px", backgroundColor: "#333", margin: "0.5rem 0" }} />
+
+                <button className="primary" onClick={handleGenerate} style={{ width: "100%" }}>
                     Generate Paths
                 </button>
 
-                <button className="secondary" onClick={handleGenerateGCode} disabled={!optimizedPath}>
+                <button className="secondary" onClick={handleGenerateGCode} disabled={!optimizedPath} style={{ width: "100%" }}>
                     Generate & Show G-Code
                 </button>
 
                 {status && (
-                    <div className="info-box" style={{ padding: "1rem", backgroundColor: "#333", borderRadius: "4px", color: status.includes("Error") ? "#ff6b6b" : "#4caf50" }}>
+                    <div className="info-box" style={{ padding: "0.75rem", backgroundColor: "#252525", borderRadius: "4px", color: status.includes("Error") ? "#ff6b6b" : "#4caf50", fontSize: "0.9rem" }}>
                         {status}
                     </div>
                 )}
 
                 {showGCode && (
-                    <div className="panel" style={{ padding: "1rem", backgroundColor: "#2d2d2d", borderRadius: "8px", flex: 1, display: "flex", flexDirection: "column" }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <h3>G-Code</h3>
-                            <button className="ghost" onClick={() => setShowGCode(false)}>Close</button>
+                    <div className="panel" style={{ padding: "1rem", backgroundColor: "#252525", borderRadius: "8px", flex: 1, display: "flex", flexDirection: "column", marginTop: "1rem" }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: "0.5rem" }}>
+                            <h3 style={{ margin: 0, fontSize: "1rem" }}>G-Code</h3>
+                            <button className="ghost" onClick={() => setShowGCode(false)} style={{ padding: "0.2rem 0.5rem", fontSize: "0.8rem" }}>Close</button>
                         </div>
                         <textarea
                             value={gcode}
                             readOnly
-                            style={{ width: "100%", flex: 1, minHeight: "150px", fontFamily: "monospace", backgroundColor: "#111", color: "#0f0", border: "none", padding: "0.5rem" }}
+                            style={{ width: "100%", flex: 1, minHeight: "150px", fontFamily: "monospace", backgroundColor: "#111", color: "#0f0", border: "none", padding: "0.5rem", fontSize: "0.8rem" }}
                         />
-                        <button className="primary" style={{ marginTop: '0.5rem' }} onClick={() => {
+                        <button className="primary" style={{ marginTop: '0.5rem', width: "100%" }} onClick={() => {
                             const blob = new Blob([gcode], { type: "text/plain" });
                             const url = URL.createObjectURL(blob);
                             const a = document.createElement("a");
@@ -247,7 +288,7 @@ export const TextWizard: React.FC = () => {
                 )}
             </div>
 
-            <div style={{ flex: 1, backgroundColor: "#111", borderRadius: "8px", position: "relative", overflow: "hidden" }}>
+            <div style={{ flex: 1, backgroundColor: "#111", position: "relative", overflow: "hidden" }}>
                 <Canvas2D />
 
                 {/* Overlay Controls */}

@@ -2,6 +2,7 @@
 import React from "react";
 import { TopBar } from "./components/layout/TopBar";
 import { LeftToolbar } from "./components/layout/LeftToolbar";
+import { LeftPanel } from "./components/layout/LeftPanel";
 import { RightPanel } from "./components/layout/RightPanel";
 import { Canvas2D } from "./components/canvas/Canvas2D";
 import { WorkflowSelector } from "./components/layout/WorkflowSelector";
@@ -34,6 +35,7 @@ export default function App() {
       <TopBar />
       <div style={{ flex: 1, display: "flex", minHeight: 0 }}>
         <LeftToolbar />
+        <LeftPanel />
         <div style={{ flex: 1, minWidth: 0 }}><Canvas2D /></div>
         <RightPanel />
       </div>
