@@ -17,10 +17,16 @@ interface FoamCutState {
   origin: Point;
   feedRate: number;
   activeTool: Tool;
+  samplesPerContour: number;
+  crossingPenaltyWeight: number;
+  useCustomEntryPoints: boolean;
   setContours: (c: Contour[]) => void;
   setOptimizedPath: (p?: OptimizedPath) => void;
   setCustomEntryPoint: (contourId: string, entryT: number) => void;
   clearCustomEntryPoints: () => void;
+  setSamplesPerContour: (value: number) => void;
+  setCrossingPenaltyWeight: (value: number) => void;
+  setUseCustomEntryPoints: (value: boolean) => void;
   setKerf: (k: number) => void;
   setUnits: (u: "mm" | "inch") => void;
   setFeedRate: (f: number) => void;
@@ -37,6 +43,9 @@ export const useFoamCutStore = create<FoamCutState>((set) => ({
   origin: { x: 0, y: 0 },
   feedRate: 1500,
   activeTool: "select",
+  samplesPerContour: 32,
+  crossingPenaltyWeight: 1.0,
+  useCustomEntryPoints: true,
   setContours: (contours) => set({ contours }),
   setOptimizedPath: (optimizedPath) => set({ optimizedPath }),
   setCustomEntryPoint: (contourId, entryT) =>
@@ -51,4 +60,7 @@ export const useFoamCutStore = create<FoamCutState>((set) => ({
   setFeedRate: (feedRate) => set({ feedRate }),
   setScale: (scale) => set({ scale }),
   setActiveTool: (activeTool) => set({ activeTool }),
+  setSamplesPerContour: (value) => set({ samplesPerContour: value }),
+  setCrossingPenaltyWeight: (value) => set({ crossingPenaltyWeight: value }),
+  setUseCustomEntryPoints: (value) => set({ useCustomEntryPoints: value }),
 }));

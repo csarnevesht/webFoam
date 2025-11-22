@@ -50,7 +50,9 @@ export const Canvas2D: React.FC = () => {
 
     const optimized = runFullOptimization(state.contours, {
       origin: state.origin,
-      customEntryPoints: state.customEntryPoints,
+      customEntryPoints: state.useCustomEntryPoints ? state.customEntryPoints : undefined,
+      samplesPerContour: state.samplesPerContour,
+      crossingPenaltyWeight: state.crossingPenaltyWeight,
     });
 
     if (optimized) {
