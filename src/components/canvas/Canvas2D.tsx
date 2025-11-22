@@ -143,7 +143,7 @@ export const Canvas2D: React.FC = () => {
     console.log("  - Project has", project.activeLayer.children.length, "items in activeLayer");
     console.log("  - Contours:", contours.length);
     console.log("  - Optimized path:", !!optimizedPath);
-    
+
     // Remove only visualization layers, keep the imported paths
     const layersToRemove: paper.Layer[] = [];
     project.layers.forEach((layer) => {
@@ -183,7 +183,7 @@ export const Canvas2D: React.FC = () => {
 
     console.log("  Viz layer locked:", vizLayer.locked);
 
-    // Style all paths in the main layer (including DXF imports) - make them blue contours
+    // Style all paths in the main layer (including DXF imports) - make them subtle background
     console.log("🔵 Canvas2D: Styling all paths in main layer...");
     console.log("  Main layer has", mainLayer.children.length, "items");
     let pathCount = 0;
@@ -191,15 +191,15 @@ export const Canvas2D: React.FC = () => {
 
     mainLayer.children.forEach((item: any, idx: number) => {
       if (item instanceof paper.Path) {
-        // Style the path
-        item.strokeColor = new paper.Color(0.2, 0.4, 1); // Blue
-        item.strokeWidth = 3; // Make them very visible
+        // Style the path - SUBTLE BACKGROUND
+        item.strokeColor = new paper.Color(0.3, 0.3, 0.3); // Dark Gray
+        item.strokeWidth = 1;
         item.fillColor = null;
         item.visible = true;
-        item.opacity = 1;
-        item.bringToFront();
+        item.opacity = 0.6;
+        // item.bringToFront(); // Don't bring to front, let them be background
         pathCount++;
-        
+
         styledPaths.push({
           index: idx,
           segments: item.segments.length,
@@ -213,11 +213,11 @@ export const Canvas2D: React.FC = () => {
           if (group.children) {
             group.children.forEach((child: any) => {
               if (child instanceof paper.Path) {
-                child.strokeColor = new paper.Color(0.2, 0.4, 1);
-                child.strokeWidth = 3;
+                child.strokeColor = new paper.Color(0.3, 0.3, 0.3);
+                child.strokeWidth = 1;
                 child.fillColor = null;
                 child.visible = true;
-                child.opacity = 1;
+                child.opacity = 0.6;
                 pathCount++;
               } else if (child instanceof paper.Group || child instanceof paper.CompoundPath) {
                 styleChildren(child);
@@ -230,7 +230,7 @@ export const Canvas2D: React.FC = () => {
         console.log(`  Item ${idx} is ${item.constructor.name} (not a Path)`);
       }
     });
-    
+
     console.log("✅ Canvas2D: Styled", pathCount, "paths");
     if (styledPaths.length > 0) {
       console.log("  Path details:", styledPaths.slice(0, 5));
@@ -241,18 +241,18 @@ export const Canvas2D: React.FC = () => {
       if (contour.path) {
         const path = contour.path as paper.Path;
         if (path && path.parent) {
-          // Style the existing path - make sure it's visible
-          path.strokeColor = new paper.Color(0.2, 0.4, 1); // Blue
-          path.strokeWidth = 2; // Make thicker for visibility
+          // Style the existing path - make sure it's visible but distinct from optimized path
+          path.strokeColor = new paper.Color(0.4, 0.6, 1); // Lighter Blue
+          path.strokeWidth = 1.5;
           path.fillColor = null;
           path.visible = true;
-          path.opacity = 1;
+          path.opacity = 0.8;
           path.bringToFront();
         } else if (path) {
           // Clone and add to visualization layer if not in project
           const visualPath = path.clone();
-          visualPath.strokeColor = new paper.Color(0.2, 0.4, 1); // Blue
-          visualPath.strokeWidth = 2;
+          visualPath.strokeColor = new paper.Color(0.4, 0.6, 1); // Lighter Blue
+          visualPath.strokeWidth = 1.5;
           visualPath.fillColor = null;
           visualPath.visible = true;
           vizLayer.addChild(visualPath);
@@ -260,11 +260,13 @@ export const Canvas2D: React.FC = () => {
       }
     });
 
-    // Draw optimized path in red with green arrows and START labels
+    // Draw optimized path in NEON GREEN with GLOW
     if (optimizedPath && optimizedPath.polyline.length > 1) {
       const path = new paper.Path();
-      path.strokeColor = new paper.Color(1, 0.2, 0.2); // Red
-      path.strokeWidth = 2;
+      path.strokeColor = new paper.Color(0, 1, 0.53); // Neon Green (#00ff88)
+      path.strokeWidth = 3;
+      path.shadowColor = new paper.Color(0, 1, 0.53);
+      path.shadowBlur = 12;
       path.data.nonInteractive = true; // Mark as non-interactive
 
       optimizedPath.polyline.forEach((p, idx) => {
@@ -278,10 +280,10 @@ export const Canvas2D: React.FC = () => {
       vizLayer.addChild(path);
 
       // Draw START and EXIT labels for each contour
-    startPointRefs.current.clear();
-    exitPointRefs.current.clear();
-    const startPoints = new Set<string>();
-    const exitPoints = new Set<string>();
+      startPointRefs.current.clear();
+      exitPointRefs.current.clear();
+      const startPoints = new Set<string>();
+      const exitPoints = new Set<string>();
       optimizedPath.entryExits.forEach((entryExit) => {
         const contour = contours.find(c => c.id === entryExit.contourId);
         if (contour && contour.path) {
@@ -294,44 +296,34 @@ export const Canvas2D: React.FC = () => {
             if (!startPoints.has(entryKey)) {
               startPoints.add(entryKey);
 
-              const startCircle = new paper.Path.Circle(entryPoint, 5);
-              startCircle.fillColor = new paper.Color(0.2, 1, 0.2, 0.8);
-              startCircle.strokeColor = new paper.Color(0, 0.8, 0);
+              // Start Point - Glowing Green Node
+              const startCircle = new paper.Path.Circle(entryPoint, 6);
+              startCircle.fillColor = new paper.Color(0, 0, 0);
+              startCircle.strokeColor = new paper.Color(0, 1, 0.53);
               startCircle.strokeWidth = 2;
+              startCircle.shadowColor = new paper.Color(0, 1, 0.53);
+              startCircle.shadowBlur = 8;
               startCircle.data.isStartPoint = true;
               startCircle.data.interactive = true;
               startCircle.data.contourId = entryExit.contourId;
               startCircle.data.entryT = entryExit.entryT;
 
-              const hitArea = new paper.Path.Circle(entryPoint, 12);
-              hitArea.fillColor = new paper.Color(0, 1, 0, 0.1);
-              hitArea.strokeColor = new paper.Color(0, 1, 0, 0.3);
-              hitArea.strokeWidth = 1;
+              const hitArea = new paper.Path.Circle(entryPoint, 15);
+              hitArea.fillColor = new paper.Color(0, 1, 0.53, 0.01);
+              hitArea.strokeColor = null;
               hitArea.data.isStartPointHitArea = true;
               hitArea.data.interactive = true;
               hitArea.data.contourId = entryExit.contourId;
               hitArea.data.entryT = entryExit.entryT;
               hitArea.data.visualMarker = startCircle;
 
-              const text = new paper.PointText({
-                point: entryPoint.add(new paper.Point(0, -12)),
-                content: "S",
-                fillColor: new paper.Color(0, 0.8, 0),
-                fontSize: 9,
-                fontFamily: "Arial",
-                fontWeight: "bold"
-              });
-              text.data.isStartLabel = true;
-              text.data.contourId = entryExit.contourId;
-              text.data.nonInteractive = true;
+              // Removed text label for cleaner look
 
               vizLayer.addChild(hitArea);
               vizLayer.addChild(startCircle);
-              vizLayer.addChild(text);
               startPointRefs.current.set(entryExit.contourId, {
                 circle: startCircle,
                 hitArea,
-                label: text,
               });
             }
 
@@ -339,90 +331,79 @@ export const Canvas2D: React.FC = () => {
             if (!exitPoints.has(exitKey)) {
               exitPoints.add(exitKey);
 
-              const exitCircle = new paper.Path.Circle(exitPoint, 5);
-              exitCircle.fillColor = new paper.Color(1, 0.3, 0.2, 0.9);
-              exitCircle.strokeColor = new paper.Color(0.8, 0, 0);
+              // Exit Point - Glowing Red Node
+              const exitCircle = new paper.Path.Circle(exitPoint, 4);
+              exitCircle.fillColor = new paper.Color(0, 0, 0);
+              exitCircle.strokeColor = new paper.Color(1, 0.27, 0.27); // Red
               exitCircle.strokeWidth = 2;
+              exitCircle.shadowColor = new paper.Color(1, 0.27, 0.27);
+              exitCircle.shadowBlur = 6;
               exitCircle.data.isExitPoint = true;
               exitCircle.data.interactive = true;
               exitCircle.data.contourId = entryExit.contourId;
               exitCircle.data.exitT = entryExit.exitT;
 
-              const exitHit = new paper.Path.Circle(exitPoint, 12);
-              exitHit.fillColor = new paper.Color(1, 0, 0, 0.1);
-              exitHit.strokeColor = new paper.Color(1, 0, 0, 0.4);
-              exitHit.strokeWidth = 1;
+              const exitHit = new paper.Path.Circle(exitPoint, 15);
+              exitHit.fillColor = new paper.Color(1, 0.27, 0.27, 0.01);
+              exitHit.strokeColor = null;
               exitHit.data.isExitPointHitArea = true;
               exitHit.data.interactive = true;
               exitHit.data.contourId = entryExit.contourId;
               exitHit.data.exitT = entryExit.exitT;
               exitHit.data.visualMarker = exitCircle;
 
-              const exitText = new paper.PointText({
-                point: exitPoint.add(new paper.Point(0, -12)),
-                content: "E",
-                fillColor: new paper.Color(0.8, 0, 0),
-                fontSize: 9,
-                fontFamily: "Arial",
-                fontWeight: "bold"
-              });
-              exitText.data.isExitLabel = true;
-              exitText.data.contourId = entryExit.contourId;
-              exitText.data.nonInteractive = true;
+              // Removed text label for cleaner look
 
               vizLayer.addChild(exitHit);
               vizLayer.addChild(exitCircle);
-              vizLayer.addChild(exitText);
               exitPointRefs.current.set(entryExit.contourId, {
                 circle: exitCircle,
                 hitArea: exitHit,
-                label: exitText,
               });
             }
           }
         }
       });
 
-      // Draw green direction arrows along the path (more frequent)
-      const arrowSpacing = 20; // Distance between arrows in pixels
+      // Draw direction arrows along the path
+      const arrowSpacing = 40; // Increased spacing for less clutter
       let accumulatedDist = 0;
-      
+
       for (let i = 0; i < optimizedPath.polyline.length - 1; i++) {
         const p1 = optimizedPath.polyline[i];
         const p2 = optimizedPath.polyline[i + 1];
         const dx = p2.x - p1.x;
         const dy = p2.y - p1.y;
         const dist = Math.hypot(dx, dy);
-        
+
         if (dist > 0) {
           accumulatedDist += dist;
-          
+
           // Draw arrow every arrowSpacing pixels
           if (accumulatedDist >= arrowSpacing) {
             accumulatedDist = 0;
-            
+
             const angle = Math.atan2(dy, dx);
             const t = 0.5; // Middle of segment
             const midX = p1.x + (p2.x - p1.x) * t;
             const midY = p1.y + (p2.y - p1.y) * t;
-            
-            // Create green arrow
-            const arrowSize = 6;
+
+            // Create Blurple arrow
+            const arrowSize = 5;
             const tipX = midX + Math.cos(angle) * arrowSize;
             const tipY = midY + Math.sin(angle) * arrowSize;
-            const leftX = midX - Math.cos(angle) * arrowSize + Math.cos(angle + Math.PI / 2) * arrowSize * 0.4;
-            const leftY = midY - Math.sin(angle) * arrowSize + Math.sin(angle + Math.PI / 2) * arrowSize * 0.4;
-            const rightX = midX - Math.cos(angle) * arrowSize + Math.cos(angle - Math.PI / 2) * arrowSize * 0.4;
-            const rightY = midY - Math.sin(angle) * arrowSize + Math.sin(angle - Math.PI / 2) * arrowSize * 0.4;
-            
+            const leftX = midX - Math.cos(angle) * arrowSize + Math.cos(angle + Math.PI / 2) * arrowSize * 0.5;
+            const leftY = midY - Math.sin(angle) * arrowSize + Math.sin(angle + Math.PI / 2) * arrowSize * 0.5;
+            const rightX = midX - Math.cos(angle) * arrowSize + Math.cos(angle - Math.PI / 2) * arrowSize * 0.5;
+            const rightY = midY - Math.sin(angle) * arrowSize + Math.sin(angle - Math.PI / 2) * arrowSize * 0.5;
+
             const arrow = new paper.Path();
             arrow.moveTo(new paper.Point(tipX, tipY));
             arrow.lineTo(new paper.Point(leftX, leftY));
             arrow.lineTo(new paper.Point(rightX, rightY));
             arrow.lineTo(new paper.Point(tipX, tipY));
-            arrow.fillColor = new paper.Color(0.2, 1, 0.2); // Green
-            arrow.strokeColor = new paper.Color(0, 0.8, 0);
-            arrow.strokeWidth = 0.5;
+            arrow.fillColor = new paper.Color(0.39, 0.42, 1); // Blurple (#646cff)
+            arrow.strokeWidth = 0;
             arrow.data.nonInteractive = true; // Mark as non-interactive
             vizLayer.addChild(arrow);
           }
@@ -433,7 +414,7 @@ export const Canvas2D: React.FC = () => {
     // Force view update and redraw
     paper.view.update();
     paper.view.update();
-    
+
     // Debug: Verify what's actually in the project after rendering
     console.log("🔍 Canvas2D: Final verification...");
     let actualPathCount = 0;
@@ -445,7 +426,7 @@ export const Canvas2D: React.FC = () => {
         if (idx < 5) {
           const bounds = item.bounds;
           console.log(`  Path ${idx}:`, {
-            segments: item.segments.length, 
+            segments: item.segments.length,
             closed: item.closed,
             visible: item.visible,
             opacity: item.opacity,
@@ -474,46 +455,46 @@ export const Canvas2D: React.FC = () => {
       }, 50);
     }, 0);
   }, [contours, optimizedPath]);
-  
+
   // Add a separate effect to watch for any changes in project children
   useEffect(() => {
     if (!projectInitialized.current) return;
-    
+
     const project = paper.project;
     let lastItemCount = 0;
-    
+
     const checkAndStyle = () => {
       const currentItemCount = project.activeLayer.children.length;
       if (currentItemCount !== lastItemCount) {
         console.log("🔄 Canvas2D: Detected change in project - items:", lastItemCount, "->", currentItemCount);
         lastItemCount = currentItemCount;
-        
+
         // Style any un-styled paths
         let styledCount = 0;
         project.activeLayer.children.forEach((item: any) => {
           if (item instanceof paper.Path) {
             // Check if path needs styling
-            if (!item.strokeColor || item.strokeWidth < 2) {
-              item.strokeColor = new paper.Color(0.2, 0.4, 1);
-              item.strokeWidth = 3;
+            if (!item.strokeColor || item.strokeWidth < 1) {
+              item.strokeColor = new paper.Color(0.3, 0.3, 0.3);
+              item.strokeWidth = 1;
               item.fillColor = null;
               item.visible = true;
-              item.opacity = 1;
+              item.opacity = 0.6;
               styledCount++;
             }
           }
         });
-        
+
         if (styledCount > 0) {
           console.log(`  ✅ Auto-styled ${styledCount} paths`);
           paper.view.update();
         }
       }
     };
-    
+
     // Check frequently for new paths
     const interval = setInterval(checkAndStyle, 200);
-    
+
     return () => clearInterval(interval);
   }, []);
 
@@ -757,7 +738,7 @@ export const Canvas2D: React.FC = () => {
         if (currentPathRef.current) {
           currentPathRef.current.add(e.point);
           currentPathRef.current.closed = false;
-          
+
           // Add to contours
           const newContour = {
             id: `c_${Date.now()}`,
@@ -783,7 +764,7 @@ export const Canvas2D: React.FC = () => {
       const finishPolyline = () => {
         if (currentPathRef.current && polylinePointsRef.current.length > 1) {
           currentPathRef.current.closed = true;
-          
+
           const newContour = {
             id: `c_${Date.now()}`,
             path: currentPathRef.current,
