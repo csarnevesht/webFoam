@@ -2,7 +2,7 @@
 import React, { useCallback, useEffect, useRef } from "react";
 import paper from "paper";
 import { runFullOptimization } from "../../geometry/pipeline";
-import { useFoamCutStore } from "../../state/foamCutStore";
+import { Tool, useFoamCutStore } from "../../state/foamCutStore";
 
 export const Canvas2D: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -20,6 +20,9 @@ export const Canvas2D: React.FC = () => {
     >()
   );
   const { contours, optimizedPath, origin, activeTool, setContours, setCustomEntryPoint } = useFoamCutStore();
+  const setActiveTool = useFoamCutStore((s) => s.setActiveTool);
+  const lastToolRef = useRef<Tool>(activeTool);
+  const spacePanRef = useRef({ active: false, previousTool: activeTool as Tool });
   const moveStartMarker = (contourId: string, point: paper.Point) => {
     const info = startPointRefs.current.get(contourId);
     if (!info) return;
@@ -502,6 +505,16 @@ export const Canvas2D: React.FC = () => {
     if (!projectInitialized.current) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.code === "Space") {
+        if (!spacePanRef.current.active && activeTool !== "pan") {
+          e.preventDefault();
+          spacePanRef.current.active = true;
+          spacePanRef.current.previousTool = activeTool as Tool;
+          setActiveTool("pan");
+        }
+        return;
+      }
+
       // Zoom shortcuts
       if ((e.key === "+" || e.key === "=") && !e.ctrlKey && !e.metaKey) {
         e.preventDefault();
@@ -547,12 +560,22 @@ export const Canvas2D: React.FC = () => {
       }
     };
 
+    const handleKeyUp = (e: KeyboardEvent) => {
+      if (e.code === "Space" && spacePanRef.current.active) {
+        e.preventDefault();
+        spacePanRef.current.active = false;
+        setActiveTool(spacePanRef.current.previousTool);
+      }
+    };
+
     window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("keyup", handleKeyUp);
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keyup", handleKeyUp);
     };
-  }, []);
+  }, [activeTool, setActiveTool]);
 
   // Tool handlers
   useEffect(() => {
