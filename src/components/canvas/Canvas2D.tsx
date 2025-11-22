@@ -23,6 +23,14 @@ export const Canvas2D: React.FC = () => {
   const setActiveTool = useFoamCutStore((s) => s.setActiveTool);
   const lastToolRef = useRef<Tool>(activeTool);
   const spacePanRef = useRef({ active: false, previousTool: activeTool as Tool });
+  const touchPanRef = useRef<{
+    active: boolean;
+    primaryId?: number;
+    secondaryId?: number;
+    lastSecondaryPoint?: paper.Point;
+  }>({
+    active: false,
+  });
   const moveStartMarker = (contourId: string, point: paper.Point) => {
     const info = startPointRefs.current.get(contourId);
     if (!info) return;
@@ -54,6 +62,9 @@ export const Canvas2D: React.FC = () => {
       });
     }
   }, []);
+
+  const getProjectPoint = (touch: Touch) =>
+    paper.view.viewToProject(new paper.Point(touch.clientX, touch.clientY));
 
   useEffect(() => {
     if (!canvasRef.current || projectInitialized.current) return;
@@ -576,6 +587,67 @@ export const Canvas2D: React.FC = () => {
       window.removeEventListener("keyup", handleKeyUp);
     };
   }, [activeTool, setActiveTool]);
+
+  useEffect(() => {
+    if (!canvasRef.current) return;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches.length === 1) {
+        touchPanRef.current.primaryId = e.touches[0].identifier;
+        return;
+      }
+
+      if (e.touches.length >= 2 && !touchPanRef.current.active) {
+        e.preventDefault();
+        const primaryTouch = e.touches[0];
+        const secondaryTouch = Array.from(e.touches).find(
+          (t) => t.identifier !== primaryTouch.identifier
+        );
+        if (!secondaryTouch) return;
+        touchPanRef.current.primaryId = primaryTouch.identifier;
+        touchPanRef.current.secondaryId = secondaryTouch.identifier;
+        touchPanRef.current.lastSecondaryPoint = getProjectPoint(secondaryTouch);
+        touchPanRef.current.active = true;
+      }
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!touchPanRef.current.active) return;
+      const secondaryTouch = Array.from(e.touches).find(
+        (t) => t.identifier === touchPanRef.current.secondaryId
+      );
+      if (!secondaryTouch) return;
+      e.preventDefault();
+      const projectPoint = getProjectPoint(secondaryTouch);
+      if (touchPanRef.current.lastSecondaryPoint) {
+        const delta = projectPoint.subtract(touchPanRef.current.lastSecondaryPoint);
+        paper.view.center = paper.view.center.subtract(delta);
+        paper.view.update();
+      }
+      touchPanRef.current.lastSecondaryPoint = projectPoint;
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      if (e.touches.length < 2) {
+        touchPanRef.current.active = false;
+        touchPanRef.current.secondaryId = undefined;
+        touchPanRef.current.lastSecondaryPoint = undefined;
+      }
+    };
+
+    canvasRef.current.addEventListener("touchstart", handleTouchStart, { passive: false });
+    canvasRef.current.addEventListener("touchmove", handleTouchMove, { passive: false });
+    canvasRef.current.addEventListener("touchend", handleTouchEnd);
+    canvasRef.current.addEventListener("touchcancel", handleTouchEnd);
+
+    return () => {
+      if (!canvasRef.current) return;
+      canvasRef.current.removeEventListener("touchstart", handleTouchStart);
+      canvasRef.current.removeEventListener("touchmove", handleTouchMove);
+      canvasRef.current.removeEventListener("touchend", handleTouchEnd);
+      canvasRef.current.removeEventListener("touchcancel", handleTouchEnd);
+    };
+  }, []);
 
   // Tool handlers
   useEffect(() => {
