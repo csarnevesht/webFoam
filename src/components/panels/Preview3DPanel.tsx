@@ -5,13 +5,13 @@ export const Preview3DPanel: React.FC = () => {
     const [expanded, setExpanded] = useState(false);
 
     return (
-        <div className="panel">
-            <div className="panel-header" onClick={() => setExpanded(!expanded)}>
+        <div className="panel-card">
+            <div className="panel-header" onClick={() => setExpanded(!expanded)} style={{ cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <h3>3D Preview</h3>
-                <span>{expanded ? "▼" : "▶"}</span>
+                <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>{expanded ? "▼" : "▶"}</span>
             </div>
             {expanded && (
-                <div className="panel-content">
+                <div className="panel-body" style={{ padding: 0, overflow: 'hidden', borderRadius: '6px' }}>
                     <Preview3D />
                 </div>
             )}

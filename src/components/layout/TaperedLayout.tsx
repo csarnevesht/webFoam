@@ -13,17 +13,24 @@ export const TaperedLayout: React.FC = () => {
                         className="ghost"
                         onClick={() => setWorkflow('HOME')}
                         style={{ marginRight: '1rem' }}
+                        title="Home"
                     >
-                        🏠 Home
+                        🏠
                     </button>
                     <div className="logo">
-                        <div className="logo-icon">📐</div>
-                        <span className="logo-text">Tapered Parts</span>
+                        <span className="logo-icon">📐</span>
+                        <span className="logo-text" style={{
+                            background: "linear-gradient(45deg, #fff, #888)",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent"
+                        }}>
+                            Tapered Parts
+                        </span>
                     </div>
                 </div>
             </div>
 
-            <div style={{ flex: 1, overflow: "hidden" }}>
+            <div style={{ flex: 1, overflow: "hidden", background: "var(--bg-canvas)" }}>
                 <TaperedWizard />
             </div>
         </div>

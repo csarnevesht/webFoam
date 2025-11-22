@@ -453,11 +453,17 @@ export const TopBar: React.FC = () => {
           onClick={() => setWorkflow('HOME')}
           style={{ marginRight: '1rem' }}
         >
-          🏠 Home
+          🏠
         </button>
         <div className="logo">
-          <div className="logo-icon">🔷</div>
-          <span className="logo-text">FoamCut Web</span>
+          <span className="logo-icon">🔷</span>
+          <span className="logo-text" style={{
+            background: "linear-gradient(45deg, #fff, #888)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent"
+          }}>
+            FoamCut Web
+          </span>
           <span className="badge beta">Beta</span>
         </div>
       </div>
@@ -474,17 +480,17 @@ export const TopBar: React.FC = () => {
           style={{ display: "none" }}
           onChange={handleFileChange}
         />
-        <button className="ghost" onClick={handleImportClick}>
-          📁 Import
+        <button className="ghost" onClick={handleImportClick} title="Import File">
+          📁 <span style={{ display: "none" }}>Import</span>
         </button>
-        <button className="ghost" onClick={handleExportSVG}>
-          💾 Export SVG
+        <button className="ghost" onClick={handleExportSVG} title="Export SVG">
+          💾 <span style={{ display: "none" }}>Export SVG</span>
         </button>
         <button className="primary" onClick={handleGeneratePath}>
           ⚡ Generate Path
         </button>
-        <button className="ghost" onClick={handleExportGCode}>
-          📄 Export G-code
+        <button className="ghost" onClick={handleExportGCode} title="Export G-code">
+          📄 <span style={{ display: "none" }}>Export G-code</span>
         </button>
       </div>
     </div>

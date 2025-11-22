@@ -1,4 +1,3 @@
-
 import React, { useMemo, useState } from "react";
 import { useFoamCutStore } from "../../state/foamCutStore";
 import { generateGCode } from "../../geometry/gcode";
@@ -61,29 +60,27 @@ export const GCodePanel: React.FC = () => {
           Generate a path to see G-code preview
         </div>
       ) : (
-        <>
-          <div className="panel-section">
-            <div className="stats-grid">
-              <div className="stat-item">
-                <span className="stat-label">Total Lines</span>
-                <span className="stat-value">{gcodeStats?.totalLines || 0}</span>
-              </div>
-              <div className="stat-item">
-                <span className="stat-label">Rapid Moves (G0)</span>
-                <span className="stat-value">{gcodeStats?.rapidMoves || 0}</span>
-              </div>
-              <div className="stat-item">
-                <span className="stat-label">Feed Moves (G1)</span>
-                <span className="stat-value">{gcodeStats?.feedMoves || 0}</span>
-              </div>
-              <div className="stat-item">
-                <span className="stat-label">Units</span>
-                <span className="stat-value">{units === "mm" ? "Metric (G21)" : "Imperial (G20)"}</span>
-              </div>
+        <div className="panel-body">
+          <div className="stats-grid">
+            <div className="stat-item">
+              <span className="stat-label">Total Lines</span>
+              <span className="stat-value">{gcodeStats?.totalLines || 0}</span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-label">Rapid Moves</span>
+              <span className="stat-value">{gcodeStats?.rapidMoves || 0}</span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-label">Feed Moves</span>
+              <span className="stat-value">{gcodeStats?.feedMoves || 0}</span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-label">Units</span>
+              <span className="stat-value">{units === "mm" ? "Metric" : "Imperial"}</span>
             </div>
           </div>
 
-          <div className="panel-section">
+          <div className="control-group">
             <div className="gcode-preview-header">
               <button
                 className="ghost small"
@@ -117,21 +114,23 @@ export const GCodePanel: React.FC = () => {
             )}
           </div>
 
-          <div className="panel-section">
-            <div className="info-box">
-              <strong>First 5 lines:</strong>
-              <pre className="gcode-snippet">
-                {gcode.split("\n").slice(0, 5).join("\n")}
-              </pre>
+          {!isExpanded && (
+            <div className="control-group">
+              <div className="info-box">
+                <strong>First 5 lines:</strong>
+                <pre className="gcode-snippet">
+                  {gcode.split("\n").slice(0, 5).join("\n")}
+                </pre>
+              </div>
+              <div className="info-box" style={{ marginTop: 8 }}>
+                <strong>Last 3 lines:</strong>
+                <pre className="gcode-snippet">
+                  {gcode.split("\n").slice(-3).join("\n")}
+                </pre>
+              </div>
             </div>
-            <div className="info-box" style={{ marginTop: 8 }}>
-              <strong>Last 3 lines:</strong>
-              <pre className="gcode-snippet">
-                {gcode.split("\n").slice(-3).join("\n")}
-              </pre>
-            </div>
-          </div>
-        </>
+          )}
+        </div>
       )}
     </div>
   );

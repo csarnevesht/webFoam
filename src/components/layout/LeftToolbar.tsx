@@ -18,7 +18,6 @@ export const LeftToolbar: React.FC = () => {
 
   return (
     <div className="left-toolbar">
-      <div className="toolbar-title">Tools</div>
       <div className="toolbar-tools">
         {tools.map((tool) => (
           <button
@@ -28,7 +27,6 @@ export const LeftToolbar: React.FC = () => {
             title={tool.label}
           >
             <div className="tool-icon">{tool.icon}</div>
-            <div className="tool-label">{tool.label}</div>
           </button>
         ))}
       </div>

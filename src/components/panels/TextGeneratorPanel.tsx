@@ -37,15 +37,8 @@ export const TextGeneratorPanel: React.FC = () => {
 
             let project = paper.project;
             if (!project) {
-                // If no project (unlikely in this view), create one
                 project = new paper.Project(document.createElement('canvas'));
             }
-
-            // Clear existing items if we want to replace? Or just append?
-            // For a "Generator", replacing seems appropriate for the "Text" workflow, 
-            // but maybe we want to add to existing? 
-            // Let's stick to replacing for now to match the Wizard behavior, 
-            // but we could add a "Append" checkbox later.
 
             const paperPath = project.importSVG(`<path d="${svgPathData}" />`);
 
@@ -62,8 +55,6 @@ export const TextGeneratorPanel: React.FC = () => {
                     item.strokeColor = new paper.Color(0.2, 0.4, 1);
                     item.strokeWidth = 2;
                     item.fillColor = null;
-                    // Center the text roughly
-                    // item.position = item.position.add(new paper.Point(100, 100));
 
                     contours.push({
                         id: `char_${Date.now()}_${idx}`,
@@ -89,11 +80,9 @@ export const TextGeneratorPanel: React.FC = () => {
             setContours(contours);
             setStatus(`Generated ${contours.length} contours.`);
 
-            // Fit view
             setTimeout(() => {
                 if (paper.view) {
-                    // Simple zoom extents logic could go here or be triggered by a global event
-                    // For now, rely on user zooming or the initial fit
+                    // View update logic if needed
                 }
             }, 100);
 
@@ -122,14 +111,14 @@ export const TextGeneratorPanel: React.FC = () => {
     };
 
     return (
-        <div className="panel">
-            <div className="panel-header" onClick={() => setExpanded(!expanded)}>
+        <div className="panel-card">
+            <div className="panel-header" onClick={() => setExpanded(!expanded)} style={{ cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <h3>Text Generator</h3>
-                <span>{expanded ? "▼" : "▶"}</span>
+                <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>{expanded ? "▼" : "▶"}</span>
             </div>
 
             {expanded && (
-                <div className="panel-content">
+                <div className="panel-body">
                     <div className="control-group">
                         <label>Text</label>
                         <input
@@ -155,7 +144,7 @@ export const TextGeneratorPanel: React.FC = () => {
                             value={fontUrl}
                             onChange={(e) => setFontUrl(e.target.value)}
                             placeholder="https://..."
-                            style={{ fontSize: '0.8rem' }}
+                            style={{ fontSize: '11px' }}
                         />
                     </div>
 
@@ -165,16 +154,16 @@ export const TextGeneratorPanel: React.FC = () => {
                             type="file"
                             accept=".ttf,.otf,.woff"
                             onChange={handleFontUpload}
-                            style={{ fontSize: '0.8rem' }}
+                            style={{ fontSize: '11px' }}
                         />
                     </div>
 
-                    <button className="primary" onClick={handleGenerate} style={{ width: '100%', marginTop: '1rem' }}>
+                    <button className="primary" onClick={handleGenerate} style={{ width: '100%', marginTop: '8px' }}>
                         Generate Text
                     </button>
 
                     {status && (
-                        <div style={{ marginTop: '0.5rem', fontSize: '0.8rem', color: status.includes("Error") ? "#ff6b6b" : "#4caf50" }}>
+                        <div style={{ marginTop: '8px', fontSize: '11px', color: status.includes("Error") ? "var(--accent-danger)" : "var(--accent-success)" }}>
                             {status}
                         </div>
                     )}

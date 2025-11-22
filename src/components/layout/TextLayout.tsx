@@ -13,17 +13,24 @@ export const TextLayout: React.FC = () => {
                         className="ghost"
                         onClick={() => setWorkflow('HOME')}
                         style={{ marginRight: '1rem' }}
+                        title="Home"
                     >
-                        🏠 Home
+                        🏠
                     </button>
                     <div className="logo">
-                        <div className="logo-icon">🔤</div>
-                        <span className="logo-text">Text Cutter</span>
+                        <span className="logo-icon">🔤</span>
+                        <span className="logo-text" style={{
+                            background: "linear-gradient(45deg, #fff, #888)",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent"
+                        }}>
+                            Text Cutter
+                        </span>
                     </div>
                 </div>
             </div>
 
-            <div style={{ flex: 1, overflow: "hidden" }}>
+            <div style={{ flex: 1, overflow: "hidden", background: "var(--bg-canvas)" }}>
                 <TextWizard />
             </div>
         </div>
