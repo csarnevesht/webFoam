@@ -852,6 +852,23 @@ export const Canvas2D: React.FC = () => {
           canvasRef.current.style.cursor = "grab";
         }
       };
+    } else if (tool === "text") {
+      paper.tool = new paper.Tool();
+      paper.tool.onMouseDown = (e: paper.ToolEvent) => {
+        const textValue = window.prompt("Enter text to place on the canvas", "");
+        if (!textValue) return;
+
+        const pointText = new paper.PointText({
+          point: e.point,
+          content: textValue,
+          fillColor: new paper.Color(0.9, 0.9, 0.9),
+          fontSize: 18,
+          fontFamily: "Arial",
+          justification: "center",
+        });
+        pointText.data.isText = true;
+        paper.view.update();
+      };
     } else if (tool === "select") {
       paper.tool = new paper.Tool();
       console.log("✅ Select tool activated");
