@@ -1,0 +1,2121 @@
+DevFoam startup dialog
+
+Page 1 of 44
+
+Startup dialog
+
+Startup dialog
+Depending on the different version of devFoam you are running, you will see a different "Startup dialog", as every version offers different features.
+DevFoam 3DM Startup dialog:
+
+DevFoam 3D Startup dialog:
+
+DevFoam Pro Startup dialog:
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 2 of 44
+
+DevFoam Startup dialog:
+
+DevFoam LE Startup dialog:
+
+Using the Startup dialog you can select immediately the right function to begin your work.
+You can see below more info on what every function can do:
+Click the 'Cut letters and text' link, and the 'Cut a text' dialog will apper. This is the right function if you want to cut some letters o
+texts using a Window Font
+Click the 'Cut Parts' link if you already have a vectorial (Dxf, Dwg, Dc1, Hpgl, Plt) or raster (Gif, Jpeg, Bmp, Png, Tif, Tga, Pcx) file
+including the drawing/image of the Part. If enabled you will see the 'Filter and optionally scale elements' dialog if you select a
+vectorial file, or the 'AutoTrace elements' dialog if you select a raster file. Finally you will se the 'Simple cut' dialog where you can
+create the right cutting path. Using this feature the parts will be cut using the placement specified in the original file, you can just
+modify their scale and distance. You can also see this page to have more info about the 'Available file formats'.
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 3 of 44
+
+Click the 'Cut Nested Parts' link if you already have a vectorial (Dxf, Dwg, Dc1, Hpgl, Plt) or raster (Gif, Jpeg, Bmp, Png, Tif, Tga,
+Pcx) file including the drawing/image of the Part. If enabled you will see the 'Filter and optionally scale elements' dialog if you select
+a vectorial file, or the 'AutoTrace elements' dialog if you select a raster file. Finally you will se the 'Advanced Cutting Wizard' where
+you can create the right cutting path. Using this feature the parts will be rearranged (Nested) on one or more foam blocks, you
+can also modify their number, scale and distance. You can also see this page to have more info about the 'Available file formats'.
+Click the 'Cut Along Vector' link if you already have a vectorial (Dxf, Dwg, Dc1, Hpgl, Plt) or raster (Gif, Jpeg, Bmp, Png, Tif, Tga,
+Pcx) file including the drawing/image of the vector/Path you want to cut. If enabled you will see the 'Filter and optionally scale
+elements' dialog if you select a vectorial file, or the 'AutoTrace elements' dialog if you select a raster file. Finally you will se the
+'Along vector cut' dialog where you can create the right cutting path. Using this feature you can create a cutting path just supplying
+a vector (for example a Polyline). You can also see this page to have more info about the 'Available file formats'.
+Click the 'Cut Laminated Parts' link if you want to cut Laminated Parts supplying just the thickness and length
+
+Click the 'Tangential Cut' link if you own a Cnc machine like this
+
+Click the 'Cut a new Tapered Part' link if you already have the 2 vectorial (Dxf, Dwg, Dc1, Hpgl, Plt) or raster (Gif, Jpeg, Bmp, Png,
+Tif, Tga, Pcx) files including the drawing/image of the 2 sides of the tapered part you want to create/cut. If enabled you will see the
+'Filter and optionally scale elements' dialog if you select a vectorial file, or the 'AutoTrace elements' dialog if you select a raster file.
+Finally you will se the 'Tapered Part management' dialog where you can create the right cutting path. You can also see this page to
+have more info about the 'Available file formats'.
+Click the 'Cut TwistRot Part' link if you own a Cnc machine with added Rotary axis and you want to cut a TwistRot part.
+
+Click the 'Cut Stl Part' link if you own a Cnc machine with added Rotary axis and you want to cut a Stl part.
+
+Click the 'Cut Sliced Stl Part' link if you own a Cnc machine without added Rotary axis and you want to cut a Stl part by sliced
+parts.
+Click the 'Cut Stacked parts' link if you own a Cnc machine with added Rotary axis and you want to cut a stacked TwistRot and/or
+Stl parts.
+Click the 'Mill Stl parts' link if you own a Cnc machine with added Rotary axis and 3 added linear milling axes, you can get a job
+like in this video (web connection required) .
+Click the 'Draw and Cut not Tapered parts' link if you want:
+l draw the Parts to cut
+l import the Parts from a DXF, DWG, DAT, PLT, DC1, GIF, BMP, JPEG, PNG, TIF, TGA, PCX file
+l use a background image and trace the Parts over it
+Click the 'Go to Tapered Parts Archive' link if you want to go to the list of your tapered parts.
+
+Click the Start devStl Tools' link to run the devStl Tools application, where you can create and modify Stl Files.
+
+Clicking this link you will see a popup menu with these commands:
+
+l
+
+'Select the unit of measurement'
+'Set Cutting Tolerance'
+'Set cutting speed dialog'
+
+l
+
+GCode...
+
+l
+
+Customize the 2 Axis Gcode
+Customize the 4 Axis Gcode
+¡ Customize Tangential cut Axis Gcode
+¡ Set the Gcode Strategy
+'Advanced Path settings dialog'
+
+l
+l
+
+¡
+¡
+
+"Selection dialog when a you import Vectorial elements..." you can select here if you want to show the 'Filter and
+optionally scale elements' dialog when you select a Part from a vectorial file
+"Show advanced dialog when a you import Raster elements..." you can select here if you want to show the 'AutoTrace
+elements' dialog when you select a Part from a raster file
+Click the 'About DevFoam...' link if you want to go to the About box where you can find info about the version and how to contact
+us.
+l
+l
+
+Shows this Help Page
+
+Click the 'Close the Startup dialog and go to devFont' if you want explore the full application or exit if you are running devFoam
+LE.
+
+Before going on may be you want to better understand some important concepts of devFoam. We suggest you to read well this page: DevFoam FAQ and important concepts
+
+devFoam - FAQ
+
+What is devFoam?
+
+What is devFoam?
+devFoam is a simple to use application to create cutting files for a CNC foam cutting machine.
+Depending on your version you will have different available features, see the Startup dialog to have a fast look at them.
+devFoam can create cutting files for these Cnc Machine types:
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 4 of 44
+
+a 4 axes Cnc machine, where the left and right carriages are driven as a single carriage. In this case you can just make untapered cuts and use this dialog to setup the way the
+GCode will be created: Customize the 2 axes Gcode
+l a 4 axes Cnc machine, where the left and right carriages are driven in an indipendent way. In this case you can make both untapered and Tapered cuts (you need the Pro version
+to to that) and use this dialog to setup the way the GCode will be created: Customize the 4 axes Gcode
+l a 3 linear axes + 1 rotational axis like this . This is called a Tangential cut machine.You need the Pro version to to that
+l
+
+2D mode is a way to drive the 4 axes where each carriage follow a path identical to the other one.
+It's called 2D mode as the cut Part is an extrusion of the original 2D geomerty.
+You can see an example in the picture below, where the Red lines are the Cutting Paths the each carrage.
+
+The 3D mode instead has different Paths at left and right carriages.
+If you are going to cut Tapered Parts, may be you can find useful these applications:
+devFoam Pro, the professional version of devFoam
+devWing Foam, if you want to cut Foam Wing panels, see the devWing Foam Web page
+l devFus Foam , if you want to cut Foam fuselages, see the devFus Foam web page
+l
+l
+
+Let's come back to devFoam.....
+I suggest also to take a look at this page, to better understand some important concepts of devFoam: DevFoam FAQ and important concepts
+
+devFoam - FAQ
+
+The basic concepts of CNC Foam Cutting
+
+The basic concepts of CNC Foam Cutting
+The idea is very simple: two carriages (left and right) move a hot wire along a Cutting Path.
+The hot wire melts the Foam and cut it. See the photo below, where you can see the 2 carriages and the hot wire
+
+The concept is similar to a 3 axis CNC milling machine, where a milling tool can cut parts, following the Cutting Path .
+What makes the process difficoult in Foam cutting is the impossibility to break the Cutting Path and start it again. 3 axys milling machines simply raise the tool over the material to do
+that, but that is not possible here.
+So the idea here is to build a single continuos Cutting Path .
+Let's make an example: we want to cut 'A' and 'B' letters. See the picture below:
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 5 of 44
+
+The pink shapes are the geometries of the 2 letters, and the black line is the cutting path created by devFoam. In the bottom left side you can see the Home (the starting/ending point of
+the travel of the hot wire). Following the arrows you can see how the external and internal contours of the letters are cut connecting the letters and making a (as little as possible)
+cut crossing the letters themselves.
+The user can also go in edit mode, and move the entry/exit points dragging the blue control points. See the below picture
+
+But this is not important here, as it's an advanced feature....
+In the picture below you can see the 3D preview of the cutting job
+The red lines show the real cutting path of each carriage, the green lines the connecting lines, and in orange/cyan the cut parts
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 6 of 44
+
+Before going on may be you want to better understand some important concepts of devFoam. We suggest you to read well this page: DevFoam FAQ and important concepts
+
+devFoam - FAQ
+
+Cutting a text
+
+Cutting a text
+You can create here 1 or more text lines rendered with a Windows font.
+If you need more advanced features like a modified text see How can I cut a more complex text?
+To cut a single text You can start the process clicking the first option in the Startup dialog or by the menu "Cut - Cut a text ".
+The following dialog will appear:
+
+You can write 1 or more line of text in the edit control placed in the left-upper part of the dialog.
+Using the options in the 'Font' frame you can select the Font name, style, height and these more advanced options:
+Upside down: revert the font to upside-down. The order of the lines is not affected
+Backwards: revert the font front-rear. The order of the letters is not affected
+l Width factor: you can specify the width of the font. The larger the value, the wider the font. Default = 1.0
+l Oblique angle: you can apply a slant angle to the font
+l X Spacing factor: you can modify the horizontal space among the letters, using 100% the default spacing defined by the Font will be applied
+l Y Spacing factor: you can modify the vertical space among the rows, using 100% the default spacing will be applied
+l
+l
+
+Using fonts like Webdings, Wingdings and so on, you can also cut symbols and shapes, see the example below:
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 7 of 44
+
+Now you are ready to go to the next step, to create the Cutting path
+You can select between:
+l
+l
+l
+
+Simple cutting - the text will be cut without moving the letters. This can be also useful if you want to use the outer part of the foam to create a negative text
+Advanced cutting - you can apply here Nesting, select different number of letters to cut, create more cuttings for more foam blocks if one is not enough for all the letters. If some
+letter includes more parts (for example the 'i' has a dot/circle/square in the upper side) you will be prompted if during the Nesting you want keep the parts together or not.
+
+Save to a .DC1 cad file. The text will be saved as a .DC1 cad file, so you can use it later for example to create a tapered text loading two times (on left and right sides) this and
+applying different scale factors
+
+I suggest also to take a look at this page, to better understand some important concepts of devFoam: DevFoam FAQ and important concepts
+
+DevFoam features
+
+How can I cut a more complex text?
+
+How can I cut a more complex text?
+If the Cut a text function is not enough for you, you can draw and modify a text using the Cad feature of devFoam .
+Using the Cad feature of devFoam You can draw a text element using the commands:
+l TEXT - draw a text as a single line
+l TEXTC - draw a text using a curved polyline as a Path
+l TEXTM - draw multiple line of text
+Now you can select the text and cut it using the Simple cutting or the Advanced cutting feature.
+If you want further modify the Text before cutting it, you can select it and use the EXPLODE command. It converts the text into Region (Parts), so that you can modify them using the
+Cad functions included in devFoam.
+For example we can draw a Text, Explode it, and draw a closed Polyline shaped as an arrow, see the picture:
+(see also Special cad functions of devFoam to create Regions in a faster and simpler way)
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 8 of 44
+
+Now we can create a region from the polyline, Rotate it and move it over the text, see the picture:
+
+Using the UNION command, we can now create the final Part, see the picture:
+(but see also Special cad functions of devFoam to apply BOOLEAN operations a faster and simpler way)
+
+Now you can select it and use the menu 'Cut - Simple foam cutting of selected Parts' to start the Simple cutting dialog:
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 9 of 44
+
+And you can as usually preview the cutting job in 3D:
+
+devFoam - Dialogs
+
+Grid cut
+
+Grid cut
+You can get this dialog box pressing the 'Create a Grid cut of multiple instances of this' located in the Simple cutting and Cut Nested Parts dialogs
+Here you can create a grid od cell, where every cell includes the original parts and cutting paths. The following dialog will appear:
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 10 of 44
+
+The first thing to do is to set the Foam block dimension, see the 'Setup Foam block dimensions' frame.
+You can read there also the minimal dimension required, calculated using the selected parts dimensions and adding the Min. space between the Parts.
+Offset of parts to cut frame - you specify how far from the 0, 0 origin the bottom/left corner of theFoam Block will be placed
+Back to Home when finished - You can also force the hot wire to come back following a safe path to the original side, when the cutting job is finished.
+Grid settings
+You must specify here:
+The number of Columns and Rows of the Grid
+The space between Columns and Rows
+Safe distance from block sides: value. The safe distance from the Foam block sides applied for out of Foam fast movements
+l Apply Fast moving to Left/Right vertical paths - if enabled the Left/Right vertical movements out of the specified block will be performed af Fast speed
+l Apply Fast moving to Roof horizontal paths- if enabled the Roof horizontal movements out of the specified block will be performed af Fast speed
+l
+l
+l
+
+In the bottom part you can see some buttons, to create, customize and export the cutting Path:
+Create cut Path - this is the main button, as creating the Cutting path is the first operation to do. Click the button and the Cutting path will created automatically. You can then
+modify the entry/exit points by enabling the Edit mode checkbox and dragging the blue control points
+l 3D Preview of the cutting - clicking this button you can see a 3D preview the cutting job. You can customize the preview using the Customize 3D Preview button
+l Customize GCode or other Cutting Properties... - clicking this button you can see a popup menu wher you can:
+l
+
+Set the cutting speed
+Customize the 2 Axis Gcode
+Customize the 4 Axis Gcode
+¡ Customize the DXF
+¡ Set the Gcode Strategy
+¡ Modify Advanced Path setting
+¡
+¡
+¡
+
+We are making partnership with Companies supplying good controllers and the related Gcode interpreter for Foam cutting.
+You can select one the approved controller/applications then:
+¡ Press the 'Run the selected app. ->' button to create a special GCode file customized for the selected controller/application and run the application with the right file
+already loaded
+¡ Press the 'Create the right Gcode for ->' button to create a special GCode file customized for the selected controller/application
+l Create GCode or other Cutting file formats...- clicking this button you can see a popup menu wher you can:
+¡ Export Path to 2 Axis Gcode - if you are driving your foam cutting machine as a simple 2 axis, this is the button to create the GCode. You can customize the GCode
+using the Customize 2 Axis Gcode button
+¡ Export Path to 4 Axis Gcode - if you are driving your foam cutting machine as a 4 axis, this is the button to create the GCode. You can customize the GCode using the
+Customize 4 Axis Gcode button
+¡ Export Path to DXF - DXF files are a standard in Cad applications. You can customize the DXF using the Customize DXF button
+¡ Export Path to DAT - DAT files are used to describe a single polyline, some CNC driving software likes to import them
+¡ Export Path to Hpgl/Plt - Hpgl/Plt files are used to describe the plotting of a drawing, some CNC driving softare likes to import them. Only simple command like SP, PU,
+PD are used here.
+¡ Export Path to GMFC script .CUT file - if you use GMFC to drive your CNC, you can create a .CUT file and import it in GMFC as a Script file. When you click this button
+you will be prompted for some parameters in the GMFC .cut file creation dialog
+l Fit to screen picture - you can maximize the content of the picture
+l
+
+I suggest also to take a look at this page, to better understand some important concepts of devFoam: DevFoam FAQ and important concepts
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 11 of 44
+
+Dev Foam - Dialogs
+
+Laminated cut
+
+Laminated cut
+You can get this dialog box pressing the 'Cut laminated parts' link located in the Startup dialog
+Here you can cut Laminated Parts from scratch. If you press 'Cut laminated parts' link the following dialog will appear:
+
+Kerf
+You can specify here if you want to apply the kerf, to get parts permorming exactly th Thickness you set.
+Foam block size
+You specify here the DX = Length and DY = Height of the Foam block
+Offset of Foam block
+You specify how far from the coordinates origin you wan to place the bottom-left corner of the Foam Block
+Home position referred to the Foam block
+You can specify if the hot wire at the beginning of the cutting job will be placed at the Left or right side of the Foam block.
+You can also force the hot wire to come back following a safe path to the original side, when the cutting job is finished.
+Horizontal cuts
+Refer to this frame if you are going to cut Horizontal laminated parts.
+Apply Horizontal cuts: you can enable or not the horizontal cutting
+Parts thickness: value = the final thickness of the horizontal parts
+Limits the Cuts to only value. If you apply this you will limit the max number of parts to cut. If not enabled all the height of the Foam block will be used
+Cut away First, thickness = value. If the roof of the Foam Block is rough, you can cut away the first part using a different thickness.
+Safe distance from ground: value. You can specify this value to avoid the hot wire will go too near the cutting table
+Apply Horizontal cuts as first. If you apply both Horizontal and Vertical cuts, this cutting series will be applied as first.
+Vertical cuts
+Refer to this frame if you are going to cut Vertical laminated parts.
+Apply Vertical cuts: you can enable or not the vertical cutting
+Parts thickness: value = the final thickness of the vertical parts
+Limits the Cuts to only value. If you apply this you will limit the max number of parts to cut. If not enabled all the lenght of the Foam block will be used
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 12 of 44
+
+Cut away First, thickness = value. If the side of the Foam Block is rough, you can cut away the first part using a different thickness.
+Safe distance from ground: value. You can specify this value to avoid the hot wire will go too near the cutting table
+Apply Vertical cuts as first. If you apply both Horizontal and Vertical cuts, this cutting series will be applied as first.
+Avoid X movements inside Foam block. Enabling this option the hot wire will go down and up for each cut, avoiding to move inside the foam block after a part is cut
+Safe distance from block sides: value. The safe distance from the Foam block sides applied for out of Foam fast movements
+In the bottom part you can see some buttons, to create, customize and export the cutting Path:
+Create cut Path - this is the main button, as creating the Cutting path is the first operation to do. Click the button and the Cutting path will created automatically. You can then
+modify the entry/exit points by enabling the Edit mode checkbox and dragging the blue control points
+3D Preview of the cutting - clicking this button you can see a 3D preview the cutting job. You can customize the preview using the Customize 3D Preview button
+l Customize GCode or other Cutting Properties... - clicking this button you can see a popup menu wher you can:
+l
+l
+
+Set the cutting speed
+Customize the 2 Axis Gcode
+¡ Customize the 4 Axis Gcode
+¡ Customize the DXF
+¡ Set the Gcode Strategy
+¡ Modify Advanced Path setting
+¡
+¡
+
+We are making partnership with Companies supplying good controllers and the related Gcode interpreter for Foam cutting.
+You can select one the approved controller/applications then:
+¡ Press the 'Run the selected app. ->' button to create a special GCode file customized for the selected controller/application and run the application with the right file
+already loaded
+¡ Press the 'Create the right Gcode for ->' button to create a special GCode file customized for the selected controller/application
+l Create GCode or other Cutting file formats...- clicking this button you can see a popup menu wher you can:
+¡ Export Path to 2 Axis Gcode - if you are driving your foam cutting machine as a simple 2 axis, this is the button to create the GCode. You can customize the GCode
+using the Customize 2 Axis Gcode button
+¡ Export Path to 4 Axis Gcode - if you are driving your foam cutting machine as a 4 axis, this is the button to create the GCode. You can customize the GCode using the
+Customize 4 Axis Gcode button
+¡ Export Path to DXF - DXF files are a standard in Cad applications. You can customize the DXF using the Customize DXF button
+¡ Export Path to DAT - DAT files are used to describe a single polyline, some CNC driving software likes to import them
+¡ Export Path to Hpgl/Plt - Hpgl/Plt files are used to describe the plotting of a drawing, some CNC driving softare likes to import them. Only simple command like SP, PU,
+PD are used here.
+¡ Export Path to GMFC script .CUT file - if you use GMFC to drive your CNC, you can create a .CUT file and import it in GMFC as a Script file. When you click this button
+you will be prompted for some parameters in the GMFC .cut file creation dialog
+l Fit to screen picture - you can maximize the content of the picture
+l
+
+I suggest also to take a look at this page, to better understand some important concepts of devFoam: DevFoam FAQ and important concepts
+
+devFoam - Features
+
+TwistRot part
+
+TwistRot part
+You can get this dialog box pressing the 'Cut TwistRot part' link located in the Startup dialog
+You can use this if you own a Cnc machine with an added rotary axis. If you press 'Cut TwistRot Part' link the following dialog will appear:
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 13 of 44
+
+A TwistRot part is a solid generated by a Revolution curve (in the upper dialog a simple segment) rotated on a Axis along a Rotation curve (in the upper dialog a circle) with defined
+steps (also called Rotation number, 16 in the upper dialog).
+The solid can also be twisted, this explains the TwistRot name.
+The cut will performed alternating up and down cutting movements to rotations of the foam block.
+A lot of other settings can be applied to get very complex solids. This TwistRot parts are more accurate and faster to cut than a 'Stl Part', so, when possible, we suggest to use TwistRot
+part type.
+Note: In this page we will refer to a section of the part cut by an horizontal plan (see the transparent cyan plan in the 3D preview) as a watermark section. You can also see the result as
+a cyan region in the 2D preview.
+In the left side of the dialog you can see the basic and most used parameters and commands.
+In the middle a 2D preview, showing the Revolution and Rotation curves.
+In the right side the 3D preview.
+All the advanced settings can be applied by the menu.
+Now we will explain in deep every single part of the dialog.
+Left side: the basic and most used parameters and commands
+Active quadrant: if you select the Multiquadrant option this control will be enabled. See the 'Revolution curve' menu. For simple parts just ignore it.
+Use a Line or an Arc as revolution curve Frame:
+If you just need to use a simple Line or Arc as revolution curve, you can just use this frame.
+You can set the Bottom and Top distance of the Line or Arc from the rotation axis, the Height of the part, and the Arc bugle. Using a Bulge = 0.0 you will just get a Line.
+If you want to use a more complex Revolution curve, see the 'Revolution curve' menu.
+Rotation settings Frame:
+If you just need to use a circle or an ellipse as Rotation curve, you can just use this frame.
+You can set the Rotation number (how many cutting-rotation Jobs will be performed) and the Ratio between the X and Y radius. Using 1.0 you will just get a circle.
+If you are using an ellipse, You can also let the application to optimise each rotation angle to have the more accurate result. If not, all the rotations will perform the same angle.
+If you want to use a more complex Rotation curve, see the 'Rotation curve' menu.
+Twist settings (linear) Frame:
+If you just need to use a linear Twist (or no Twist at all), just refer to this dialog.
+You can set an upper and lower Twist angle, then the cut will be performed using a linear interpolation between this angles.
+You can also decide if you want to apply the Twist also to the ellipse axes, if you are using an ellipse. Nothing changes if you use a circle.
+If you want to use a more complex Twist, see the 'Twist' menu.
+Default cutting settings Frame:
+Here you can apply important refinements to the cut:
+The Cutout offset will remove the specified size from the Bottom and Top sides. This size is measured along the vertical line (Z axes of the 3D preview)
+The Min axis distance lets you to specify a minimal safe-uncut band from the rotation axis, for the Upper and Lower sides.
+l Safe points Offset and Angle: after every cutting, before to apply the next rotation angle, the hot wire will move to these optional safe points. Setting a 0.0 offset no movement will
+be applied to that side. Checking the 'Edit Safe Points on 2D Preview' checkbox you can then see and drag 2 blue squares in the 2D preview to graphically set the Safe points.
+l
+l
+
+Command Buttons:
+Undo - Redo - you can Undo/Redo the last action
+Apply - Apply actual settings
+Cut - A small Menu will start where you can select if you want to start the 'Cut Stacked part' dialog, where you can select the type of cut and Create the right cutting GCode as a
+Stacked Part (you can then add more Parts), or simply go directly to cut it as a single part by a Lathe ('Cut by Lathe' dialog) or by a Rotating Table ('Cut by Rotating Table' dialog).
+l OK - If are modifying a part from the 'Cut Stacked part' dialog, you can confirm the new settings and go back to the 'Cut Stacked part' dialog using the OK button
+l Cancel - If are modifying a part from the 'Cut Stacked part' dialog, you can cancel the new settings and go back to the 'Cut Stacked part' dialog using the Cancel button
+l Close - Exit this Window
+l
+l
+l
+
+Middle side: the 2D preview
+I think the better thing is to explain what you can see here by colour and line type. Consider also that you can turn on-off some components by the '2D Preview' menu.
+Red bold curve: this draws the real cutting line referred to the Active quadrant (usually 0° quadrant).
+Black dotted curve: this draws the theoretical cutting curve. This can be modified for example by the Cutout offset. Often you cannot see it as it just under the real Red bold
+curve...
+l Green lines: these draw the Paths to Safe points.
+l Purple line: the Twist curve. Usually vertical.
+l Brown line starting from the drawing origin (x=0.0, y=0.0): the rotation axis on 90°-270° plans. Usually vertical.
+l Orange line starting from the drawing origin (x=0.0, y=0.0): the rotation axis on 0°-180° plans. Usually vertical and often under the Purple line.
+l Black dotted closed curve: this show the max size rotation curve.
+l Cyan dotted horizontal line: this is a watermark line. You can move it dragging the vertical slider at the left side of the 2D preview. A transparent cyan plan will be rendered at that
+height in the 3D preview.
+l Cyan region with black bold contour: this shows the section of the TwistRot part as cut by the watermark plan.The real cutting segment are reported here. You can also see in
+Red dotted the normals toe each rotation cut, and the rotation number.
+l Light yellow zones with no contour: the Regions drawing the applied Min axis distances.
+l Light pink zones with no contour: the Regions drawing the cutout offsets.
+l
+l
+
+Pressing the 'Fit to screen' button you will maximize the drawing to the 2D preview window size.
+Right side: the 3D preview
+You can see here the 3D Preview of the TwistRot part. Consider also that you can turn on-off some components by the '3D Preview' menu.
+The transparent cyan plan can be moved by the vertical slider placed at the left side of the 2D preview.
+The optional grid can be customized by the '3D Preview' menu.
+You can make measurements on the 3D preview selecting the Orthogonal view and some predefined Top-Side-Front view.
+The menu
+Using the supplied menu you can control all the advanced settings.
+File menu:
+l
+l
+l
+
+Open...: Open an existent TwistRot part
+Save: Save the actual TwistRot part
+Save as...: Save the actual TwistRot part with a new file name
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+l
+
+Page 14 of 44
+
+Export as Stl file: Export the actual TwistRot part as a STL file
+
+Revolution curve menu:
+The Revolution curve is the curve generating the lateral sides of the final part, applying a Rotation according the specified Rotation curve.
+For example applying a circle as a Rotation curve and a vertical segment as a Revolution curve, you get the shape in the picture. A cylinder if you apply a large number of Rotation
+steps.
+Apply Line/Arc (see the "Use a Line or an Arc as revolution curve" frame): You can reset to a simple Line/Arc after you loaded an external curve. Then you will set the
+Line/Arc parameters using the controls included in the specified frame
+Load a custom Polyline from file: you can load an opened Revolution curve for the selected quadrant from a vectorial or raster file. When possible use a vectorial file, you can
+for example create this file using the 'Draw and Cut not Tapered parts' link of the Startup dialog.
+l Create a Polygonal curve: you can create on the fly a regular Polygonal curve for the selected quadrant . You will be prompted for the required parameters.
+l Draw/Modify the custom Polyline: a Cad drawing app will appear, with the actual Revolution curve of the selected quadrant loaded. Draw the element, then just close this
+window. Saving the file is not required, but optional. You can use undo if you don't like to keep the modified drawing.
+l Sum new Polyline(s) to the actual one: the dialog Sum new Polyline(s) to the actual one will start. See the dialog Help file for more info.
+l Multiquadrant...: the Multiquadrant mode lets you to specify till to 4 different Revolution curves, one for each quadrant at 0°, 90°, 180° and 270°. The curve applied at
+intermediate rotations will be automatically generated by interpoling (morphing) according to the shape of the surrounding curves. You can then set the active quadrant using the
+Combo box included in the left/top side of the dialog. All the operations on the Revolution curve will be applied to the curve of the selected quadrant. You can also select
+to have some symmetry, and to force the width of the Quadrants to be controlled by the Rotation curve.
+l Scale the height of the custom Polyline to the value specified in the dialog: you can select if you want to use the real Height of the loaded Revolution curve, or the value
+specified in the dialog as Part Height. In the latest case the Revolution curve will be scaled by the right rate.
+l Minimal internal distance from Axis...: lets you to specify a minimal safe-uncut band from the rotation axis, for the central side along the Height. You can see the values for the
+Upper and Lower sides in the dialog.
+l Fix bad concavities: you can select to fix bad concavities. Bad concavities occur when the revolution curve come back along the height. This will cause typically a bad cut. If this
+function in enabled the application will try to fix simple cases. But the best way to go is always to fix by hand the curve to a right path.
+l When applied 'Fix bad concavities' cut Upper/Lower bulges: using this feature you can force the application to cut away upper and lower vertical bulges. But the best way to
+go is always to fix by hand the curve to a right path.
+l Max Watermark step length (the lower, the higher precision): set the step length for generating watermark section. Probably the default value will be ok for you. You can
+decrease this value to get a more accurate part generation.
+l Flip Vertically: you can flip vertically the Revolution curve of the selected quadrant.
+l Flip Horizontally: you can flip horizontally the Revolution curve of the selected quadrant.
+l Attach to Axis Upper point: you move the Revolution curve of the selected quadrant so that the Upper point will touch the rotation axis.
+l Attach to Axis Lower point: you move the Revolution curve of the selected quadrant so that the Lower point will touch the rotation axis.
+l Move from Axis...: you move the Revolution curve of the selected quadrant of the specified value.
+l Scale...: you Scale the Revolution curve of the selected quadrant of the specified value.
+l Scale only Width...: you Scale the Width the Revolution curve of the selected quadrant of the specified value
+l Scale only Height...: you Scale the Height Revolution curve of the selected quadrant of the specified value
+l Apply Horizontal Slant angle...: you apply a Horizontal Slant Angle of the specified value to the Revolution curve of the selected quadrant
+l Apply Vertical Slant angle...: you apply a Vertical Slant Angle of the specified value to the Revolution curve of the selected quadrant
+l Smooth: you Smooth the Revolution curve of the selected quadrant, using internally a special Spline
+l Fillet...: you apply a Fillet operation of the specified value to the sharp angles of the Revolution curve of the selected quadrant
+l Chamfer...: you apply a Chamfer operation of the specified value to the sharp angles of the Revolution curve of the selected quadrant
+l Create Facets...: you can modify the Revolution curve of the selected quadrant creating a specified number of Facets
+l
+l
+
+Rotation curve menu:
+A Rotation curve describe the rotation applied to the Revolution curve, to build the lateral sides of the final part.
+For example applying a circle as a Rotation curve and a vertical segment as a Revolution curve, you get the shape in the picture. A cylinder if you apply a large number of Rotation
+steps.
+Apply simple Rotation (see the Rotation settings frame): You can reset to a simple Circle/Ellipse after you loaded an external curve. Then you will set the Circle/Ellipse
+parameters using the controls included in the specified frame
+l Load a custom closed Polyline from file: you can load a closed Rotation curve from a vectorial or raster file. When possible use a vectorial file, you can for example create this
+file using the 'Draw and Cut not Tapered parts' link of the Startup dialog.
+l Create a Polygonal closed curve: you can create on the fly a regular closed Polygonal curve. You will be prompted for the required parameters.
+l Draw/Modify the custom closed Polyline: a Cad drawing app will appear, with the actual Rotation curve loaded. Draw the element, then just close this window. Saving the file
+is not required, but optional. You can use undo if you don't like to keep the modified drawing.
+l Load a custom Polyline from file for the 0°-90° quadrant: you can load an opened Rotation curve from a vectorial or raster file. In this case the drawn Rotation curve must just
+specify the path in the 0°-90°, then the full Rotation curve will be build by the application using symmetry rules. When possible use a vectorial file, you can for example create this
+file using the 'Draw and Cut not Tapered parts' link of the Startup dialog.
+l Draw/Modify the custom Polyline for the 0°-90° quadrant: a Cad drawing app will appear, with the actual Rotation curve of the 0°-90° quadrant. In this case the drawn
+Rotation curve must just specify the path in the 0°-90°, then the full Rotation curve will be build by the application using symmetry rules. Draw the element, then just close this
+window. Saving the file is not required, but optional. You can use undo if you don't like to keep the modified drawing.
+l Apply the real size of the Rotation custom polyline: you can select if you want to use the real size of the loaded Rotation curve, or the value specified by the Revolution curve.
+In the latest case the Rotation curve will be scaled by the right rate.
+l Optimise the number of real cuts for not Circular rotations: You can create the minimum set of Rotations according to the Tolerance specified in the below command.
+l Tolerance used to optimise the number of real cuts: the tolerance used to compute the minimum set of Rotations, see the above command
+l Max. number of optimised real cuts: You can limit here the number of Rotations created by the above commands
+l Flip Vertically: you can flip vertically the Rotation curve.
+l Flip Horizontally: you can flip horizontally the Rotation curve.
+l Scale...: you Scale the Rotation curve of the specified value.
+l Scale only Width...: you Scale the Width the Rotation curve of the specified value.
+l Scale only Height...: you Scale the Height the Rotation curve of the specified value.
+l Rotate...: you Rotate the Rotation curve of the specified angle.
+l Smooth: you Smooth the Rotation curve, using internally a special Spline
+l Fillet...: you apply a Fillet operation of the specified value to the sharp angles of the Rotation curve.
+l Chamfer...: you apply a Chamfer operation of the specified value to the sharp angles of the Rotation curve
+l Create Facets...: you can modify the Rotation curve creating a specified number of Facets
+l
+
+Twist menu:
+A Twist curve describe the optional Twist applied to each watermark section, according to its height. The most common curve is a segment (simple case) and that describes a linear
+Twist from the top and bottom Twist values.
+Apply simple Twist (see the Twist settings frame): You can reset to a simple linear Twist after you loaded an external curve. Then you will set the Twist top and bottom values
+using the controls included in the specified frame
+Load a custom Polyline from file: you can load an opened Twist curve from a vectorial or raster file. When possible use a vectorial file, you can for example create this file
+using the 'Draw and Cut not Tapered parts' link of the Startup dialog.
+l Draw/Modify the custom Polyline: a Cad drawing app will appear, with the actual Twist curve loaded. Draw the element, then just close this window. Saving the file is not
+required, but optional. You can use undo if you don't like to keep the modified drawing.
+l Sum new Polyline(s) to the actual one: the dialog Sum new Polyline(s) to the actual one will start. See the dialog Help file for more info.
+l Apply the defined Twist to the full Height (ignore Upper/Lower cutouts): you can define the way the Twist curve will be applied, when you have Upper/Lower cutouts.
+l Flip Vertically: you can flip vertically the Twist curve.
+l Flip Horizontally: you can flip horizontally the Twist curve.
+l Move...: you can move horizontally the Twist curve along the X coordinate.
+l Scale Width...: you Scale the Width the Twist curve of the specified value.
+l Apply Vertical Slant angle...: you can apply a Slant angle to the Twist curve. If you apply it two or more times, the new will be summed to the previous one and won't replace it!
+l Smooth: you Smooth the Twist curve, using internally a special Spline
+l
+l
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 15 of 44
+
+Fillet...: you apply a Fillet operation of the specified value to the sharp angles of the Twist curve.
+Chamfer...: you apply a Chamfer operation of the specified value to the sharp angles of the Twist curve
+l Create Facets...: you can modify the Twist curve creating a specified number of Facets
+l
+l
+
+Axis on 0°-180° plan menu:
+You can apply more control to the final part modifying the shape of this axis. This axis define the center of the local Rotation curve applied to generate each watermark section. The full
+Axis can be modified in its views on the different 0°-180° and 90°-270° plans
+Vertical: You can reset to a simple vertical Axis after you loaded an external curve or modified it
+Load a custom Polyline from file: you can load an opened Axis curve from a vectorial or raster file. When possible use a vectorial file, you can for example create this file using
+the 'Draw and Cut not Tapered parts' link of the Startup dialog.
+l Draw/Modify the custom Polyline: a Cad drawing app will appear, with the actual Axis curve loaded. Draw the element, then just close this window. Saving the file is not
+required, but optional. You can use undo if you don't like to keep the modified drawing.
+l Sum new Polyline(s) to the actual one: the dialog Sum new Polyline(s) to the actual one will start. See the dialog Help file for more info.
+l Apply to the full Height (ignore Upper/Lower cutouts): you can define the way the Axis curve will be applied, when you have Upper/Lower cutouts.
+l Flip Vertically: you can flip vertically the Axis curve.
+l Flip Horizontally: you can flip horizontally the Axis curve.
+l Move...: you can move horizontally the Axis curve along the X coordinate.
+l Scale Width...: you Scale the Width the Axis curve of the specified value.
+l Apply Vertical Slant angle...: you can apply a Slant angle to the Axis curve. If you apply it two or more times, the new will be summed to the previous one and won't replace it!
+l Smooth: you Smooth the Axis curve, using internally a special Spline
+l Fillet...: you apply a Fillet operation of the specified value to the sharp angles of the Axis curve.
+l Chamfer...: you apply a Chamfer operation of the specified value to the sharp angles of the Axis curve
+l Create Facets...: you can modify the Axis curve creating a specified number of Facets
+l
+l
+
+Axis on 90°-270° plan menu:
+You can refer to the 0°-180° plan menu explanation, see above
+Settings menu:
+l
+
+Fix concavities on XY plans (watermark sections): in some conditions the watermark sections can perform concavities. This will cause usually bad cuts, the application can try
+to remove the concavities for you.
+
+2D Preview menu:
+Show Cut out zones: show/hide the cut out zones, rendered as light pink regions
+Show Min Axis zones: show/hide the Min axis distance zones, rendered as light yellow regions
+Show Bad convexity points: show/hide a little blue circle where a convexity of the Revolution curve starts
+l Show Warning: show/hide warning messages about problems in the part generation
+l Show Watermark section (see vertical cursor): show/hide the cyan watermark section
+l Advanced: Show real cutting points and angles on Watermark section: show/hide more details about the cut in the cyan watermark section
+l Show Twist Curve: show/hide the purple Twist curve
+l Show Axis on 0°-180° plan Curve: show/hide this orange Axis curve
+l Show Axis on 90°-270° plan Curve: show/hide this brown Axis curve
+l
+l
+l
+
+3D Preview menu:
+Select Part colour: you can change the part colour
+Grid settings and Background colour: you can change the background colour and grid settings
+Show Watermark plan: show/hide the cyan watermark plan
+l Show Warning: show/hide warning messages about problems in the part generation
+l Apply Smoothing: Apply smoothing to the part surface. The process time can be slower when enabled.
+l
+l
+l
+
+I suggest also to take a look at this page, to better understand some important concepts of devFoam: DevFoam FAQ and important concepts
+
+devFoam - Features
+
+Stl part
+
+Stl part
+You can get this dialog box pressing the 'Cut Stl part' link located in the Startup dialog
+You can use this if you own a Cnc machine with an added rotary axis. If you press ' Cut Stl Part' link the following dialog will appear:
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 16 of 44
+
+A Stl part is a solid described by a triangular meshed surface, supplied by an external Stl file.
+The Stl file must follow the rules of the Stl standard, or some problem can arise. The application check the most important rules and show a warning is some problem happened.
+Stl files are well known, as this is the standard file format used by 3D Printers.
+You can generate and modify Stl files using the supplied devStl Tool application, you can run it from the Startup dialog.
+For some regular shape may be you will find more convenient to use a 'TwistRot Part', the cut in this case will be more accurate and faster.
+The cut will be performed dividing the part in projected section, one for each rotation.
+A projected section is the contour of the shadow of the part on a plan, created by a Collimated light (a Collimated light is light whose rays are parallel).
+Then, for each rotation, the hotwire will follow the right side of this path. After every cut, the hot wire goes to the safe position (optional), the foam block is rotated, and a new cut applied.
+Of course the hotwire cannot render well concavities along its length. So, if the part includes concavities, we suggest to select well the Rotation axis, to minimize them.
+If internal holes are created in the Path, they will be ignored. So, again, take your time to evaluate the best Rotation axis.
+If possible try to avoid also up/down movements changes during every single cut, this can affect the quality of the final part.
+To load a new Stl file use the 'File - Import a Stl file' menu, see below the full description of the menu.
+In the left side of the dialog you can see the controls to setup your Stl part.
+In the middle a 2D preview, showing the computed projected section for the rotation selected by the horizontal cursor.
+In the right side the 3D preview of the Stl part.
+Now we will explain in deep every single part of the dialog.
+Left side: the parameters and commands
+Change rotation axis Frame:
+When you import a new Stl file, the original Z axis is used as the rotation axis.
+You can here select a new rotation axis between X and Y, considering that the applied rotation axis will be the Z axis, as shown in the 3D picture.
+You can also select to invert the orientation of the Z axis, if you want a Top/Down inverted cut.
+If this is not enough, as you have a Part with a strange angle, press the 'Rotate the Part to set the right rotation angle' button. You will see in the screen this new window:
+
+You can as first select the axis to use to perform the rotation, and the right View will be displayed in the 3D picture.
+Then just press on of the button surrounding the angle step to apply some rotation. Every button will apply a 1 x angle step, 5 x angle step, 15 x angle step.
+You can also select to use the Orthogonal view this can help to have a better control over the 3D picture.
+Then just press OK to confirm the new settings, or Cancel to ignore them.
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 17 of 44
+
+Change rotation axis placement Frame:
+When you import a new Stl file, the Z will be centered on the Volume Center of the part, considering its max/min X and Y coordinates.
+If you need to make more adjustements, just press the 'Move the rotation axis placement' button. You will see in the screen this new window:
+
+You can as first select the axis to use to perform the movement, and the right View will be displayed in the 3D picture.
+Then just press on of the button surrounding the distance step to apply some rotation. Every button will apply a 1 x distance step, 5 x distance step, 15 x distance step.
+You can also select to use the Orthogonal view this can help to have a better control over the 3D picture.
+Then just press OK to confirm the new settings, or Cancel to ignore them.
+Cutting parameters:
+You select here:
+the number of Rotations to apply. When possible we suggest to apply an even number, in this way you can then select to cut the Left/Right side in one shot.
+Version 3 includes the possibilty to customize the rotations using the buttons:
+¡ Reset - Pressing Reset the number of equispaced rotation will be applied
+¡ Customize Rotations - Pressing this button the 'Customize Rotations' dialog will appear. You can then create manually or in automatic way a number of NOT equispaced
+rotations, to cut the part in a faster and better way.
+¡ Customize Twisted Rotation - Pressing this button the 'Customize Twisted Rotations' dialog will appear. You can then create in automatic way a number of NOT
+equispaced and not costant rotations, to cut the part in a faster and better way twisted parts. Using this feature for each cut the rotation angle will chenge to perform the
+best possible cut!
+l the Profile accuracy. The Profile is the Red bold line displayed in the 2D picture. The higher the accuracy, the longer the computing time.
+l
+
+Default cutting settings Frame:
+Here you can apply important refinements to the cut:
+The Cutout offset will remove the specified size from the Bottom and Top sides. This size is measured along the vertical line (Z axes of the 3D preview)
+The Min axis distance lets you to specify a minimal safe-uncut band from the rotation axis, for the Upper and Lower sides.
+Safe points Offset and Angle: after every cutting, before to apply the next rotation angle, the hot wire will move to these optional safe points. Setting a 0.0 offset no movement will
+be applied to that side. Checking the 'Edit Safe Points on 2D Preview' checkbox you can then see and drag 2 blue squares in the 2D preview to graphically set the Safe points.
+l Apply a min distance for the full axis length (it can be negative) from the rotation axis by the "Apply min. axis dist. full len.:" option.
+l
+l
+l
+
+Verify Stl when importing: checking this option, when you import a STL file it will be verified. If the application finds some problem you will advised, so you have the possiblity to fix
+them. You can for example use DevStl Tools to fix them, see the Startup dialog to run it. Enabling this option will perform longer processing time during the import job.
+Command Buttons:
+Apply - Apply actual settings
+Cut(/Mill) - A small Menu will start where you can select if you want to start the 'Cut Stacked part' dialog, where you can select the type of cut and Create the right cutting GCode
+as a Stacked Part (you can then add more Parts), or simply go directly to cut it as a single part by a Lathe ('Cut by Lathe' dialog) or by a Rotating Table ('Cut by Rotating Table'
+dialog).
+If you are running devFoam 3DM, you can also see a menu item to go directly to create the milling GCode for this single part, the 'Mill Stl Part' dialog will start
+l OK - If are modifying a part from the 'Cut Stacked part' dialog, you can confirm the new settings and go back to the 'Cut Stacked part' dialog using the OK button
+l Cancel - If are modifying a part from the 'Cut Stacked part' dialog, you can cancel the new settings and go back to the 'Cut Stacked part' dialog using the Cancel button
+l Close - Exit this Window
+l
+l
+
+Middle side: the 2D preview
+I think the better thing is to explain what you can see here by colour and line type. Consider also that you can turn on-off some components by the '2D Preview' menu.
+Red bold curve: this draws the cutting line (Profile) referred to the Actual rotation. You can change the Active rotation using the horizontal slider. Only the right side of the
+projected section will be cut for each rotation.
+Grey dotted curve: this draws the full projected section of the Actual rotation.
+l Green lines: these draw the Paths to Safe points.
+l Blue dotted line: the Rotation axis.
+l Light yellow zones with no contour: the Regions drawing the applied Min axis distances.
+l Light pink zones with no contour: the Regions drawing the cutout offsets.
+l
+l
+
+Pressing the 'Fit to screen' button you will maximize the drawing to the 2D preview window size.
+Right side: the 3D preview
+You can see here the 3D Preview of the Stl part. Consider also that you can customize it by the '3D Preview' menu.
+The transparent cyan plan can be rotated by the horizontal slider placed at the bottom side of the 2D preview. This define the plan where the shadow will be projected, just imagine the
+plan all behind the part, to receive the full shadow.
+Here is displayed attached to the Rotation axis, as we think is more intuitive.
+The optional grid can be customized by the '3D Preview' menu.
+You can make measurements on the 3D preview selecting the Orthogonal view and some predefined Top-Side-Front view.
+The menu
+Using the supplied menu you can control all the advanced settings.
+File menu:
+l
+
+Import a Stl file...: Import an existent Stl file
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 18 of 44
+
+Open: Open an existent Stl part
+Save: Save the actual Stl part
+l Save as...: Save the actual Stl part with a new file name
+l
+l
+
+2D Preview menu:
+l
+l
+
+Show Cut out zones: show/hide the cut out zones, rendered as light pink regions
+Show Min Axis zones: show/hide the Min axis distance zones, rendered as light yellow regions
+
+3D Preview menu:
+Select Part colour: you can change the part colour
+Grid settings and Background colour: you can change the background colour and grid settings
+l Show original STL file: show the solid as the Original Stl part, ignoring the cut result.
+l Show real final part: show the solid as close as possible as the shape it will get after the cut. If the cutting paths have some concavities (up/down movements change), this
+preview can differ from the final part. But this is a bad condition, if possible avoid it.
+l Apply Smoothing: Apply smoothing to the part surface. The process time can be longer when enabled.
+l
+l
+
+I suggest also to take a look at this page, to better understand some important concepts of devFoam: DevFoam FAQ and important concepts
+
+devFoam - Features
+
+Stacked parts
+
+Stacked parts
+You can get this dialog box pressing the 'Cut Stacked parts' link located in the Startup dialog
+You can use this if you own a Cnc machine with an added rotary axis. If you press ' Cut Stacked parts' link the following dialog will appear:
+
+Stacked parts are a set of one or more 'TwistRot Parts' and/or 'Stl Parts' stacked on the Z (vertical) axis.
+In the most common case you will cut just one single part, but you can create a complex set of stacked parts and cut them all in one shot.
+The cut will be performed cutting one part at a time, from the first to the last of from the last to the first.
+You can cut them using a Rotary table (vertical rotation axis) or a Lathe type (horizontal rotation axis) cnc foam cutting machine.
+In the left side of the dialog you can see the controls to setup your Stacked parts.
+In the right side the 3D preview of the Stacked parts.
+Now we will explain in deep every single part of the dialog.
+Left side: the parameters and commands
+Parts list (top first):
+You see here the list of the Stacked parts. The first in the list is the topmost. You can also see some applied parameters and the part colour.
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 19 of 44
+
+Command Buttons:
+You can see here the command button to add, modify, delete or move up/down the selected part.
+By default the part will be stacked with 0.0 offset, so that the parts are touching each other. Of course you can modify this setting, see the below controls.
+Selected Part settings:
+When you select a part in the list, you can see here the related parameters and settings.
+You can change them, then press the Apply button.
+Name: the name of the part, by default its file name, if loaded by an external file.
+Part colour: the colour of the part, click it to modify
+l Z offset: the distance of the selected part from the below part. Default = 0.0
+l Z axis angle: The rotation applied to the part along the z axis. Default = 0.0
+l X-Y scale factor: You can scale the width of the part applying here a scale factor.
+l Z scale factor: You can scale the height of the part applying here a scale factor.
+l Mirror Top-Down: you can mirror the part Up/Down
+l Rotate Top-Down: you can rotate the part to have it up down. The effect can be different from the Mirror option, if the part has no symmetry around the Z axis
+l Info: you can see some info about the size and placement of the part
+l
+l
+
+Other command Buttons:
+Lathe type cutting - Open the 'Cut by Lathe' dialog, where you can create the right GCode to the stacked parts using a Cnc Foam cutting machine with Lathe type rotary axis
+Rotating Table type cutting - Open the 'Cut by Rotating Table' dialog, where you can create the right GCode to the stacked parts using a Cnc Foam cutting machine with Table
+type rotary axis
+l Cancel - Close the dialog
+l
+l
+
+Right side: the 3D preview
+You can see here the 3D Preview of the Stacked parts. Consider also that you can customize it by the '3D Preview' menu.
+The optional grid can be customized by the '3D Preview' menu.
+You can make measurements on the 3D preview selecting the Orthogonal view and some predefined Top-Side-Front view.
+The menu
+Using the supplied menu you can control all the advanced settings.
+File menu:
+l
+l
+l
+
+Open: Open an existent Stacked parts file
+Save: Save the actual Stacked parts
+Save as...: Save the actual Stacked parts with a new file name
+
+3D Preview menu:
+Select Part colour: you can change the part colour
+Grid settings and Background colour: you can change the background colour and grid settings
+Show original STL file: for Stl parts, show the solid as the Original Stacked parts, ignoring the cut result.
+l Show real final part: for Stl parts, show the solid as close as possible as the shape it will get after the cut. If the cutting paths have some concavities (up/down movements
+change), this preview can differ from the final part. But this is a bad condition, if possible avoid it.
+l Apply Smoothing: Apply smoothing to the parts surface. The process time can be slower when enabled.
+l
+l
+l
+
+I suggest also to take a look at this page, to better understand some important concepts of devFoam: DevFoam FAQ and important concepts
+
+devFoam - Features
+
+Cut By Lathe
+
+Cut By Lathe
+You can get this dialog box pressing the ' Lathe type cutting' button located in the 'Cut Stacked part' dialog.
+The following dialog will appear:
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 20 of 44
+
+A Lathe type Cnc foam cutting machine is a special hot wire foam cutting machine where the foam block can be rotated by an added horizontal rotary axis.
+The foam block is attached to the left side (base of the original stacked parts) and optionally also to the right side (top of the original stacked parts).
+In the left side of the dialog you can see the controls to setup the cutting job.
+In the right side the 2D preview of the cut settings.
+Now we will explain in deep every single part of the dialog.
+Left side: the parameters and commands
+Main cutting settings Frame
+You can see here the main settings to customize your cut:
+Kerf value: the kerf value to apply. The kerf is the thickness of the material melted by the Hot Wire
+X offset: the offset applied along the X coordinate, you can verify it in the 2D preview
+Y offset: the offset of the rotating axis from the origin, you can verify it in the 2D preview
+l Cut starting from the Right side: if enabled the cut will start from the right side (top of the stacked parts)
+l Cut Bottom/Top sides in a single step: if your foam block is fixed only at its left side, you can cut the topmost part with a single cut along a Bottom/Top path. This is possible if
+the rotation number of the topmost part is even.
+l Ignore most right Safe points: if enabled the right (top side of the original part) Safe points of the topmost part will be ignored. You must apply the above single step option to
+apply this option
+l Use always cutting speed (safer but slower): if enabled all movements will be performed using the cutting speed (G1 commands). This is safer if you are not sure that all the
+connecting movements will be outside the foam block.
+l Extend In/Out paths to foam size: If enabled added safe movements will be applied to go out of the max foam block size, during connection movements.
+l Safe dist. from Max Parts size: the distance added to the max parts size for the extended safe movements (see above item).
+l
+l
+l
+
+Homing:
+You can apply initial and final positions and angles for all axes, to control where the cutting job will start and finish. You can see the result on the 2D Preview.
+Command Buttons:
+Apply - Apply the current settings
+Customize GCode - Start the 'G-code file creation settings for Stacked Parts foam cutting' dialog, where you can customize the GCode
+Customize 3D Preview - Start the '3D Preview & 5 Axes CNC dimension settings' dialog, where you can set the right sizes for the 3D cutting preview
+l Start 3D Preview - Start the devSim Cnc Foam application that show a 3D simulation of the cutting Job.
+l Create GCode - create the final GCode according to the setting specified in Customize GCode
+l Create GCode for devCnc Foam - create the final GCode customized for the devCnc Foam application
+l Create GCode for devCnc Foam - create the final GCode customized for the devCnc Foam application and run the application with this GCode already loaded
+l Save - save the current stacked project
+l Exit - Close the dialog
+l
+l
+l
+
+2D Preview
+You can see here a 2D Preview to show the actual cutting settings.
+You can see:
+Two black dotted lines indicating the X, Y Cartesian axes and the actual origin
+A light grey region, indicating the max size of the foam block reached when it rotates
+l A light yellow region, indicating the size of the foam block at 0.0 degrees rotation
+l
+l
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 21 of 44
+
+The regions with the same colour of the part, indicating the section of the part at first rotation. If the 'Show only first cut and optional Homing option is not enabled, you will see
+instead all the cutting paths of each part.
+l Other dotted lines showing the safe and connecting movements.
+l
+
+devFoam - Features
+
+Cut by Rotating Table
+
+Cut by Rotating Table
+You can get this dialog box pressing the 'Rotating Table type cutting' button located in the 'Cut Stacked part' dialog.
+The following dialog will appear:
+
+A Rotating table type Cnc foam cutting machine is a special hot wire foam cutting machine where the foam block can be rotated by an added vertical rotary axis.
+The foam block is just placed on the Rotating Table
+In the left side of the dialog you can see the controls to setup the cutting job.
+In the right side the 2D preview of the cut settings.
+Now we will explain in deep every single part of the dialog.
+Left side: the parameters and commands
+Main cutting settings Frame
+You can see here the main settings to customize your cut:
+Kerf value: the kerf value to apply. The kerf is the thickness of the material melted by the Hot Wire
+X offset: the offset the offset of the rotating axis from the origin, you can verify it in the 2D preview
+Y offset: the offset applied along the Y coordinate, you can verify it in the 2D preview
+l Cut starting from the Top side: if enabled the cut will start from the top side
+l Cut Left/Right sides in a single step: you can cut the topmost part with a single cut along a Left/Right path. This is possible if the rotation number of the topmost part is even. If
+not all the cut will be performed at the left side.
+l Ignore top side Safe points: if enabled the top side Safe points of the topmost part will be ignored. You must apply the above single step option to apply this option
+l Use always cutting speed (safer but slower): if enabled all movements will be performed using the cutting speed (G1 commands). This is safer if you are not sure that all the
+connecting movements will be outside the foam block.
+l Extend In/Out paths to foam size: If enabled added safe movements will be applied to go out of the max foam block size, during connection movements.
+l Safe dist. from Max Parts size: the distance added to the max parts size for the extended safe movements (see above item).
+l
+l
+l
+
+Homing:
+You can apply initial and final positions and angles for all axes, to control where the cutting job will start and finish. You can see the result on the 2D Preview.
+Command Buttons:
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 22 of 44
+
+Apply - Apply the current settings
+Customize GCode - Start the 'G-code file creation settings for Stacked Parts foam cutting' dialog, where you can customize the GCode
+l Customize 3D Preview - Start the '3D Preview & 5 Axes CNC dimension settings' dialog, where you can set the right sizes for the 3D cutting preview
+l Start 3D Preview - Start the devSim Cnc Foam application that show a 3D simulation of the cutting Job.
+l Create GCode - create the final GCode according to the setting specified in Customize GCode
+l Create GCode for devCnc Foam - create the final GCode customized for the devCnc Foam application
+l Create GCode for devCnc Foam - create the final GCode customized for the devCnc Foam application and run the application with this GCode already loaded
+l Save - save the current stacked project
+l Exit - Close the dialog
+l
+l
+
+2D Preview
+You can see here a 2D Preview to show the actual cutting settings.
+You can see:
+Two black dotted lines indicating the X, Y Cartesian axes and the actual origin
+A light grey region, indicating the max size of the foam block reached when it rotates
+A light yellow region, indicating the size of the foam block at 0.0 degrees rotation
+l The regions with the same colour of the part, indicating the section of the part at first rotation. If the 'Show only first cut and optional Homing option is not enabled, you will see
+instead all the cutting paths of each part.
+l Other dotted lines showing the safe and connecting movements.
+l
+l
+l
+
+DevFoam features
+
+How can I draw not Tapered parts?
+
+How can I draw not Tapered (Untapered) parts?
+To draw not Tapered parts you can take advantage of the Cad feature included in devFoam.
+Note: it You already have a file with the drawing of the not tapered part, you can just cut it in this way:
+Click the 'Cut a new Tapered Part' link of the Startup dialog if you already have the 2 vectorial (Dxf, Dwg, Dc1, Hpgl, Plt) or raster (Gif, Jpeg, Bmp, Png, Tif, Tga, Pcx) files including the
+drawing/image of the 2 sides of the tapered part you want to create/cut. If enabled you will see the 'Filter and optionally scale elements' dialog if you select a vectorial file, or the
+'AutoTrace elements' dialog if you select a raster file. Finally you will se the 'Tapered Part management' dialog where you can create the right cutting path. You can also see this page to
+have more info about the 'Available file formats'. To create/cut a new Tapered part you can start from 2 different cases:
+
+To start the Cad feature you can:
+l
+l
+
+Press the 'Draw and cut not Tapered parts' link in the Startup dialog
+Use the menu 'File - New cad'
+
+You will be prompted about the properties of the new Cad document, but you can just press OK to confirm the default settings.
+Now you can start to draw....
+If you are a Cad novice may be you want go to the first page of the help about Cad, see DevFoam - cad section online guide
+The easiest way to create Parts to cut is to draw a closed Polyline , that will be automatically converted to a Part when you go to cut it. See also Special cad functions of devFoam to
+create Regions in a faster and simpler way
+
+You can also create a region from the polyline and use the BOOLEAN functions for Regions, see BOOLEAN functions and Special cad functions of devFoam to apply BOOLEAN
+operations a faster and simpler way
+
+See also this Example: how can I cut a more complex text?
+We suggest to read well this CNC and dirty geometries. How can I clean them?
+When you finished to draw the parts select them and use the Simple cutting or the Advanced cutting feature.
+I suggest also to take a look at this page, to better understand some important concepts of devFoam: DevFoam FAQ and important concepts
+
+DevFoam features
+
+Smart Regions
+
+Smart Regions
+As devFoam is not a true Cad application, but the Cad part of devFoam Pro is mostly used to draw Parts for foam cutting, we added some smart features to speed up the drawing
+process.
+To draw in an efficent way the Parts to cut, the suggested way to go is to use Regions.
+Using Region you solve the well known problem of Cam application with bad drawn geometries, see also CNC and dirty geometries. How can I clean them?
+A Region is always ready to be cut, as it satisfies the requirements that a Cnc application ask to the geometries:
+To know which contour are outer or inner, this to apply the kerf at the right side
+To have all lines and arcs well connected
+l No intersections between contours
+l
+l
+
+In the normal devCad application you must use special commands to create a region, by selecting the contours or picking a point, for example.
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 23 of 44
+
+As this way to go can be boring and for sure slower, we added the possibility to generate Regions and Island on the fly when you draw a closed element or you import them from a Cad
+file.
+You can control this by the Smart Regions feature customization dialog
+You can access this the Smart Regions feature customization dialog by the 'Fast commands - Customize Smart Regions feature...' menu of the Cad drawing.
+
+For each feature you can select the way it will operate:
+Never - the feature won't be applied, devFoam will work here like the usual devCad applicatio
+Ask - you will be prompted each time if you want apply the conversion
+l Always - the conversion will be applied every time, in a silent way
+l
+l
+
+When you Import a Dxf, Dwg, Hpgl, Plt or Dat file
+In this frame you can customize what happens when you import an external Cad file.
+You can also select to ignore not Region elements, if you want a clean import of only Regions.
+A second way to Import regions or polylines in the Cad section:
+To try this way create a new Cad drawing, then use the "File - Import... - Import Regions from many file types..." or the "File - Import... - Import Polylines from many file types..."
+menu.
+If enabled you will see the 'AutoTrace elements' dialog if you select a raster file. Finally you will se the Imported regions in your Cad drawing.
+Read also this pages Importing regions in a new Cad drawing and Importing polylines in a new Cad drawing.
+If the result is not good, enable (if currently disabled) the 'AutoTrace elements' dialog by the Setting link of the Startup dialog and try to adjust as first the Thresold value. Read also well
+the 'AutoTrace elements' help page to have more info to the right way to have success.
+When you draw a Text
+In this frame you can customize what happen when you draw a Text element
+When you draw a Closed not autointersecting Element
+In this frame you can customize what happen when you draw a Closed not autointersecting Element.
+The application will try to apply as first 1) (adding the element as an island), if the feature is enabled.
+If 1) is not enabled or no Regions able to get the island exists, will be tried 2)
+Other FAST features to convert an already drawn closed and not autointersecting Element into a Region or island:
+F_REGION_AI It adds an island
+F_REGION_AI It adds an island
+
+See also: Special cad functions of devFoam to apply BOOLEAN operations a faster and simpler way
+I suggest also to take a look at this page, to better understand some important concepts of devFoam: DevFoam FAQ and important concepts
+
+DevFoam features
+
+Fast Boolean operations
+
+Fast Boolean operations
+To draw in an efficent way the Parts to cut, the suggested way to go is to use Regions.
+Using Region you solve the well known problem of Cam application with bad drawn geometries, see also CNC and dirty geometries. How can I clean them?
+A Region is always ready to be cut, as it satisfies the requirements that a Cnc application ask to the geometries:
+l
+l
+
+To know which contour are outer or inner, this to apply the kerf at the right side
+To have all lines and arcs well connected
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+l
+
+Page 24 of 44
+
+No intersections between contours
+
+devFoam adds also Smart functions to create Regions, see Special cad functions of devFoam to create Regions in a faster and simpler way
+To create complex Regions the right way is to use Boolean operations like Union, Subtract and Intersection between other Regions.
+The standard Boolean Cad operations require to select the Regions involved in the process, and this can be frustrating and for sure takes time.
+devFoam added the concept of Fast Boolean operation.
+You can find this operations in the 'Fast Command' Cad menu and also in the Fast Toolbar:
+But what is the difference between the normal and the Fast Boolean commands?
+Using the normal way you must select by hand all the regions you need to process. This takes time.
+Using the Fast Boolean Commands you must just select the First Region involved in the process, then press the desired Fast Boolean command, and devFoam will automatically appy it
+to Regions underlying the selected Region.
+And, still better, if you have just drawn the First Region, you can just apply the Fast Boolean command, and it will be automatically use the latest drawn region as first region. So, when
+you are contructiong Parts from scratch, you must just draw a region and apply the Fast Boolean command, without selecting anything!
+See also the Help of the available Fast Boolean commands:
+l
+l
+l
+
+F_INTERSECT
+F_SUBTRACT
+F_UNION
+
+I suggest also to take a look at this page, to better understand some important concepts of devFoam: DevFoam FAQ and important concepts
+
+DevFoam features
+
+How can I cut along an already defined vector?
+
+How can I cut along an already defined vector??
+You have also the possibility to ignore all the advanced feature for cutting regions or text, may be you want simply cut along a vector (tipically a polyline) drawned by yourself or
+imported from DXF or DAT files.
+This can be useful if for some reason you want to cut a strange path, and if the path must be opened.
+Note: it You already have a file with the drawing of the vector, you can just cut it in this way:
+Click the 'Cut Along Vector' link if you already have a vectorial (Dxf, Dwg, Dc1, Hpgl, Plt) or raster (Gif, Jpeg, Bmp, Png, Tif, Tga, Pcx) file including the drawing/image of the
+vector/Path you want to cut. If enabled you will see the 'Filter and optionally scale elements' dialog if you select a vectorial file, or the 'AutoTrace elements' dialog if you select a raster file.
+Finally you will se the 'Along vector cut' dialog where you can create the right cutting path. Using this feature you can create a cutting path just supplying a vector (for example a
+Polyline). You can also see this page to have more info about the 'Available file formats'.
+The first operation if to start the Cad feature.
+To start the Cad feature you can:
+l
+l
+
+Press the 'Draw and cut not Tapered parts' link in the Startup dialog
+Use the menu 'File - New cad'
+
+You will be prompted about the properties of the new Cad document, but you can just press OK to confirm the default settings.
+Now you can start to draw, or you can import a DXF or DAT file.
+The usual way is to a Polyline, then you will select it and start the Cut along vector feature by the menu 'Cut - Cut along vector' or clicking the 'Cut along vector' toolbar button.
+The selected element can be one of the following Cad types:
+l Polyline
+l Region (only the external contour will be considered)
+l Arc
+l Circle
+l Spline
+l Ellipse
+l Elliptic arc
+l Smart shape
+I suggest also to take a look at this page, to better understand some important concepts of devFoam: DevFoam FAQ and important concepts
+
+DevFoam features
+
+Picture vectorization
+
+Picture vectorization
+You have 3 different way to create a Part from a raster image (picture):
+The simplest way, if your picture is clean enough
+Click the Cutting funcion you need of the Startup dialog (green icons) and select the picture (Gif, Jpeg, Bmp, Png, Tif, Tga, Pcx). If enabled you will see the 'AutoTrace elements'
+dialog if you select a raster file. Finally you will se the cutting dialog where you can create the right cutting path.
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 25 of 44
+
+If the result is not good, enable (if currently disabled) the 'AutoTrace elements' dialog by the Setting link of the Startup dialog and try to adjust as first the Thresold value. Read also well
+the 'AutoTrace elements' help page to have more info to the right way to have success.
+A second way, Import regions or polylines in the Cad section
+To try this way create a new Cad drawing, then use the "File - Import... - Import Regions from many file types..." or the "File - Import... - Import Polylines from many file types..."
+menu.
+If enabled you will see the 'AutoTrace elements' dialog if you select a raster file. Finally you will se the Imported regions in your Cad drawing.
+Read also this pages Importing regions in a new Cad drawing and Importing polylines in a new Cad drawing.
+If the result is not good, enable (if currently disabled) the 'AutoTrace elements' dialog by the Setting link of the Startup dialog and try to adjust as first the Thresold value. Read also well
+the 'AutoTrace elements' help page to have more info to the right way to have success.
+A Last chance, use a background image in the Cad section
+You can set it as a background image in a new Cad document, then trace it. See also And what can do devFoam Pro for the same problem?
+Here are the step to follow:
+Set the background image
+After you created a New Cad document (see Cad feature of devFoam) use the 'Format - Background image - Add background image' menu
+You will be prompted to select the image and if/how you want calibrate it. See also Inserting a background raster image in the drawing.
+We suggest to select Manual calibration. Calibration is the operation to size the image to the wanted dimension. After pressing OK you will be prompted to click two points whose
+distance is known, for example the Height of the picture.
+Here is a picture of an example of raster background:
+
+You can also use the menu 'Format - Background image - Set line color of background image' to use a different color, so you can see better the lines you'll go to trace:
+
+Draw closed polylines around the contours
+Now you must draw closed Polylines around the contours. We suggest to use polylines so that you haven't to fight against dirty geometries.
+You can use lines and arcs, and remember to use the Close command of the command bar to close the polylines as the last step.
+After you traced the polylines you can also select and refine them moving the control points.
+Here is a picture of the previous example with the polylines:
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 26 of 44
+
+Select the closed polylines and go to cut
+Now you can select the polylines and use the menu 'Cut - simple foam cutting of selected Parts' to start the Simple cutting dialog:
+
+And you can as usually preview the cutting job in 3D:
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 27 of 44
+
+And what can do devFoam Pro for the same problem?
+
+DevFoam features
+
+AutoTrace a Background image
+
+AutoTrace a Background image
+
+Pro version only
+
+AutoTracing a raster image is always a challenging task. There isn't here a perfect mathematical single solution for this problem.
+We developed a custom feature to help you to Trace in an automatic or semiautomatic way a Raster image.
+A note: we define here as Tracing the conversion of a line/curve of black pixels in a Cad element, like a Polyline, closed Polyline, Circle, Arc, Ellipse, Spline, Closed Spline
+As first of course you must add a background raster image to your Drawing. See How to insert a background raster image.
+After doing that you will see something similar to the following picture:
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 28 of 44
+
+Now click the "Draw - AutoTrace a Background image' main menu, and this new dialog window will appear:
+
+Now you must do 2 steps:
+l
+
+Step 1 - Raster preprocessing You must use here the commands included in the first frame to prepare the image to a good Autotracing. See the Raster preprocessing page to
+
+have more info and tips.
+l
+
+Step 2 - Tracing elements Now you can use automatic tracing of all elements clicking the 'Trace all elements!' button, or click a point on each of them with the mouse. See
+the Tracing elements page to have more info and tips.
+
+In this case we need to cut the Gray shape, so we simply will apply the 'Enhance BORDERS' function. Here below the result of this Preprocessing:
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 29 of 44
+
+As you can see now the raster image has been modified, and just the Borders are rendered in black. Still no traced elements, but a good starting point to get them. The trick is to create
+thin '1 pixel wide' lines.
+Now we can just press the 'Trace all elements!' button and the most is done, see the picture below:
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 30 of 44
+
+As you can see now the Traced element list is filled, and you can see the Red traced lines.
+Adjusting the zoom and the viewing settings we can also take a deeper look at the result, see the picture above with:
+l
+l
+l
+
+In Gray the old raster image
+In Red the Traced elements
+As Green Dots the vertices of the traced elements
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 31 of 44
+
+Now you can simply the 'OK' button and all the Traced elements will be inserted in your Drawing.
+Before going on we suggest you to take more confidence with the 2 basic steps:
+l
+l
+
+Step 1 - Raster preprocessing
+Step 2 - Tracing elements
+
+Pro version only
+
+devFoam - FAQ
+
+How can I import a drawing?
+
+How can I import a drawing?
+To import a drawing you can use the 'File - Open' menu.
+If you open a DC1 (devCad/devFoam), DXF, DWG, Hpgl or Plt file you will see it immediately in a Cad document
+If you have a raster image, see I have some picture of the parts I want to cut. How can devFoam help me?
+If you already opened a Cad document you can import drawings in these way:
+Use the 'File -Import Regions from many file types...' menu. See also Importing regions in a new Cad drawing
+Use the 'File -Import Polylines from many file trypes...' menu. See also Importing polylines in a new Cad drawing
+Use the 'File - Import from DXF r12' menu
+l Use the 'File - Import from DWG' menu
+l Use the 'File - Import from DXF' menu
+l Use the 'File - Import from simple Hpgl/Plt file' menu
+l Use the 'File - Import from DAT file' menu
+l
+l
+l
+
+See also More info about the Available file formats
+You can now check and eventually clean dirty geometries, then select the Part and use the Simple cutting or the Advanced cutting feature.
+
+I suggest also to take a look at this page, to better understand some important concepts of devFoam: DevFoam FAQ and important concepts
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 32 of 44
+
+devFoam - FAQ
+
+CNC and dirty geometries
+
+CNC and dirty geometries
+Sometime a shape appears good to the human eye, but it isn't accepted by a Cam application for your CNC machine.
+For example let's take a look at this simple rectangle:
+
+Looks like good, but probably it won't be accepted from a Cam application.
+If we take a look at the bottom left corner, zooming it, we can see this:
+
+The corner is opened, because the vertices have slightly different coordinates, they don't match each other!
+This is one of the most common cause of dirty geometries.
+The rules for a geometry to be a valid contour are:
+l
+l
+l
+
+The vertices must be exactly overimposing (matching)
+The contour must be closed
+The contour cannot have autointersections
+
+You can see below an example of a contour with an autointersection, and so not clean:
+
+To make this geometry clean you must draw it as 2 triangles.
+
+Clean geometries and Regions
+To verify/validate the geometries to be clean DevFoam uses the Region object.
+A Region is an element with
+l
+l
+l
+
+1 external clean contour
+0, 1, 2 or more internal contours, the islands
+an added rule: all those contours cannot intersect each other
+
+Here below an example of a Region with 2 islands:
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 33 of 44
+
+Region can always be cut as Parts. That' why we suggest to work with Regions.
+To create a Region you can use these commands:
+l
+l
+l
+l
+l
+
+REGION It converts an object that encloses an area into a region object
+REGION_AI It adds an island to a region by selecting its defining objects
+REGION_BY_IP It creates a region clicking on an inner point of an enclosed area
+REGION_DI It deletes an island from a region
+REGION_DIP It deletes an island from a region and it converts it into a polyline
+
+See also this help page about Regions
+
+Hot to create clean geometries
+We suggest:
+l
+l
+l
+
+to work with closed Polylines, and not with single Lines and Arcs
+to take confidence with the use of Object snaps. In this way you can match vertices with precision
+to create Region from Polylines before starting the cutting phase
+
+Hot to clean dirty geometries
+If you already drew a dirty geometry, or if you imported it from an external drawing (for example a DXF file), you can clean it.
+You can adjust problems caused by unmatching vertices selecting the geometries and moving the BLUE control points of the vertices.
+See below:
+
+You can adjust intersection or autointersection problems by moving the vertices or breaking the geometries, see the FULLBREAK command.
+
+A good piece of new: may be devFoam can help you in cleaning geometry
+As the cleaning of dirty geometries is a rather annoying and frustrating job, we developed a special feature to help you.
+You can try to select the dirty geometries then use the 'Cut - Try automatic Parts generation from selected elements' menu.
+This function will try to:
+Join together the unmatching vertices , using the max tolerance value set by the 'Cut - Set tolerance for automatic Part generation'. You must define here a value
+compatible with the error you can evaluate in vertices matching.
+l Split the contours with autointersections in more not autointersecating contours.
+l Create Regions and add inner islands if detected.
+l
+
+Please note: Region and Parts are about the same thing. Tecnically a Region is a Cad Object defined as help page about Regions.
+A Part is a Region that you select and go to Cut. This because Part is the usual term for an object to cut in Cam applications.
+Here below an example of very dirty geometries:
+
+Applying the 'Cut - Try automatic Parts generation from selected elements' the result is:
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 34 of 44
+
+As you can see valid Regions are created as expected. Also Regions inside Islands have been created.
+The original dirty geometries are untouched, but the function creates new Regions.
+Enabling the menu 'Cut - Use automatic Parts generation for Cutting', when you select dirty geometries and go to cut them, they will be automatically converted (if possible) in
+Regions/Parts. You won't see them in the Cad documents, but only among the Parts to cut. See Simple cutting and Advanced cutting
+
+I suggest also to take a look at this page, to better understand some important concepts of devFoam: DevFoam FAQ and important concepts
+
+devFoam - FAQ
+
+Nesting
+
+Nesting
+Nesting is Cad/Cam feature that place more Parts in a given rectangle (the foam bloack in our case), to minimize the wasted material.
+Let's make an example.
+We draw 2 simple geometries:
+
+We select them, then we use the Advanced cutting function ('Cut - Advanced Foam cutting of selected Parts (with Nesting) ' menu).
+Then we ask to cut 4 pieces of each Part:
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 35 of 44
+
+Now we press the Next button to go to the nesting page (see Nesting of the Parts in the Foam Block(s)), we set the size of the Foam block and press 'Apply nesting!'. We can se the
+result of the nesting :
+
+I suggest also to take a look at this page, to better understand some important concepts of devFoam: DevFoam FAQ and important concepts
+
+Further tools and customizing functions
+
+More info about the Available file formats
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 36 of 44
+
+More info about the Available file formats
+DevFoam can manage 3 types of files:
+Cutting files
+This is the type of file used to export the final cutting to the Cnc application or controller.
+See also: What is the Cutting path? How can I create and modify it?
+According to your Cnc machine, controller and Cnc application, devFoam export the Cutting path to different file formats:
+2 Axis Gcode - if you are driving your foam cutting machine as a simple 2 axis, this is the button to create the GCode. You can customize the GCode using the Customize 2 Axis
+Gcode button
+4 Axis Gcode - if you are driving your foam cutting machine as a 4 axis, this is the button to create the GCode. You can customize the GCode using the Customize 4 Axis
+Gcode button
+l DXF - DXF files are a standard in Cad applications. You can customize the DXF using the Customize DXF button
+l DAT - DAT files are used to describe a single polyline, some CNC driving software likes to import them
+l Hpgl/Plt - Hpgl/Plt files are used to describe the plotting of a drawing, some CNC driving softare likes to import them. Only simple command like SP, PU, PD are used here.
+l GMFC script .CUT file - if you use GMFC to drive your CNC, you can create a .CUT file and import it in GMFC as a Script file. When you click this button you will be prompted
+for some parameters in the GMFC .cut file creation dialog
+l
+l
+
+Cad file (vectorial file) to describe the parts to cut
+You can import DXF, DWG, DAT and HPGL/PLT file by:
+l
+
+one of these functions included in the Startup dialog:
+'Cut Parts'
+'Cut Nested Parts'
+'Cut Along Vector'
+¡ 'Cut a new Tapered Part'
+¡
+¡
+¡
+
+the Cad menu File
+Import Regions from many file types...
+the Cad menu File
+Import Polylines from many file types...
+the Cad menu File
+Import or export using the menu File
+Export.
+l File
+Import
+Import from DAT or export using the menu File
+Export to DAT.
+l File
+Import
+Import from HPGL/PLT or export using the menu File
+Export to HPGL/PLT
+l
+l
+l
+
+About DXF and DWG: DevFoam includes a native management of DXF r12 file.
+If you install also the free application ODA File Converter, devFoam can use it in a silent mode to add the management of all types of DXF and DWG files.
+See also Setup the ODA File Converter
+
+Raster file (picture/image) to describe the parts to cut
+You can import Gif, Jpeg, Bmp, Png, Tif, Tga, Pcx file by:
+l
+
+one of these functions included in the Startup dialog:
+'Cut Parts'
+'Cut Nested Parts'
+¡ 'Cut Along Vector'
+¡ 'Cut a new Tapered Part'
+¡
+¡
+
+l
+l
+
+the Cad menu File
+the Cad menu File
+
+Import Regions from many file types...
+Import Polylines from many file types...
+
+See also: I have some picture of the parts I want to cut. How can devFoam help me?
+
+Note: More info about DAT and Hpgl/Plt vectorial files
+DAT
+DAT is a special file format used to describe a single polyline. This is the standard file format to exchange airfoils.
+Using the import function:
+File
+Import
+Import from DAT
+you will be prompted to select the right DAT file, then you can apply a scale by this dialog
+
+As usually DAT file are normalized in the 0.0 - 1.0 range along X coordinates, You can apply here the right Scale to get the desired size.
+The polyline described by the DAT file will be then placed on the Cad origin.
+To use the export function you must as first select the polyline you are going to export, then use
+File
+Export
+Export to DAT
+You will be prompted to select the DAT file name, then if you want to normalize the polyline in the 0.0 - 1.0 range along X coordinates.
+HPGL/PLT
+devFOamoffers the possibility to import export also to simple HPGL/PLT file format.
+Only basic tags like PU, PD, PA and color management are offered.
+Use
+File
+Import
+Import from HPGL/PLT
+and
+File
+Export
+Export to HPGL/PLT
+menu to do that.
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 37 of 44
+
+devFoam - FAQ
+
+What is the Cutting path? How can I create and modify it?
+
+What is the Cutting path? How can I create and modify it?
+The Cutting Path is the Path generated on the left and right carriages to drive the hot wire and cut the Foam.
+For 2D cuts the left and right Path are identical, see What's devFoam?
+The concept is similar to a 3 axis CNC milling machine, where a milling tool can cut parts, following the cutting path.
+What makes the process difficoult in Foam cutting is the impossibility to break the cutting path and start it again. 3 axys milling machines simply raise the tool over the material to do
+that, but that is not possible here.
+So the idea here is to build a single continuos cutting path.
+Let's make an example: we want to cut 'A' and 'B' letters. See the picture below:
+
+The pink shapes are the geometries of the 2 letters, and the black line is the cutting path created by devFoam. In the bottom left side you can see the Home (the starting/ending point of
+the travel of the hot wire). Following the arrows you can see how the external and internal contours of the letters are cut connecting the letters and making a (as little as possible)
+cut crossing the letters themselves.
+To create a Cutting Path You can select between:
+l
+l
+
+Simple cutting - the text will be cut without moving the letters/parts. This can be also useful if you want to use the outer part of the foam to create a negative text/part
+Advanced cutting - you can apply here Nesting, select different number of letters/parts to cut, create more cuttings for more foam blocks if one is not enough for all the
+letters/parts. For the Cut text case, if some letter includes more parts (for example the 'i' has a dot/circle/square in the upper side) you will be prompted if during the Nesting you
+
+want keep the parts together or not.
+Cut Laminated Parts if you want to cut Laminated Parts supplying just the thickness and length
+l Cut Along Vector if you want create a cutting path just supplying a vector (for example a Polyline).
+l Cutting Tapered Parts wizard if you want cut a tapered part.
+l
+
+Clicking the Create cut Path button the Path will be created and displayed to the picture, see the example below:
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 38 of 44
+
+You can see now a black polyline (the Cutting path) with some arrows showing the cut direction.
+You can move the entry/exit points and the Home position enabling the Edit mode checkbox.
+See the picture showing what happens enabling it:
+
+Now you can see some Blue control points. You can drag and drop them to move the entry/exit points and the Home position.
+When you drag a Blue control point on the Cutting path also some little green squares are added: they shows the Vertices of the Cutting Path, so you can move the point to an existing
+vertex. The green square also works as snap points, so if you stay near them with the mouse, they will capture the mouse pointer. If you want cancel the current moving action press the
+'Esc' button.
+If you drop the control point to an invalid part of the cutting path you are alerted by a message and the operation is aborted.
+You can use Undo/Redo buttons to Undo/Redo this operations.
+See below what happen when you drag a control point: you can see in the red circle (added only here to better explain) the point you are moving and a line connecting the other point of
+the original connecting line.
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 39 of 44
+
+Once the Cutting path is right for you, you can export it in the format you prefer using the buttons included in the upper/right side of the dialog.
+You can them import/open this file in the application you use to drive your CNC, see also How can I send the work done in devFoam to my Foam Cutting CNC machine?
+In the picture below you can see the 3D preview of the cutting job
+The red lines show the real cutting path of each carriage, the green lines the connecting lines, and in orange/cyan the cut parts
+
+See also:Cutting by irradiation or by contact
+I suggest also to take a look at this page, to better understand some important concepts of devFoam: DevFoam FAQ and important concepts
+
+devFoam - FAQ
+
+What is the Kerf?
+
+What is the Kerf?
+The kerf is the thickness of the foam melted by the Hot Wire.
+See the picture below:
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 40 of 44
+
+The kerf is always larger (or equal..) to the hot wire diameter.
+The slower the hot wire travels, the larger the kerf is.
+The hotter is the wire, the larger the kerf is.
+You can evaluate the kerf value with a cutting test, with your current speed and temperature values on the same material (there are many different types of foam..).
+If you select to apply Kerf (you find this option in the Cutting path page/frame of Simple cutting and Advanced cutting), devFoam will offset the cutting path of half that value, on the
+external side of the Part(s).
+If you want to have a negative Part (you save the external and trash the real Part) you must apply a negative value.
+Just a note: the offset function rounds the convex corners, but that doesn't affect the cut. You can see that in the below picture:
+
+The Blue cutting path rounds the corner, but if you see the Red melted foam you can verify that the corner of the Pink part is then well cut
+See also:Cutting by irradiation or by contact
+I suggest also to take a look at this page, to better understand some important concepts of devFoam: DevFoam FAQ and important concepts
+
+DevFoam features
+
+Cutting by irradiation or by contact
+
+Cutting by irradiation or by contact
+
+Some brief notes about 2 different way to cut foam:
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 41 of 44
+
+By contact
+In this way the hot wire touches the foam and melts it by contact. This is the usual way applied when you cut the foam by hand.
+Pro:
+- you can have faster cutting speed
+- the kerf is little, can also be as short as the wire diameter
+Cons:
+- the hot wire bends and cannot follow well the desired path. This is usually negligible when you cut smooth surfaces, but can create big problems on sharp corner. In this case the
+direction change is applied when the hot wire haven't still reached the right position, so a big deformation can occur. To improve this my last application devWing Foam offer the option
+to automatically add stop pauses at sharp corners, in this way the hot wire can reach the right position before the direction change is applied
+- you must use strong tension to keep the hot wire as straight as possible. This often requires an external bow, or the CNC frame can be over stressed
+By irradiation
+In this case the foam is melted by the heat irradiated by the hot wire, and the hot wire never touches the foam
+Pro:
+- the cut is much more precise, as the hot wire doesn't bend but stays straight
+- you can use a lower tension to keep the hot wire straight, so you can also use an automatic rewind system, that works well also for strong tapered cuts
+Cons:
+- you have a slower cutting speed
+- the kerf is wider, so you must set it with more accuracy.
+See also:What is the Kerf?
+I suggest also to take a look at this page, to better understand some important concepts of devFoam: DevFoam FAQ and important concepts
+
+devFoam - FAQ
+
+How can I send the work done in devFoam to my Foam Cutting CNC machine?
+
+How can I send the work done in devFoam to my Foam Cutting CNC machine?
+devFoam dosn't directly drive your CNC machine.
+We are making partnership with Companies supplying good controllers and the related Gcode interpreter for Foam cutting.
+In the cutting pages You can select one the approved controller/applications then:
+l
+l
+
+Press the 'Run the selected app. ->' button to create a special GCode file customized for the selected controller/application and run the application with the right file already
+loaded
+Press the 'Create the right Gcode for ->' button to create a special GCode file customized for the selected controller/application
+
+If your controller is not in that list, there is a lot of good applications to drive your Cnc machine, as for example Mach3 for windows or Emc2 for linux. And also proprietary applications
+for some controllers.
+So devFoam export the Cutting path to different file formats:
+2 Axis Gcode - if you are driving your foam cutting machine as a simple 2 axis, this is the button to create the GCode. You can customize the GCode using the Customize 2 Axis
+Gcode button
+4 Axis Gcode - if you are driving your foam cutting machine as a 4 axis, this is the button to create the GCode. You can customize the GCode using the Customize 4 Axis
+Gcode button
+l DXF - DXF files are a standard in Cad applications. You can customize the DXF using the Customize DXF button
+l DAT - DAT files are used to describe a single polyline, some CNC driving software likes to import them
+l Hpgl/Plt - Hpgl/Plt files are used to describe the plotting of a drawing, some CNC driving softare likes to import them. Only simple command like SP, PU, PD are used here.
+l GMFC script .CUT file - if you use GMFC to drive your CNC, you can create a .CUT file and import it in GMFC as a Script file. When you click this button you will be prompted
+for some parameters in the GMFC .cut file creation dialog
+l
+l
+
+You must verify which of these file formats is compatible with your CNC driving application. When possible use GCode, as this is the accepted standard in the Cam world.
+To have access to the export features see the Cutting Path page of Simple cutting, Advanced cutting, Cut Laminated Parts, Cut Along Vector and Cutting Tapered Parts wizard features.
+I suggest also to take a look at this page, to better understand some important concepts of devFoam: DevFoam FAQ and important concepts
+
+devFoam - FAQ
+
+How can I select the Units (mm/inches) and the precision of the output files?
+
+How can I select the Units (mm/inches) and the precision of the output files?
+A Cad document of devFoam can use many different Units, but in the Cam/Cnc world only millimeters and inches are usually considered.
+And switching from mm to inches or viceversa is not an usual task. Probably if you selected to work with mm all your Cutting paths will use mm.
+So devFoam set the Cutting path export Units as a global parameter.
+You will use the 'Cut - Cutting Unit of measurement' menu to select the Unit.
+The same for the Cutting Tolerance of the exported Cutting path.
+But what is it? When you are going to cut for example an Arc, it will be rendered as many little lines in the Cutting path. The Cutting Tolerance value set the max distance between the
+original arc and the lines of the Cutting path. The lower the Cutting Tolerance, the larger the number of lines (and the size of the exported Cutting path).
+You will use the 'Cut - Cutting Tolerance' menu to set the Cutting Tolerance value.
+This is different from the Tolerance value of a Cad document, as that defines the precision of the rendering of curves just inside the Cad document.
+I suggest also to take a look at this page, to better understand some important concepts of devFoam: DevFoam FAQ and important concepts
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 42 of 44
+
+devFoam - FAQ
+
+How can I preview the cutting job?
+
+How can I preview the cutting job?
+Previewing the cutting job is very simple, just press the '3D Preview of the cutting' button located int the Cutting Path page of Simple cutting and Advanced cutting features.
+When you run devSim Cnc Foam, you can see the "Main dialog":
+
+The dialog is divided in three logical frames and a menu:
+The menu
+The menu is placed as usually in the upper side of the dialog. It includes these commands:
+File - Open Gcode. You are prompted for a valid GCode file to load. The same as the Load button of the Control panel (see below).
+File - Import .cut file created by GMFC. You can open here a .cut file of GMFC and convert it to a new GCode file, already loaded as a new Job. You can create this file in
+GMFC checking the 'Cut to file' option in the dialog opened by the 'Cut - Panel cut' main menu of GMFC application.
+l Settings. The Settings dialog will appear. You can customize there the settings of the application
+l Help - Go to the Help file. This Help will be shown.
+l
+l
+
+Left - the Control panel
+The Control panel includes the main buttons to control the cutting job, and some display to show interesting values like axes position and speed.
+In the top side you can see these buttons (some of them can be grayed, when the associated function is not available at the current state):
+Load - This button promptes you for a valid GCode file. The file will be loaded and displayed in the edit box included in the middle of the dialog.
+Rewind - Reset the cutting to the begin of the Gcode file
+Start/Unpause back the job execution - Will start or unpause the cutting job in the back direction (From End to Begin)
+l Pause - The cutting job is paused, you must press then Start or again Pause to resume the cutting at the paused place.
+l Start/Unpause the job execution - Will start or unpause the cutting job in the normaldirection (From Begin to End)
+l Set the execution at the end of the Job - Set the cutting to the end of the Gcode file
+l Exit: devSim Cnc Foam close, if the cutting job is not running, or you will be prompted to stop it and press again the Exit button.
+l
+l
+l
+
+Among the tollbar buttons you can also the a text informing about the current On/Off state of the Hot Wire.
+You can see here also a Slider, you can use it to control the speed factor of the Job. If you keep it at the most left position the Job will be performed at its original speed. The more you
+move the slider righwards, the faster the job will run.
+Just below you can see 2 frames, with info about the Left and Right carriages:
+l
+
+XL/XR - you can read here the current position of the X (horizontal) axis. The value will be in millimeters or inches, depending on the option selected in the 'Settings - Units'
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+l
+
+Page 43 of 44
+
+dialog. Near the value you can see an edit button, see below.
+YL/YR - you can read here the current position of the Y (vertical) axis. The value will be in millimeters or inches, depending on the option selected in the 'Settings - Units' dialog.
+Near the value you can see an edit button
+
+. Pressing this button a menu will appear, where you can
+
+Set the origin here: using this command the origin will be placed at the current position of the referred axis. The axis won't move and the value displayed will be then 0.0
+¡ Go to 0.0: the referred axis will move to its origin = 0.0
+¡ Go to (absolute move): you will be prompted for the value where the referred axis will move, as an absolute value referred to the origin = 0.0
+¡ Go to (relative move): you will be prompted for the value where the referred axis will move, as a realtive value referred to current position
+l SC - you can read here the current Speed of the specified carriage. The value will be in millimeters/min or inches/min, depending on the option selected in the 'Settings - Units'
+dialog.
+l SF - you can read here the current Speed of the wire at the Left/Right side of the Foam block. If you are performing a tapered cut you can see differenet speeds at carriages and
+foam sides. The value will be in millimeters/min or inches/min, depending on the option selected in the 'Settings - Units' dialog.
+¡
+
+Show parsed Pseudo code in listing: if unchecked you will see the loaded GCode, if checked you will see the commands displayed using the way the application did interpret the
+GCode. In the Move and Cut commands you can also see the applied Speed (S) and the time reserved to that command (T).
+The GCode panel lets you to see the loaded Gcode or the Pseudo Code, see the above comment.
+When you load the Gcode, it will be displayed in the big text control in the middle of the screen. When running the cutting job, the line in execution will be selected and marked with a red
+circle.
+When the Execution is not running, you can also double click a line to set the current job position at the line.
+Right - the 3D Preview panel
+The 3D preview panel lets you to see a 3D view of the Cnc machine and foam block.
+The main component displayed are:
+The Foam block, yellow
+The axes working areas, transparent gray
+The hot wire, with two green cones at its ends
+l The coordinate axes of each carriage, red and blue
+l The cutting paths, both at carriage and foam block side. Red for the cutting path, green for the fast movement path
+l The cut surface of the foam block, orange
+l
+l
+l
+
+You can:
+l
+l
+l
+
+Zoom in/out the preview using the mouse wheel
+Rotate the preview clicking a point with the left mouse button, and dragging it
+Move the preview clicking a point with the right mouse button, and dragging it
+
+In the upper side you can see a Toolbar, with these buttons:
+- Show/hide the 3D preview. You can hide it if you own an old computer and this preview slow down too much the process. Press this button 2 times if the 3D preview
+freezes.
+l
+- Show the upper face of the 3D preview.
+l
+
+l
+
+- Show the front face of the 3D preview.
+
+l
+
+- Show the lateral face of the 3D preview.
+
+l
+
+- Show an angled view of the 3D.
+
+- Swicth on/off the Ortho mode. When the Orthogonal mode is switched off the perspective view will be applied. When you are in Ortho mode AND you selected to show
+a face, you can see the coordinates value pointed by the mouse and clicking a point and moving the mouse you can see the distance from the clicked point, You can use this to
+take measurements in the 3D preview.
+l
+- Show/hide the Foam block.
+l
+
+l
+
+- Show/hide the axes working areas.
+
+l
+
+- Show/hide the Paths.
+
+l
+
+- Show/hide the cut surface of the Foam block.
+
+l
+
+- Show/hide the coordinate axes.
+
+l
+
+- Change the background color of the 3D preview.
+
+Note: sometime may be the 3D preview will freeze, this can be caused by some hardware or software issue. Just prees 2 times the
+
+Show/hide 3D preview button to reset it.
+
+DevFoam features
+
+Browse Tapered Parts
+
+Browse Tapered Parts
+
+Pro version only
+
+Using this dialog you can create/manage Tapered parts and cut them.
+See 'not Tapered parts and Tapered parts' to better understand what Tapered parts are.
+You can have access to this dialog by the 'Startup dialog' or from the menu 'Cut - Cut/Browse Tapered Parts'
+The following dialog will appear:
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+DevFoam startup dialog
+
+Page 44 of 44
+
+Using the '<- Change Folder' button you can specify the Folder you want to Browse.
+In the Left side of the dialog you can see the list of the Tapered Parts included in that dialog. If you select one tapered you will see in the graphic view the 2 sides of the selected tapered
+Part.
+You can then use one of the following buttons:
+How to create a new tapered Part: you will see this How to create a new tapered Part page of the Help explaining the way you must run to create a new tapered part
+3D Preview of the selected tapered Part: it will start the application dev3DView to show you the real 3D shape of the selected tapered Part
+Modify the selected tapered Part: the tapered Part management dialog will start, where you can modify the selected tapered Part
+l Clone the selected tapered Part: a new tapered part will be created, as a clone of the selected one
+l Delete the selected Tapered Parts: the selected Tapered Parts (multiple selection is allowed) will be removed from the Folder
+l Cut the selected Tapered Parts: the Cutting Tapered Parts wizard will start, where you can cut the selected tapered Parts (multiple selection is allowed)
+l Load a saved cutting project: you will be prompted to open a saved Cutting Project, then the Cutting Tapered Parts wizard will start
+l
+l
+l
+
+Pro version only
+
+file:///C:/Users/foaml/AppData/Local/Temp/~hh28C5.htm
+
+11/19/2025
+
+

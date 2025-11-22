@@ -1,13 +1,14 @@
-
 import React, { useRef } from "react";
 import { useFoamCutStore } from "../../state/foamCutStore";
 import { generateGCode } from "../../geometry/gcode";
 import { runFullOptimization } from "../../geometry/pipeline";
 import { importDxfString } from "../../utils/dxfImport";
 import paper from "paper";
+import { useWorkflowStore } from "../../state/workflowStore";
 
 export const TopBar: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const setWorkflow = useWorkflowStore((state) => state.setWorkflow);
   const {
     contours,
     optimizedPath,
@@ -137,11 +138,11 @@ export const TopBar: React.FC = () => {
           console.log("Project active:", !!project);
           console.log("Project layers:", project.layers.length);
           console.log("Items before import:", project.activeLayer.children.length);
-          
+
           const paths = importDxfString(text, project);
           console.log("✅ DXF import created", paths.length, "paths");
           console.log("Items after import:", project.activeLayer.children.length);
-          
+
           if (paths.length === 0) {
             alert("No valid paths found in DXF file.");
             return;
@@ -155,14 +156,14 @@ export const TopBar: React.FC = () => {
               console.warn(`⚠️ Path ${idx} is invalid - no segments`);
               return;
             }
-            
+
             path.strokeColor = new paper.Color(0.2, 0.4, 1); // Blue
             path.strokeWidth = 3; // Make it very visible
             path.fillColor = null;
             path.visible = true;
             path.opacity = 1;
             path.bringToFront();
-            
+
             // Debug all paths
             if (path.bounds) {
               const bounds = path.bounds;
@@ -183,7 +184,7 @@ export const TopBar: React.FC = () => {
             }
           });
           console.log("✅ Finished styling", paths.length, "paths");
-          
+
           console.log("Total paths in project:", project.activeLayer.children.length);
 
           // Close open paths that have enough segments to form closed shapes
@@ -218,128 +219,128 @@ export const TopBar: React.FC = () => {
 
           // Update store to trigger Canvas2D re-render
           setContours(newContours);
-          
+
           // Force immediate view update - wait a bit for React to update
           setTimeout(() => {
             // Fit view to show all imported content
-          console.log("🔍 Calculating view bounds...");
-          if (paths.length > 0) {
-            let bounds: paper.Rectangle | null = null;
-            let validBoundsCount = 0;
-            paths.forEach((path, idx) => {
-              if (path.bounds) {
-                const b = path.bounds;
-                if (b.width > 0 && b.height > 0) {
-                  validBoundsCount++;
-                  if (!bounds) {
-                    bounds = b.clone();
-                    console.log(`  First bounds (from path ${idx}):`, bounds.toString());
+            console.log("🔍 Calculating view bounds...");
+            if (paths.length > 0) {
+              let bounds: paper.Rectangle | null = null;
+              let validBoundsCount = 0;
+              paths.forEach((path, idx) => {
+                if (path.bounds) {
+                  const b = path.bounds;
+                  if (b.width > 0 && b.height > 0) {
+                    validBoundsCount++;
+                    if (!bounds) {
+                      bounds = b.clone();
+                      console.log(`  First bounds (from path ${idx}):`, bounds.toString());
+                    } else {
+                      const oldBounds = bounds.clone();
+                      bounds = bounds.unite(b);
+                      console.log(`  After union with path ${idx}:`, bounds.toString());
+                    }
                   } else {
-                    const oldBounds = bounds.clone();
-                    bounds = bounds.unite(b);
-                    console.log(`  After union with path ${idx}:`, bounds.toString());
+                    console.warn(`  ⚠️ Path ${idx} has invalid bounds (w:${b.width} h:${b.height})`);
                   }
                 } else {
-                  console.warn(`  ⚠️ Path ${idx} has invalid bounds (w:${b.width} h:${b.height})`);
+                  console.warn(`  ⚠️ Path ${idx} has no bounds property`);
                 }
-              } else {
-                console.warn(`  ⚠️ Path ${idx} has no bounds property`);
-              }
-            });
-            
-            console.log("📊 Bounds calculation:", {
-              totalPaths: paths.length,
-              validBounds: validBoundsCount,
-              combinedBounds: bounds ? bounds.toString() : 'null',
-              boundsCenter: bounds ? bounds.center.toString() : 'null',
-              boundsSize: bounds ? `${bounds.width.toFixed(1)} x ${bounds.height.toFixed(1)}` : 'null'
-            });
-            console.log("📐 View size:", paper.view.viewSize.toString());
-            
-            if (bounds && bounds.width > 0 && bounds.height > 0) {
-              // Add some padding (20% on each side)
-              const padding = Math.max(bounds.width, bounds.height) * 0.2;
-              const expandedBounds = bounds.expand(padding);
-              
-              // Calculate zoom to fit (make sure we don't zoom too much)
-              const zoomX = paper.view.viewSize.width / expandedBounds.width;
-              const zoomY = paper.view.viewSize.height / expandedBounds.height;
-              const zoom = Math.min(zoomX, zoomY, 2); // Allow some zoom but not too much
-              
-              console.log("🎯 Setting view transform:", {
-                originalBounds: bounds.toString(),
-                expandedBounds: expandedBounds.toString(),
-                padding: padding.toFixed(1),
-                zoomX: zoomX.toFixed(3),
-                zoomY: zoomY.toFixed(3),
-                finalZoom: zoom.toFixed(3),
-                center: expandedBounds.center.toString(),
-                viewSize: paper.view.viewSize.toString()
               });
-              
-              // Set view transform
-              paper.view.zoom = zoom;
-              paper.view.center = expandedBounds.center;
-              
-              console.log("✅ View set - verifying:", {
-                actualZoom: paper.view.zoom,
-                actualCenter: paper.view.center.toString(),
-                actualViewSize: paper.view.viewSize.toString()
+
+              console.log("📊 Bounds calculation:", {
+                totalPaths: paths.length,
+                validBounds: validBoundsCount,
+                combinedBounds: bounds ? bounds.toString() : 'null',
+                boundsCenter: bounds ? bounds.center.toString() : 'null',
+                boundsSize: bounds ? `${bounds.width.toFixed(1)} x ${bounds.height.toFixed(1)}` : 'null'
               });
-              
-              // Force immediate update
-              paper.view.update();
-              
-              // Verify paths are still in project
-              console.log("📦 Final check - project state:", {
-                totalItems: project.activeLayer.children.length,
-                pathCount: project.activeLayer.children.filter((item: any) => item instanceof paper.Path).length
-              });
-            } else {
-              // If no valid bounds, try to find any bounds from project
-              const allBounds = project.activeLayer.bounds;
-              if (allBounds && allBounds.width > 0 && allBounds.height > 0) {
-                const padding = Math.max(allBounds.width, allBounds.height) * 0.2;
-                const expandedBounds = allBounds.expand(padding);
+              console.log("📐 View size:", paper.view.viewSize.toString());
+
+              if (bounds && bounds.width > 0 && bounds.height > 0) {
+                // Add some padding (20% on each side)
+                const padding = Math.max(bounds.width, bounds.height) * 0.2;
+                const expandedBounds = bounds.expand(padding);
+
+                // Calculate zoom to fit (make sure we don't zoom too much)
                 const zoomX = paper.view.viewSize.width / expandedBounds.width;
                 const zoomY = paper.view.viewSize.height / expandedBounds.height;
-                const zoom = Math.min(zoomX, zoomY, 1);
+                const zoom = Math.min(zoomX, zoomY, 2); // Allow some zoom but not too much
+
+                console.log("🎯 Setting view transform:", {
+                  originalBounds: bounds.toString(),
+                  expandedBounds: expandedBounds.toString(),
+                  padding: padding.toFixed(1),
+                  zoomX: zoomX.toFixed(3),
+                  zoomY: zoomY.toFixed(3),
+                  finalZoom: zoom.toFixed(3),
+                  center: expandedBounds.center.toString(),
+                  viewSize: paper.view.viewSize.toString()
+                });
+
+                // Set view transform
                 paper.view.zoom = zoom;
                 paper.view.center = expandedBounds.center;
-                console.log("Using project bounds - zoom:", zoom, "center:", expandedBounds.center);
+
+                console.log("✅ View set - verifying:", {
+                  actualZoom: paper.view.zoom,
+                  actualCenter: paper.view.center.toString(),
+                  actualViewSize: paper.view.viewSize.toString()
+                });
+
+                // Force immediate update
+                paper.view.update();
+
+                // Verify paths are still in project
+                console.log("📦 Final check - project state:", {
+                  totalItems: project.activeLayer.children.length,
+                  pathCount: project.activeLayer.children.filter((item: any) => item instanceof paper.Path).length
+                });
               } else {
-                // If still no bounds, center on origin
-                console.log("No bounds found, centering on origin");
-                paper.view.center = new paper.Point(0, 0);
-                paper.view.zoom = 1;
+                // If no valid bounds, try to find any bounds from project
+                const allBounds = project.activeLayer.bounds;
+                if (allBounds && allBounds.width > 0 && allBounds.height > 0) {
+                  const padding = Math.max(allBounds.width, allBounds.height) * 0.2;
+                  const expandedBounds = allBounds.expand(padding);
+                  const zoomX = paper.view.viewSize.width / expandedBounds.width;
+                  const zoomY = paper.view.viewSize.height / expandedBounds.height;
+                  const zoom = Math.min(zoomX, zoomY, 1);
+                  paper.view.zoom = zoom;
+                  paper.view.center = expandedBounds.center;
+                  console.log("Using project bounds - zoom:", zoom, "center:", expandedBounds.center);
+                } else {
+                  // If still no bounds, center on origin
+                  console.log("No bounds found, centering on origin");
+                  paper.view.center = new paper.Point(0, 0);
+                  paper.view.zoom = 1;
+                }
               }
             }
-          }
-          
+
             // Force view update and redraw multiple times to ensure it takes
             console.log("🎬 Final view state:", {
               center: paper.view.center.toString(),
               zoom: paper.view.zoom.toFixed(3),
               size: paper.view.viewSize.toString()
             });
-            
+
             // Force Paper.js to update multiple times
             for (let i = 0; i < 3; i++) {
               paper.view.update();
             }
-            
+
             // Verify paths are still there and visible
-            const finalPathCount = paper.project.activeLayer.children.filter((item: any) => 
+            const finalPathCount = paper.project.activeLayer.children.filter((item: any) =>
               item instanceof paper.Path && item.visible
             ).length;
-            
+
             console.log("✅ Import complete - Final state:", {
               totalItems: paper.project.activeLayer.children.length,
               visiblePaths: finalPathCount,
               viewCenter: paper.view.center.toString(),
               viewZoom: paper.view.zoom.toFixed(3)
             });
-            
+
             console.log("=== DXF IMPORT END ===");
           }, 100);
         } catch (error) {
@@ -434,7 +435,7 @@ export const TopBar: React.FC = () => {
       origin,
       scale,
     });
-    
+
     const blob = new Blob([gcode], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -447,6 +448,13 @@ export const TopBar: React.FC = () => {
   return (
     <div className="topbar">
       <div className="topbar-left">
+        <button
+          className="ghost"
+          onClick={() => setWorkflow('HOME')}
+          style={{ marginRight: '1rem' }}
+        >
+          🏠 Home
+        </button>
         <div className="logo">
           <div className="logo-icon">🔷</div>
           <span className="logo-text">FoamCut Web</span>
